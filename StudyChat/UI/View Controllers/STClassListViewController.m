@@ -7,6 +7,7 @@
 //
 
 #import "STClassListViewController.h"
+#import "STStyleSheet.h"
 
 @interface STClassListViewController ()
 
@@ -26,7 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.toolbar.barTintColor = [STStyleSheet navigationColor];
+    self.toolbar.tintColor = [STStyleSheet tintColor];
+    self.toolbar.alpha = 0.8;
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 
@@ -45,11 +53,30 @@
     cell.textLabel.text = @"Class Name";
     cell.detailTextLabel.text = @"Dates & Info";
     
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"Chem 20A - Chemical Structure";
+            cell.detailTextLabel.text = @"Lec 1 MWF, Dis 1G R";
+            break;
+        case 1:
+            cell.textLabel.text = @"Math 33B - Differential Equations";
+            cell.detailTextLabel.text = @"Lec 2 MWF, Dis 2C T";
+            break;
+        case 2:
+            cell.textLabel.text = @"Com Sci 32 - Intro to Computer Science II";
+            cell.detailTextLabel.text = @"Lec 2 MW, Dis 2C R";
+            break;
+        case 3:
+            cell.textLabel.text = @"Phys 1A - Physics for Scientists And Engineers: Mechanics";
+            cell.detailTextLabel.text = @"Lec 1 MTWF, Dis 1B W";
+            break;
+    }
+    
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 #pragma mark UITableViewDelegate
@@ -70,6 +97,12 @@
         //Pass information about the assignment to the detail view controller. We'll add an assignment object to the CRStudentAssignmentsDetailsViewController that will be duplicated from an assignment object here
         return;
     }
+}
+
+- (IBAction)logout:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        //view controller dismiss animation completed
+    }];
 }
 
 @end

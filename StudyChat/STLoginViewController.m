@@ -17,7 +17,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Center scroll view (containing log in stuff)
+    CGRect bounds = [self.view bounds];
+    CGPoint centerPoint = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+    CGPoint scrollCenter = self.scrollView.center;
+    self.svos = CGPointMake(scrollCenter.x - centerPoint.x, scrollCenter.y - centerPoint.y);
+    [self.scrollView setContentOffset:self.svos animated:NO];
+    
+    //set now so that after login, navbar image will already be up
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
+    
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.scrollView setContentOffset:self.svos animated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,6 +71,29 @@
                                                 otherButtonTitles:nil];
         [message show];
     }
+}
+
+- (IBAction)backgroundTap:(id)sender {
+    [self.usernameField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+    [self.scrollView setContentOffset:self.svos animated:YES];
+}
+
+#pragma mark textField delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    CGPoint pt;
+    CGRect rc = [textField bounds];
+    rc = [self.usernameField convertRect:rc toView:self.scrollView];
+    pt = rc.origin;
+    pt.x = 0;
+    pt.y -= 140;
+    [self.scrollView setContentOffset:pt animated:YES];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.scrollView setContentOffset:self.svos animated:YES];
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

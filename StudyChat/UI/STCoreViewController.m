@@ -7,6 +7,7 @@
 //
 
 #import "STCoreViewController.h"
+#import "STStyleSheet.h"
 
 @interface STCoreViewController ()
 
@@ -26,7 +27,7 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:.59 green:.70 blue:1.0 alpha:1];
+    self.view.backgroundColor = [STStyleSheet navigationColor];
     
     //// For placing an image
     //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"app-background.png"]];

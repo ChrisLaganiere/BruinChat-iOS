@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830BE4E118616FEC00BAFADE /* BruinChat.png in Resources */ = {isa = PBXBuildFile; fileRef = 830BE4E018616FEC00BAFADE /* BruinChat.png */; };
+		830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 830BE4E2186170C500BAFADE /* BruinChat@2x.png */; };
+		83AC4CE51861992A00573872 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE31861992A00573872 /* NavBar.png */; };
+		83AC4CE61861992A00573872 /* NavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE41861992A00573872 /* NavBar@2x.png */; };
+		83AC4CE918619DA900573872 /* icon-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE718619DA900573872 /* icon-settings.png */; };
+		83AC4CEA18619DA900573872 /* icon-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE818619DA900573872 /* icon-settings@2x.png */; };
+		83AC4CED18619FB600573872 /* icon-logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CEB18619FB600573872 /* icon-logout.png */; };
+		83AC4CEE18619FB600573872 /* icon-logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CEC18619FB600573872 /* icon-logout@2x.png */; };
+		83AC4CF11861A16200573872 /* STStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AC4CF01861A16200573872 /* STStyleSheet.m */; };
 		83E8A28A185F7E930012068D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E8A289185F7E930012068D /* Foundation.framework */; };
 		83E8A28C185F7E930012068D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E8A28B185F7E930012068D /* CoreGraphics.framework */; };
 		83E8A28E185F7E930012068D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E8A28D185F7E930012068D /* UIKit.framework */; };
@@ -37,6 +46,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		830BE4E018616FEC00BAFADE /* BruinChat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BruinChat.png; sourceTree = "<group>"; };
+		830BE4E2186170C500BAFADE /* BruinChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BruinChat@2x.png"; sourceTree = "<group>"; };
+		83AC4CE31861992A00573872 /* NavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavBar.png; sourceTree = "<group>"; };
+		83AC4CE41861992A00573872 /* NavBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar@2x.png"; sourceTree = "<group>"; };
+		83AC4CE718619DA900573872 /* icon-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings.png"; sourceTree = "<group>"; };
+		83AC4CE818619DA900573872 /* icon-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings@2x.png"; sourceTree = "<group>"; };
+		83AC4CEB18619FB600573872 /* icon-logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-logout.png"; sourceTree = "<group>"; };
+		83AC4CEC18619FB600573872 /* icon-logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-logout@2x.png"; sourceTree = "<group>"; };
+		83AC4CEF1861A16200573872 /* STStyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STStyleSheet.h; sourceTree = "<group>"; };
+		83AC4CF01861A16200573872 /* STStyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STStyleSheet.m; sourceTree = "<group>"; };
 		83E8A286185F7E930012068D /* BruinChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BruinChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E8A289185F7E930012068D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83E8A28B185F7E930012068D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -88,9 +107,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		830A3D1618611B2B0073E4D2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				83AC4CEB18619FB600573872 /* icon-logout.png */,
+				83AC4CEC18619FB600573872 /* icon-logout@2x.png */,
+				83AC4CE718619DA900573872 /* icon-settings.png */,
+				83AC4CE818619DA900573872 /* icon-settings@2x.png */,
+				83AC4CE31861992A00573872 /* NavBar.png */,
+				83AC4CE41861992A00573872 /* NavBar@2x.png */,
+				830BE4E2186170C500BAFADE /* BruinChat@2x.png */,
+				830BE4E018616FEC00BAFADE /* BruinChat.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		831642FC185FE2A9004749DD /* BruinChat */ = {
 			isa = PBXGroup;
 			children = (
+				830A3D1618611B2B0073E4D2 /* images */,
 				83E8A2BF185F7FCD0012068D /* UI */,
 				83E8A298185F7E930012068D /* STAppDelegate.h */,
 				83E8A299185F7E930012068D /* STAppDelegate.m */,
@@ -168,6 +203,8 @@
 				83E8A2C0185F7FCD0012068D /* View Controllers */,
 				83E8A2C2185F7FF50012068D /* STCoreViewController.h */,
 				83E8A2C3185F7FF50012068D /* STCoreViewController.m */,
+				83AC4CEF1861A16200573872 /* STStyleSheet.h */,
+				83AC4CF01861A16200573872 /* STStyleSheet.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -262,9 +299,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AC4CEE18619FB600573872 /* icon-logout@2x.png in Resources */,
+				83AC4CED18619FB600573872 /* icon-logout.png in Resources */,
+				83AC4CE61861992A00573872 /* NavBar@2x.png in Resources */,
+				83AC4CEA18619DA900573872 /* icon-settings@2x.png in Resources */,
+				830BE4E118616FEC00BAFADE /* BruinChat.png in Resources */,
 				83E8A2A2185F7E930012068D /* Images.xcassets in Resources */,
+				83AC4CE918619DA900573872 /* icon-settings.png in Resources */,
+				830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */,
 				83E8A294185F7E930012068D /* InfoPlist.strings in Resources */,
 				83E8A29D185F7E930012068D /* Main.storyboard in Resources */,
+				83AC4CE51861992A00573872 /* NavBar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AC4CF11861A16200573872 /* STStyleSheet.m in Sources */,
 				83E8A2C7185F8DA10012068D /* STClassListViewController.m in Sources */,
 				83E8A2C4185F7FF50012068D /* STCoreViewController.m in Sources */,
 				83E8A2A0185F7E930012068D /* STLoginViewController.m in Sources */,

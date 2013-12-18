@@ -16,46 +16,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-AN-AT4">
-                                <rect key="frame" x="65" y="109" width="190" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qny-17-kYt">
-                                <rect key="frame" x="65" y="173" width="190" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRK-5g-KaB">
-                                <rect key="frame" x="104" y="239" width="112" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8vQ-aR-Laa">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" minimumFontSize="21" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-AN-AT4">
+                                        <rect key="frame" x="65" y="246" width="190" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="Dy2-Ab-jCj"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="21" translatesAutoresizingMaskIntoConstraints="NO" id="qny-17-kYt">
+                                        <rect key="frame" x="65" y="292" width="190" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="4dl-PN-0dE"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRK-5g-KaB">
+                                        <rect key="frame" x="104" y="340" width="112" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="login:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TyS-Ke-S1m"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BruinChat.png" translatesAutoresizingMaskIntoConstraints="NO" id="3vJ-zR-Wby">
+                                        <rect key="frame" x="28" y="182" width="264" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <gestureRecognizers/>
                                 <connections>
-                                    <action selector="login:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TyS-Ke-S1m"/>
+                                    <outletCollection property="gestureRecognizers" destination="ER4-xQ-fqw" appends="YES" id="wZ3-9O-GtY"/>
                                 </connections>
-                            </button>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="GRK-5g-KaB" id="ljd-2A-WaV"/>
                         <outlet property="passwordField" destination="qny-17-kYt" id="HQy-mw-jXh"/>
+                        <outlet property="scrollView" destination="8vQ-aR-Laa" id="EH4-W2-nQ4"/>
                         <outlet property="usernameField" destination="WoK-AN-AT4" id="pDw-Tx-nHL"/>
                         <segue destination="ae4-nA-IUq" kind="modal" identifier="loginSuccess" modalTransitionStyle="crossDissolve" id="UOg-dp-lOA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ER4-xQ-fqw">
+                    <connections>
+                        <action selector="backgroundTap:" destination="vXZ-lx-hvc" id="f0u-bd-WTg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="143" y="98"/>
+            <point key="canvasLocation" x="343" y="186"/>
         </scene>
-        <!--Class List View Controller - BruinChat-->
+        <!--Class List View Controller-->
         <scene sceneID="NdG-l9-BaW">
             <objects>
                 <viewController id="EgW-aa-9qo" customClass="STClassListViewController" sceneMemberID="viewController">
@@ -107,27 +134,38 @@
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="7HB-uA-6y2"/>
+                                    <constraint firstAttribute="height" constant="44" id="Bh9-E8-h1W"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Settings" id="Wcy-nv-m0H">
+                                    <barButtonItem image="icon-settings.png" id="Wcy-nv-m0H">
                                         <connections>
                                             <segue destination="pJm-FE-W4j" kind="modal" id="qLD-Uw-IKi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="lvd-hT-JVm"/>
+                                    <barButtonItem image="icon-logout.png" id="0b3-EE-M51">
+                                        <connections>
+                                            <action selector="logout:" destination="EgW-aa-9qo" id="btz-qH-BbO"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="3BN-Vf-92w" firstAttribute="leading" secondItem="Q2J-R8-NC9" secondAttribute="leading" id="W0r-Ye-Gpk"/>
-                            <constraint firstItem="9Mi-7o-LHU" firstAttribute="top" secondItem="3BN-Vf-92w" secondAttribute="bottom" id="ifl-OL-IPn"/>
+                            <constraint firstItem="3BN-Vf-92w" firstAttribute="leading" secondItem="Q2J-R8-NC9" secondAttribute="leading" id="E9h-kk-wVm"/>
+                            <constraint firstAttribute="trailing" secondItem="3BN-Vf-92w" secondAttribute="trailing" id="KV0-WS-hiB"/>
+                            <constraint firstItem="9Mi-7o-LHU" firstAttribute="top" secondItem="3BN-Vf-92w" secondAttribute="bottom" id="Sif-O5-3oK"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="BruinChat" id="Nze-gl-kIx"/>
+                    <navigationItem key="navigationItem" id="Nze-gl-kIx"/>
                     <connections>
+                        <outlet property="logoutButton" destination="3BN-Vf-92w" id="33h-Et-OCA"/>
+                        <outlet property="settingsButton" destination="3BN-Vf-92w" id="VdY-mg-2fw"/>
                         <outlet property="tableView" destination="Pu7-o9-lOy" id="HCE-DW-HOW"/>
+                        <outlet property="toolbar" destination="3BN-Vf-92w" id="Rp7-0Y-9VW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -146,7 +184,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jll-Yj-LUd">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jll-Yj-LUd">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
@@ -164,18 +202,15 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="0IP-PJ-EHf">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="0IP-PJ-EHf">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="Bp9-oP-2Fh"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicCell" textLabel="Y1y-7u-E1m" style="IBUITableViewCellStyleDefault" id="ZZq-vz-B5b">
                                         <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZZq-vz-B5b">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZZq-vz-B5b" id="IG0-EP-ioI">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -239,8 +274,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qsq-fe-AXh" firstAttribute="top" secondItem="0IP-PJ-EHf" secondAttribute="bottom" id="HcT-f0-30x"/>
-                            <constraint firstItem="0IP-PJ-EHf" firstAttribute="top" secondItem="jll-Yj-LUd" secondAttribute="bottom" id="wLT-uY-2DY"/>
+                            <constraint firstItem="0IP-PJ-EHf" firstAttribute="top" secondItem="jll-Yj-LUd" secondAttribute="bottom" id="EPy-5I-MVr"/>
+                            <constraint firstAttribute="trailing" secondItem="0IP-PJ-EHf" secondAttribute="trailing" id="FmE-oW-KLX"/>
+                            <constraint firstItem="0IP-PJ-EHf" firstAttribute="top" secondItem="jll-Yj-LUd" secondAttribute="bottom" id="ZMz-Ok-xur"/>
+                            <constraint firstItem="Qsq-fe-AXh" firstAttribute="top" secondItem="0IP-PJ-EHf" secondAttribute="bottom" id="dEE-vY-dEf"/>
+                            <constraint firstItem="jll-Yj-LUd" firstAttribute="leading" secondItem="6Fv-xl-ht0" secondAttribute="leading" id="gQ4-og-6OB"/>
+                            <constraint firstItem="0IP-PJ-EHf" firstAttribute="leading" secondItem="6Fv-xl-ht0" secondAttribute="leading" id="jti-D3-7q5"/>
+                            <constraint firstAttribute="trailing" secondItem="jll-Yj-LUd" secondAttribute="trailing" id="quk-wq-ofr"/>
+                            <constraint firstItem="jll-Yj-LUd" firstAttribute="top" secondItem="nNI-CP-6eR" secondAttribute="bottom" id="sxX-Zc-V7L"/>
                         </constraints>
                     </view>
                     <connections>
@@ -272,6 +313,11 @@
             <point key="canvasLocation" x="704" y="13"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BruinChat.png" width="264" height="44"/>
+        <image name="icon-logout.png" width="19" height="19"/>
+        <image name="icon-settings.png" width="19" height="19"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

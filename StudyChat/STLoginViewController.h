@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "STCoreViewController.h"
 
-@interface STLoginViewController : STCoreViewController
+@interface STLoginViewController : STCoreViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property CGPoint svos;
 - (IBAction)login:(id)sender;
+- (IBAction)backgroundTap:(id)sender;
 
 @end

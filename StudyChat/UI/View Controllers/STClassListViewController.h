@@ -10,5 +10,9 @@
 
 @interface STClassListViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIToolbar *settingsButton;
+@property (weak, nonatomic) IBOutlet UIToolbar *logoutButton;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+- (IBAction)logout:(id)sender;
 
 @end
