@@ -33,7 +33,7 @@
     [super viewWillAppear:animated];
     self.toolbar.barTintColor = [STStyleSheet navigationColor];
     self.toolbar.tintColor = [STStyleSheet tintColor];
-    self.toolbar.alpha = 0.8;
+    self.toolbar.alpha = 0.9;
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
