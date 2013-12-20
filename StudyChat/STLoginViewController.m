@@ -7,6 +7,7 @@
 //
 
 #import "STLoginViewController.h"
+#import "SSKeychain.h"
 
 @interface STLoginViewController ()
 
@@ -49,6 +50,15 @@
     // Debug
     NSLog(@"Username: %@", self.usernameField.text);
     NSLog(@"Password: %@", self.passwordField.text);
+    
+    NSString *userID = self.usernameField.text;
+    NSString *userPass = self.passwordField.text;
+    [SSKeychain setPassword:userPass forService:@"xmpp" account:userID];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:userID forKey:@"userID"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"******" forKey:@"userPass"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     // Replace this with call to stubs
     // We don't want to send passwords in plain text
@@ -93,6 +103,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.scrollView setContentOffset:self.svos animated:YES];
     [textField resignFirstResponder];
+    if (textField == self.usernameField) {
+        [self.passwordField becomeFirstResponder];
+    }
+    if (textField == self.passwordField) {
+        [self performSelector:@selector(login:) withObject:self.loginButton];
+    }
     return YES;
 }
 

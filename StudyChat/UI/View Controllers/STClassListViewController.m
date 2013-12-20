@@ -8,6 +8,8 @@
 
 #import "STClassListViewController.h"
 #import "STStyleSheet.h"
+#import "STBuddyListViewController.h"
+#import "STSettingsViewController.h"
 
 @interface STClassListViewController ()
 
@@ -92,9 +94,16 @@
 {
     NSString *identifier = segue.identifier;
     
-    if ([identifier isEqualToString:@"classDetails"])
+    if ([identifier isEqualToString:@"buddyList"])
     {
-        //Pass information about the assignment to the detail view controller. We'll add an assignment object to the CRStudentAssignmentsDetailsViewController that will be duplicated from an assignment object here
+        STBuddyListViewController *buddyList = segue.destinationViewController;
+        [buddyList.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        return;
+    }
+    else if ([identifier isEqualToString:@"settings"])
+    {
+        STSettingsViewController *settings = segue.destinationViewController;
+        [settings.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         return;
     }
 }
