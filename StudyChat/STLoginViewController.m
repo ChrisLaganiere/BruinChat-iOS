@@ -70,7 +70,10 @@
     }
     
     if (isUserValid) {
-        [self performSegueWithIdentifier:@"loginSuccess" sender:sender];
+        //call to server here
+        [self.activityIndicator startAnimating];
+        [self performSelector:@selector(doLoginSegue:) withObject:sender afterDelay:1.0];
+        //[self performSegueWithIdentifier:@"loginSuccess" sender:sender];
     }
     else {
         // Maybe change the alert title/message depending on the type of failure
@@ -81,6 +84,12 @@
                                                 otherButtonTitles:nil];
         [message show];
     }
+}
+
+-(void)doLoginSegue:(id)sender
+{
+    [self.activityIndicator stopAnimating];
+    [self performSegueWithIdentifier:@"loginSuccess" sender:sender];
 }
 
 - (IBAction)backgroundTap:(id)sender {

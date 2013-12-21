@@ -26,9 +26,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self registerForKeyboardNotifications];
+    [self registerForKeyboardNotifications];
     
     self.messagesArray = [NSMutableArray array];
+    self.scrollView.contentSize = self.view.frame.size;
+    [self.scrollView setScrollEnabled:false];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -36,18 +38,21 @@
     
     [self.messageField becomeFirstResponder];
 }
-/*
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)registerForKeyboardNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
 // Called when the UIKeyboardDidShowNotification is sent.
-- (void)keyboardWasShown:(NSNotification*)aNotification
+- (void)keyboardWillShow:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -59,20 +64,26 @@
     // Your application might not need or want this behavior.
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
+    
+    //[self.scrollView setContentSize:aRect.size];
+    //self.innerView.frame = aRect;
+    
     if (!CGRectContainsPoint(aRect, self.messageField.frame.origin) ) {
         CGPoint scrollPoint = CGPointMake(0.0, self.messageField.frame.origin.y-kbSize.height);
         [self.scrollView setContentOffset:scrollPoint animated:YES];
+        NSLog(@"scrollPoint: %f",scrollPoint.y);
     }
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
+    [self.scrollView setContentOffset:CGPointMake(0, -65) animated:YES];
+    //UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    //self.scrollView.contentInset = contentInsets;
+    //self.scrollView.scrollIndicatorInsets = contentInsets;
 }
- */
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -82,44 +93,41 @@
 
 #pragma mark UITableViewDataSource
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    cell.textLabel.text = @"Class Name";
-    cell.detailTextLabel.text = @"Dates & Info";
-    
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Chem 20A - Chemical Structure";
-            cell.detailTextLabel.text = @"Lec 1 MWF, Dis 1G R";
-            break;
-        case 1:
-            cell.textLabel.text = @"Math 33B - Differential Equations";
-            cell.detailTextLabel.text = @"Lec 2 MWF, Dis 2C T";
-            break;
-        case 2:
-            cell.textLabel.text = @"Com Sci 32 - Intro to Computer Science II";
-            cell.detailTextLabel.text = @"Lec 2 MW, Dis 2C R";
-            break;
-        case 3:
-            cell.textLabel.text = @"Phys 1A - Physics for Scientists And Engineers: Mechanics";
-            cell.detailTextLabel.text = @"Lec 1 MTWF, Dis 1B W";
-            break;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *s = (NSDictionary *) [self.messagesArray objectAtIndex:indexPath.row];
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
+    cell.textLabel.text = [s objectForKey:@"msg"];
+    cell.detailTextLabel.text = [s objectForKey:@"sender"];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.userInteractionEnabled = NO;
     return cell;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 4;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.messagesArray count];
 }
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 #pragma mark UITableViewDelegate
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.messageField resignFirstResponder];
+}
+
+#pragma mark UITextField Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    if (textField == self.messageField) {
+        [self performSelector:@selector(sendMessage:) withObject:self.sendButton];
+    }
+    return true;
 }
 
 - (IBAction)sendMessage:(id)sender
@@ -134,6 +142,9 @@
         [m setObject:@"you" forKey:@"sender"];
         [self.messagesArray addObject:m];
         [self.tableView reloadData];
+        //scroll to bottom
+        NSIndexPath* ipath = [NSIndexPath indexPathForRow: [self.messagesArray count]-1 inSection: 0];
+        [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
     }
 }
 @end
