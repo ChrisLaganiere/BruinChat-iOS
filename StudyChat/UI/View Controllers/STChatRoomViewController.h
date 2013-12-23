@@ -7,8 +7,9 @@
 //
 
 #import "STCoreViewController.h"
+#import "STAppDelegate.h"
 
-@interface STChatRoomViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface STChatRoomViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, STMessageDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;

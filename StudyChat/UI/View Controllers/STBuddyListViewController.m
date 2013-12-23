@@ -26,13 +26,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.onlineBuddies = [NSMutableArray arrayWithObjects:@"Kevin",@"Mark",@"Vera",@"Justine",@"Brian", nil];
+    STAppDelegate *del = [self appDelegate];
+    del._chatDelegate = self;
 	// Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
+    if (login) {
+        if ([[self appDelegate] connect]) {
+            NSLog(@"show buddy list");
+        }
+    } else {
+        NSLog(@"autologin disabled");
+    }
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -50,6 +62,26 @@
 
 - (IBAction)done:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (STAppDelegate *)appDelegate {
+    return (STAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+- (XMPPStream *)xmppStream {
+    return [[self appDelegate] xmppStream];
+}
+#pragma mark STChatDelegate
+- (void)newBuddyOnline:(NSString *)buddyName {
+    [self.onlineBuddies addObject:buddyName];
+    [self.tableView reloadData];
+}
+- (void)buddyWentOffline:(NSString *)buddyName {
+    [self.onlineBuddies removeObject:buddyName];
+    [self.tableView reloadData];
+}
+-(void)didDisconnect
+{
+    
 }
 
 #pragma mark UITableViewDataSource

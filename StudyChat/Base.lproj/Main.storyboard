@@ -257,7 +257,8 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="sendMessage:" destination="O0t-6F-P5Q" eventType="touchUpInside" id="hXF-Cf-1iM"/>
+                                                    <action selector="sendMessage" destination="O0t-6F-P5Q" eventType="touchUpInside" id="RrM-lw-2lw"/>
+                                                    <action selector="sendMessage:" destination="O0t-6F-P5Q" eventType="touchUpInside" id="ZDx-Hj-thn"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ypc-1j-wfw">

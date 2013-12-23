@@ -14,13 +14,31 @@
 
 @implementation STChatRoomViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (id) initWithUser:(NSString *) userName {
+    if (self = [super init]) {
+        self.chatWithUser = userName;
     }
     return self;
+}
+
+- (IBAction)sendMessage:(id)sender {
+    NSString *messageStr = self.messageField.text;
+    if([messageStr length] > 0) {
+        NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+        [body setStringValue:messageStr];
+        NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+        [message addAttributeWithName:@"type" stringValue:@"chat"];
+        [message addAttributeWithName:@"to" stringValue:self.chatWithUser];
+        [message addChild:body];
+        [self.xmppStream sendElement:message];
+        self.messageField.text = @"";
+        NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
+        [m setObject:messageStr forKey:@"msg"];
+        [m setObject:@"you" forKey:@"sender"];
+        [self.messagesArray addObject:m];
+        [self.tableView reloadData];
+    }
+
 }
 
 - (void)viewDidLoad
@@ -31,6 +49,9 @@
     self.messagesArray = [NSMutableArray array];
     self.scrollView.contentSize = self.view.frame.size;
     [self.scrollView setScrollEnabled:false];
+    
+    STAppDelegate *del = [self appDelegate];
+    del._messageDelegate = self;
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -91,6 +112,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -130,21 +153,18 @@
     return true;
 }
 
-- (IBAction)sendMessage:(id)sender
+#pragma mark Jabber
+- (STAppDelegate *)appDelegate {
+    return (STAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+- (XMPPStream *)xmppStream {
+    return [[self appDelegate] xmppStream];
+}
+
+#pragma mark STMessageDelegate
+-(void)newMessageReceived:(NSDictionary *)messageContent
 {
-    NSString *messageStr = self.messageField.text;
-    if([messageStr length] > 0) {
-        // send message through XMPP
-        self.messageField.text = @"";
-        //NSString *m = [NSString stringWithFormat:@"%@:%@", messageStr, @"you"];
-        NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
-        [m setObject:messageStr forKey:@"msg"];
-        [m setObject:@"you" forKey:@"sender"];
-        [self.messagesArray addObject:m];
-        [self.tableView reloadData];
-        //scroll to bottom
-        NSIndexPath* ipath = [NSIndexPath indexPathForRow: [self.messagesArray count]-1 inSection: 0];
-        [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
-    }
+    [self.messagesArray addObject:messageContent];
+    [self.tableView reloadData];
 }
 @end

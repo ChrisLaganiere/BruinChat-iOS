@@ -7,8 +7,10 @@
 //
 
 #import "STCoreViewController.h"
+#import "STAppDelegate.h"
+@protocol STChatDelegate;
 
-@interface STBuddyListViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate>
+@interface STBuddyListViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate, STChatDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *studyGroupButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
