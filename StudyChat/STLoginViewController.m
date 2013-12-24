@@ -8,6 +8,7 @@
 
 #import "STLoginViewController.h"
 #import "SSKeychain.h"
+#import "STAppDelegate.h"
 
 @interface STLoginViewController ()
 
@@ -18,6 +19,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //allow app to reset if autologin is disabled
+    [[self appDelegate] setFirstViewController:self];
+    
     //Center scroll view (containing log in stuff)
     CGRect bounds = [self.view bounds];
     CGPoint centerPoint = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
@@ -28,7 +33,12 @@
     //set now so that after login, navbar image will already be up
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
     
-	// Do any additional setup after loading the view, typically from a nib.
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"]) {
+        NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
+        self.usernameField.text = userID;
+        self.passwordField.text = [SSKeychain passwordForService:@"xmpp" account:userID];
+        [self performSelector:@selector(login:) withObject:self.loginButton afterDelay:0.0];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -47,22 +57,24 @@
 {
     BOOL isUserValid = NO;
     
+    //lower textfields
+    [self.usernameField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+    [self.scrollView setContentOffset:self.svos animated:YES];
+    
     // Debug
     NSLog(@"Username: %@", self.usernameField.text);
     NSLog(@"Password: %@", self.passwordField.text);
     
     NSString *userID = self.usernameField.text;
     NSString *userPass = self.passwordField.text;
-    [SSKeychain setPassword:userPass forService:@"xmpp" account:userID];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"]) {
         [[NSUserDefaults standardUserDefaults] setObject:userID forKey:@"userID"];
         [[NSUserDefaults standardUserDefaults] setObject:@"******" forKey:@"userPass"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [SSKeychain setPassword:userPass forService:@"xmpp" account:userID];
     }
     
-    // Replace this with call to stubs
-    // We don't want to send passwords in plain text
-    // TODO: Calculate MD5 or some other hash
     if (![self.usernameField.text isEqualToString:@""] &&
         ![self.passwordField.text isEqualToString:@""] &&
         YES /*validate with server here*/) {
@@ -71,9 +83,18 @@
     
     if (isUserValid) {
         //call to server here
-        [self.activityIndicator startAnimating];
-        [self performSelector:@selector(doLoginSegue:) withObject:sender afterDelay:1.0];
-        //[self performSegueWithIdentifier:@"loginSuccess" sender:sender];
+        
+        // Replace this with call to stubs
+        // We don't want to send passwords in plain text
+        // TODO: Calculate MD5 or some other hash
+        
+        STAppDelegate *del = [self appDelegate];
+        del._loginDelegate = self;
+        
+        if ([[self appDelegate] connect:userID withPass:userPass]) {
+            [self.activityIndicator startAnimating];
+        }
+        //wait for result in loginResult
     }
     else {
         // Maybe change the alert title/message depending on the type of failure
@@ -86,16 +107,41 @@
     }
 }
 
--(void)doLoginSegue:(id)sender
+#pragma mark loginDelegate
+-(void)loginSucceeded
 {
     [self.activityIndicator stopAnimating];
-    [self performSegueWithIdentifier:@"loginSuccess" sender:sender];
+    [self performSegueWithIdentifier:@"loginSuccess" sender:self.loginButton];
+}
+-(void)loginFailed
+{
+    NSLog(@"loginFailed");
+    [self.activityIndicator stopAnimating];
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Authentication Failed"
+                                                      message:@"Check credentials and network."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+}
+
+
+-(void)removeViewControllersAndReset
+{
+    NSLog(@"removeViewControllersAndReset");
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)backgroundTap:(id)sender {
     [self.usernameField resignFirstResponder];
     [self.passwordField resignFirstResponder];
     [self.scrollView setContentOffset:self.svos animated:YES];
+}
+
+#pragma mark xmpp
+
+- (STAppDelegate *)appDelegate {
+    return (STAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 #pragma mark textField delegate

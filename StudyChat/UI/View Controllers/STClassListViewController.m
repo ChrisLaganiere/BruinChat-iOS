@@ -10,6 +10,7 @@
 #import "STStyleSheet.h"
 #import "STBuddyListViewController.h"
 #import "STSettingsViewController.h"
+#import "STAppDelegate.h"
 
 @interface STClassListViewController ()
 
@@ -109,9 +110,10 @@
 }
 
 - (IBAction)logout:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        //view controller dismiss animation completed
-    }];
+    NSLog(@"DISCONNECT");
+    STAppDelegate *del =[[UIApplication sharedApplication] delegate];
+    [del disconnect];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

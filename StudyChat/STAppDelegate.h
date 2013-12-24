@@ -21,19 +21,23 @@
 - (void)newMessageReceived:(NSDictionary *)messageContent;
 @end
 
+@protocol STLoginDelegate
+-(void)loginSucceeded;
+-(void)loginFailed;
+@end
+
 @interface STAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    STLoginViewController *viewController;
     XMPPStream *xmppStream;
     NSString *password;
     BOOL isOpen;
 }
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet STLoginViewController *viewController;
+@property (nonatomic, strong) IBOutlet STLoginViewController *firstViewController;
 @property (nonatomic, strong, readonly) XMPPStream *xmppStream;
 
 @property (nonatomic, assign) id  _chatDelegate;
 @property (nonatomic, assign) id  _messageDelegate;
-- (BOOL)connect;
+@property (nonatomic, assign)id _loginDelegate;
+- (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass;
 - (void)disconnect;
 @end

@@ -70,6 +70,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                     </view>
+                    <navigationItem key="navigationItem" id="eyi-94-P0O"/>
                     <connections>
                         <outlet property="activityIndicator" destination="NJO-BJ-db4" id="RZ3-2M-6tg"/>
                         <outlet property="loginButton" destination="GRK-5g-KaB" id="ljd-2A-WaV"/>
@@ -86,7 +87,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="111" y="154"/>
+            <point key="canvasLocation" x="757" y="13"/>
         </scene>
         <!--Class List View Controller-->
         <scene sceneID="NdG-l9-BaW">
@@ -189,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228" y="13"/>
+            <point key="canvasLocation" x="1754" y="13"/>
         </scene>
         <!--Chat Room View Controller-->
         <scene sceneID="6lC-kQ-Wfu">
@@ -257,8 +258,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="sendMessage" destination="O0t-6F-P5Q" eventType="touchUpInside" id="RrM-lw-2lw"/>
-                                                    <action selector="sendMessage:" destination="O0t-6F-P5Q" eventType="touchUpInside" id="ZDx-Hj-thn"/>
+                                                    <action selector="sendMessage:" destination="O0t-6F-P5Q" eventType="touchUpInside" id="pse-cA-tkp"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ypc-1j-wfw">
@@ -317,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFJ-XF-zr9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1871" y="1"/>
+            <point key="canvasLocation" x="2397" y="1"/>
         </scene>
         <!--Buddy List View Controller - Buddy List-->
         <scene sceneID="PHG-C0-1H3">
@@ -522,7 +522,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nq4-F8-P71" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="704" y="13"/>
+            <point key="canvasLocation" x="1230" y="13"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uXy-v6-BtS">

@@ -37,18 +37,14 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
-    if (login) {
-        if ([[self appDelegate] connect]) {
-            NSLog(@"show buddy list");
-        }
-    } else {
-        NSLog(@"autologin disabled");
-    }
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    STAppDelegate *del = [self appDelegate];
+    del._chatDelegate = nil;
+    
     //shouldn't be needed
     //[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
 }

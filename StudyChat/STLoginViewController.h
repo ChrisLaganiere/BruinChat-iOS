@@ -18,5 +18,8 @@
 @property CGPoint svos;
 - (IBAction)login:(id)sender;
 - (IBAction)backgroundTap:(id)sender;
+-(void)loginSucceeded;
+-(void)loginFailed;
+-(void)removeViewControllersAndReset;
 
 @end

@@ -38,8 +38,8 @@
         [self.messagesArray addObject:m];
         [self.tableView reloadData];
     }
-
 }
+
 
 - (void)viewDidLoad
 {
@@ -52,6 +52,13 @@
     
     STAppDelegate *del = [self appDelegate];
     del._messageDelegate = self;
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    STAppDelegate *del = [self appDelegate];
+    del._messageDelegate = nil;
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -165,6 +172,7 @@
 -(void)newMessageReceived:(NSDictionary *)messageContent
 {
     [self.messagesArray addObject:messageContent];
+    self.chatWithUser = [messageContent valueForKey:@"sender"];
     [self.tableView reloadData];
 }
 @end

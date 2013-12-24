@@ -8,6 +8,7 @@
 
 #import "STAppDelegate.h"
 #import "SSKeychain.h"
+#import "STLoginViewController.h"
 
 #import "XMPP.h"
 #import "DDLog.h"
@@ -50,19 +51,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
     [[self xmppStream] sendElement:presence];
 }
-- (BOOL)connect {
+- (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass
+{
     
     [self setupStream];
-    NSString *jabberID = @"cesare@chris.local";
-    NSString *myPassword = @"password";
-
-    
-    /*
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"autoLogin"]) {
-        jabberID = [[NSUserDefaults standardUserDefaults] stringForKey:@"userID"];
-        myPassword = [SSKeychain passwordForService:@"xmpp" account:jabberID];
-    }
-     */
     if (![xmppStream isAuthenticated]) {
         NSLog(@"not authenticated yet...");
     }
@@ -72,13 +64,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     NSLog(@"trying to connect");
     
-    if (jabberID == nil || myPassword == nil) {
+    if (userID == nil || userPass == nil) {
         return NO;
     }
-    [xmppStream setMyJID:[XMPPJID jidWithString:jabberID]];
-    password = myPassword;
+    
+    NSString *hostName = @"@chris.local";
+    NSString *jID = [NSString stringWithFormat:@"%@%@",userID,hostName];
+    [xmppStream setMyJID:[XMPPJID jidWithString:jID]];
+    password = userPass;
     NSError *error = nil;
-    if (![xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error])
+    if (![xmppStream connectWithTimeout:5.0 error:&error])
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:[NSString stringWithFormat:@"Can't connect to server %@", [error localizedDescription]]
@@ -87,10 +82,38 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                                   otherButtonTitles:nil];
         [alertView show];
         
-        
         return NO;
     }
     return YES;
+}
+-(void)autoConnect
+{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"]) {
+        //credentials saved, connect without prompt
+        NSString *userID = [[NSUserDefaults standardUserDefaults] valueForKey:@"userID"];
+        NSString *userPass = [SSKeychain passwordForService:@"xmpp" account:userID];
+        if (![self connect:userID withPass:userPass]) {
+            //couldn't connect
+            [self dismissAllButLogin];
+        }
+    }
+    else {
+        NSLog(@"AUTO LOGIN DISABLED");
+        [self dismissAllButLogin];
+    }
+}
+-(void)dismissAllButLogin
+{
+    self._chatDelegate = nil;
+    self._messageDelegate = nil;
+    
+    UIViewController *topController = self.window.rootViewController;
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+        [topController dismissViewControllerAnimated:NO completion:nil];
+        topController = self.window.rootViewController;
+    }
+    NSLog(@"dismissAllButLogin finished");
 }
 - (void)disconnect {
     [self goOffline];
@@ -109,19 +132,33 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    NSLog(@"xmppStreamDidAuthenticate");
+    if (self._loginDelegate) {
+        [self._loginDelegate loginSucceeded];
+        self._loginDelegate = nil;
+    }
     [self goOnline];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
+    [xmppStream disconnect];
+    if (self._loginDelegate)
+    {
+        [self._loginDelegate loginFailed];
+        self._loginDelegate = nil;
+    }
+    else {
+        NSLog(@"no loginDelegate!");
+    }
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    NSLog(@"applicationWillResignActive");
     [self disconnect];
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [self connect];
+    NSLog(@"applicationDidBecomeActive");
+    [self autoConnect];
 }
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
     NSString *presenceType = [presence type]; // online/offline
