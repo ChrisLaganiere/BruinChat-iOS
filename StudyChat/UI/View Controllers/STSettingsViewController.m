@@ -7,6 +7,7 @@
 //
 
 #import "STSettingsViewController.h"
+#import "SSKeychain.h"
 
 @interface STSettingsViewController ()
 
@@ -17,8 +18,12 @@
 @property BOOL notifyOnElse;
 @property NSString *userID;
 @property NSString *userPass;
+@property NSString *realUserPass;
+@property NSString *userNickname;
 
 @end
+
+#define TEXT_CELL_TAG_FOR_REMOVAL 2;
 
 @implementation STSettingsViewController
 
@@ -59,6 +64,7 @@
 
 -(void)loadSettings
 {
+    self.userNickname = [[NSUserDefaults standardUserDefaults] valueForKey:@"userNickname"];
     self.autoLoginDisabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"];
     self.userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
     self.userPass = [[NSUserDefaults standardUserDefaults] objectForKey:@"userPass"];
@@ -78,9 +84,14 @@
 
 - (IBAction)saveAndDismiss:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults] setObject:self.userNickname forKey:@"userNickname"];
     [[NSUserDefaults standardUserDefaults] setBool:self.autoLoginDisabled forKey:@"autoLoginDisabled"];
     [[NSUserDefaults standardUserDefaults] setObject:self.userID forKey:@"userID"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.userPass forKey:@"userPass"];
+    [[NSUserDefaults standardUserDefaults] setValue:self.userPass forKey:@"userPass"];
+    if (self.realUserPass) {
+        [SSKeychain setPassword:self.realUserPass forService:@"xmpp" account:self.userID];
+        [[NSUserDefaults standardUserDefaults] setValue:@"******" forKey:@"userPass"];
+    }
     
     [[NSUserDefaults standardUserDefaults] setBool:self.notificationsEnabled forKey:@"notificationsEnabled"];
     [[NSUserDefaults standardUserDefaults] setBool:self.notifyOnLecture forKey:@"notifyOnLecture"];
@@ -91,7 +102,7 @@
 }
 
 -(void)prepareForAutoLoginSwitchChanged:(id)sender {
-    //delay corrects animation of switch, which before was reloaded to it's current state instantly (unpleasantly)
+    //delay corrects animation of switch, which before was reloaded to its current state instantly (unpleasantly)
     UISwitch *newSwitch = sender;
     [self performSelector:@selector(autoLoginSwitchChanged:) withObject:newSwitch afterDelay:0.3];
 }
@@ -101,13 +112,16 @@
     if (self.autoLoginDisabled) {
         self.userID = @"";
         self.userPass = @"";
+        if (self.realUserPass) {
+            self.realUserPass = nil;
+        }
     }
     
     [self.tableView reloadData];
 }
 
 -(void)prepareForNotificationsOnSwitchChanged:(id)sender {
-    //corrects animation of switch, which before was reloaded to it's current state instantly (unpleasantly)
+    //corrects animation of switch, which before was reloaded to its current state instantly (unpleasantly)
     UISwitch *newSwitch = sender;
     [self performSelector:@selector(notificationsOnSwitchChanged:) withObject:newSwitch afterDelay:0.3];
 }
@@ -141,16 +155,39 @@
 {
     UITableViewCell *basicCell = [self.tableView dequeueReusableCellWithIdentifier:@"BasicCell"];
     basicCell.textLabel.text = @"unset";
+    //viewWithTag should equal TEXT_CELL_TAG_FOR_REMOVAL
+    if ([basicCell.contentView viewWithTag:2]) {
+        [[basicCell.contentView viewWithTag:2] removeFromSuperview];
+    }
     UITableViewCell *rightDetailCell = [self.tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
     rightDetailCell.textLabel.text = @"unset";
     UITableViewCell *notificationCell = [self.tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
     rightDetailCell.textLabel.text = @"unset";
+    //viewWithTag should equal TEXT_CELL_TAG_FOR_REMOVAL
+    if ([rightDetailCell.contentView viewWithTag:2]) {
+        [[rightDetailCell.contentView viewWithTag:2] removeFromSuperview];
+    }
     
     if (indexPath.section == 0) {
         //Profile
         switch (indexPath.row) {
             case 0:
-                basicCell.textLabel.text = @"Chris";
+                basicCell.textLabel.text = @"";
+                
+                //create a textfield to put in the cell
+                UITextField *userNicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
+                userNicknameTextField.adjustsFontSizeToFitWidth = YES;
+                userNicknameTextField.textColor = [UIColor blackColor];
+                userNicknameTextField.text = self.userNickname;
+                userNicknameTextField.returnKeyType = UIReturnKeyDone;
+                userNicknameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                userNicknameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+                userNicknameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+                userNicknameTextField.delegate = self;
+                userNicknameTextField.tag = TEXT_CELL_TAG_FOR_REMOVAL;
+                self.nicknameTextField = userNicknameTextField;
+                [basicCell.contentView addSubview:userNicknameTextField];
+                
                 return basicCell;
                 break;
         }
@@ -159,12 +196,41 @@
         //UCLA Login
         switch (indexPath.row) {
             case 0: {
-                rightDetailCell.textLabel.text = self.userID;
+                //create a textfield to put in the cell
+                UITextField *userIDTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 185, 30)];
+                userIDTextField.adjustsFontSizeToFitWidth = YES;
+                userIDTextField.textColor = [UIColor blackColor];
+                userIDTextField.text = self.userID;
+                userIDTextField.returnKeyType = UIReturnKeyDone;
+                userIDTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                userIDTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+                userIDTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+                userIDTextField.delegate = self;
+                userIDTextField.tag = TEXT_CELL_TAG_FOR_REMOVAL;
+                self.usernameTextField = userIDTextField;
+                [rightDetailCell.contentView addSubview:userIDTextField];
+                
+                rightDetailCell.textLabel.text = @"";
                 rightDetailCell.detailTextLabel.text = @"Username";
                 return rightDetailCell;
                 break; }
             case 1: {
-                rightDetailCell.textLabel.text = self.userPass;
+                //create a textfield to put in the cell
+                UITextField *userPassTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 185, 30)];
+                userPassTextField.adjustsFontSizeToFitWidth = YES;
+                userPassTextField.textColor = [UIColor blackColor];
+                userPassTextField.text = self.userPass;
+                userPassTextField.secureTextEntry = true;
+                userPassTextField.returnKeyType = UIReturnKeyDone;
+                userPassTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                userPassTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+                userPassTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+                userPassTextField.delegate = self;
+                userPassTextField.tag = TEXT_CELL_TAG_FOR_REMOVAL;
+                self.userPassTextField = userPassTextField;
+                [rightDetailCell.contentView addSubview:userPassTextField];
+                
+                rightDetailCell.textLabel.text = @"";
                 rightDetailCell.detailTextLabel.text = @"Password";
                 return rightDetailCell;
                 break; }
@@ -290,6 +356,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark UITextFieldDelegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.usernameTextField) {
+        self.userID = self.usernameTextField.text;
+    } else if (textField == self.userPassTextField) {
+        self.realUserPass = self.userPassTextField.text;
+        self.userPass = [@"" stringByPaddingToLength:self.realUserPass.length withString: @"*" startingAtIndex:0];
+    } else if (textField == self.nicknameTextField) {
+        self.userNickname = self.nicknameTextField.text;
+    }
 }
 
 

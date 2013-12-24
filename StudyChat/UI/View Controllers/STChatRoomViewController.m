@@ -63,8 +63,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self.messageField becomeFirstResponder];
 }
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
