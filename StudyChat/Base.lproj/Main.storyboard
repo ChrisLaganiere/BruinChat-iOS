@@ -212,36 +212,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="L9r-sR-iny">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="L9r-sR-iny">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="502"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="OPa-Ym-aB8" detailTextLabel="mR0-zx-C8d" style="IBUITableViewCellStyleSubtitle" id="tb0-2M-9t7">
-                                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tb0-2M-9t7" id="0FP-SZ-hYJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OPa-Ym-aB8">
-                                                                    <rect key="frame" x="15" y="3" width="34" height="22"/>
-                                                                    <autoresizingMask key="autoresizingMask"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mR0-zx-C8d">
-                                                                    <rect key="frame" x="15" y="25" width="43" height="15"/>
-                                                                    <autoresizingMask key="autoresizingMask"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </tableViewCellContentView>
-                                                    </tableViewCell>
-                                                </prototypes>
                                                 <connections>
                                                     <outlet property="dataSource" destination="O0t-6F-P5Q" id="1df-B8-P0y"/>
                                                     <outlet property="delegate" destination="O0t-6F-P5Q" id="Z20-Yp-PQR"/>
@@ -306,8 +280,15 @@
                             <constraint firstAttribute="trailing" secondItem="YCP-w1-lKT" secondAttribute="trailing" id="qHb-dY-W0k"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="bsH-h9-oPp"/>
+                    <navigationItem key="navigationItem" id="bsH-h9-oPp">
+                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="xg2-ng-joo">
+                            <connections>
+                                <action selector="backButtonHit:" destination="O0t-6F-P5Q" id="43N-AB-xIB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="xg2-ng-joo" id="l3Q-qe-y3C"/>
                         <outlet property="innerView" destination="V7j-Ik-zdR" id="3Ck-9n-Zih"/>
                         <outlet property="messageField" destination="Ypc-1j-wfw" id="Ff9-My-NPK"/>
                         <outlet property="scrollView" destination="YCP-w1-lKT" id="ehu-Qr-ZT8"/>
@@ -564,6 +545,7 @@
     <resources>
         <image name="BruinChat.png" width="264" height="44"/>
         <image name="buddy.png" width="19" height="19"/>
+        <image name="icon-back.png" width="19" height="19"/>
         <image name="icon-logout.png" width="19" height="19"/>
         <image name="icon-settings.png" width="19" height="19"/>
     </resources>

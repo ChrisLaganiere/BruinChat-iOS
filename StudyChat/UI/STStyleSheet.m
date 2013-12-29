@@ -22,5 +22,10 @@
     UIColor *navColor = [UIColor whiteColor];
     return navColor;
 }
++(UIFont *)chatFont
+{
+    UIFont *chatFont = [UIFont boldSystemFontOfSize:13];
+    return chatFont;
+}
 
 @end

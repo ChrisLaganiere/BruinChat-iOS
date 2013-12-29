@@ -33,7 +33,9 @@
     //set now so that after login, navbar image will already be up
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
     
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"]) {
+    NSString *userID = [[NSUserDefaults standardUserDefaults] valueForKey:@"userID"];
+    BOOL userIDIsValid = (userID && userID.length >= 1);
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginDisabled"] && userIDIsValid) {
         NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
         self.usernameField.text = userID;
         self.passwordField.text = [SSKeychain passwordForService:@"xmpp" account:userID];

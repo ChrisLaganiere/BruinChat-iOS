@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *innerView;
 @property (nonatomic,retain) NSString *chatWithUser;
 @property (nonatomic,retain) NSMutableArray *messagesArray;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+- (IBAction)backButtonHit:(id)sender;
 - (id) initWithUser:(NSString *) userName;
 - (IBAction)sendMessage:(id)sender;
 

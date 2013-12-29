@@ -176,6 +176,7 @@
                 
                 //create a textfield to put in the cell
                 UITextField *userNicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
+                userNicknameTextField.placeholder = @"Nickname";
                 userNicknameTextField.adjustsFontSizeToFitWidth = YES;
                 userNicknameTextField.textColor = [UIColor blackColor];
                 userNicknameTextField.text = self.userNickname;

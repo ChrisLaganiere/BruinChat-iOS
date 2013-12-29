@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		830BE4E118616FEC00BAFADE /* BruinChat.png in Resources */ = {isa = PBXBuildFile; fileRef = 830BE4E018616FEC00BAFADE /* BruinChat.png */; };
 		830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 830BE4E2186170C500BAFADE /* BruinChat@2x.png */; };
+		83861135186F9BC0001A442B /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 83861134186F9BC0001A442B /* NSString+Utils.m */; };
+		83861138186F9D52001A442B /* STChatBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83861137186F9D52001A442B /* STChatBubbleCell.m */; };
+		83861141186FA704001A442B /* aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 8386113D186FA704001A442B /* aqua.png */; };
+		83861142186FA704001A442B /* aqua@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8386113E186FA704001A442B /* aqua@2x.png */; };
+		83861143186FA704001A442B /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 8386113F186FA704001A442B /* orange.png */; };
+		83861144186FA704001A442B /* orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83861140186FA704001A442B /* orange@2x.png */; };
+		83861147186FBB9C001A442B /* icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 83861145186FBB9C001A442B /* icon-back.png */; };
+		83861148186FBB9C001A442B /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83861146186FBB9C001A442B /* icon-back@2x.png */; };
 		83AC4CE51861992A00573872 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE31861992A00573872 /* NavBar.png */; };
 		83AC4CE61861992A00573872 /* NavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE41861992A00573872 /* NavBar@2x.png */; };
 		83AC4CE918619DA900573872 /* icon-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE718619DA900573872 /* icon-settings.png */; };
@@ -187,6 +195,16 @@
 /* Begin PBXFileReference section */
 		830BE4E018616FEC00BAFADE /* BruinChat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BruinChat.png; sourceTree = "<group>"; };
 		830BE4E2186170C500BAFADE /* BruinChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BruinChat@2x.png"; sourceTree = "<group>"; };
+		83861133186F9BC0001A442B /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		83861134186F9BC0001A442B /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
+		83861136186F9D52001A442B /* STChatBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChatBubbleCell.h; sourceTree = "<group>"; };
+		83861137186F9D52001A442B /* STChatBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChatBubbleCell.m; sourceTree = "<group>"; };
+		8386113D186FA704001A442B /* aqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aqua.png; sourceTree = "<group>"; };
+		8386113E186FA704001A442B /* aqua@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aqua@2x.png"; sourceTree = "<group>"; };
+		8386113F186FA704001A442B /* orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange.png; sourceTree = "<group>"; };
+		83861140186FA704001A442B /* orange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange@2x.png"; sourceTree = "<group>"; };
+		83861145186FBB9C001A442B /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
+		83861146186FBB9C001A442B /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
 		83AC4CE31861992A00573872 /* NavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavBar.png; sourceTree = "<group>"; };
 		83AC4CE41861992A00573872 /* NavBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar@2x.png"; sourceTree = "<group>"; };
 		83AC4CE718619DA900573872 /* icon-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings.png"; sourceTree = "<group>"; };
@@ -534,6 +552,12 @@
 		830A3D1618611B2B0073E4D2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				83861145186FBB9C001A442B /* icon-back.png */,
+				83861146186FBB9C001A442B /* icon-back@2x.png */,
+				8386113D186FA704001A442B /* aqua.png */,
+				8386113E186FA704001A442B /* aqua@2x.png */,
+				8386113F186FA704001A442B /* orange.png */,
+				83861140186FA704001A442B /* orange@2x.png */,
 				83E681E618638E6C00290411 /* buddy.png */,
 				83E681E718638E6C00290411 /* buddy@2x.png */,
 				83AC4CEB18619FB600573872 /* icon-logout.png */,
@@ -563,6 +587,17 @@
 			);
 			name = BruinChat;
 			path = StudyChat;
+			sourceTree = "<group>";
+		};
+		83861132186F9B9F001A442B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				83861133186F9BC0001A442B /* NSString+Utils.h */,
+				83861134186F9BC0001A442B /* NSString+Utils.m */,
+				83861136186F9D52001A442B /* STChatBubbleCell.h */,
+				83861137186F9D52001A442B /* STChatBubbleCell.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		83AFC729186A37770041E334 /* XMPP */ = {
@@ -1400,6 +1435,7 @@
 		83E8A2BF185F7FCD0012068D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				83861132186F9B9F001A442B /* Utils */,
 				83E8A2C0185F7FCD0012068D /* View Controllers */,
 				83E8A2C2185F7FF50012068D /* STCoreViewController.h */,
 				83E8A2C3185F7FF50012068D /* STCoreViewController.m */,
@@ -1507,7 +1543,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83861142186FA704001A442B /* aqua@2x.png in Resources */,
 				83AFC8ED186A37780041E334 /* build-libidn.sh in Resources */,
+				83861144186FA704001A442B /* orange@2x.png in Resources */,
 				83AC4CEE18619FB600573872 /* icon-logout@2x.png in Resources */,
 				83E681E818638E6C00290411 /* buddy.png in Resources */,
 				83AC4CED18619FB600573872 /* icon-logout.png in Resources */,
@@ -1518,12 +1556,16 @@
 				830BE4E118616FEC00BAFADE /* BruinChat.png in Resources */,
 				83E8A2A2185F7E930012068D /* Images.xcassets in Resources */,
 				83AC4CE918619DA900573872 /* icon-settings.png in Resources */,
+				83861141186FA704001A442B /* aqua.png in Resources */,
+				83861143186FA704001A442B /* orange.png in Resources */,
+				83861147186FBB9C001A442B /* icon-back.png in Resources */,
 				830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */,
 				83E8A294185F7E930012068D /* InfoPlist.strings in Resources */,
 				83AFC8D9186A37780041E334 /* README.markdown in Resources */,
 				83E8A29D185F7E930012068D /* Main.storyboard in Resources */,
 				83E681E918638E6C00290411 /* buddy@2x.png in Resources */,
 				83AC4CE51861992A00573872 /* NavBar.png in Resources */,
+				83861148186FBB9C001A442B /* icon-back@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1613,6 +1655,7 @@
 				83AFC8C8186A37780041E334 /* XMPPMessageArchiving.m in Sources */,
 				83AFC8C5186A37780041E334 /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
 				83AFC8A5186A37780041E334 /* XMPPvCard.xcdatamodeld in Sources */,
+				83861138186F9D52001A442B /* STChatBubbleCell.m in Sources */,
 				83AFC8E7186A37780041E334 /* DispatchQueueLogFormatter.m in Sources */,
 				83E681F61863B4CB00290411 /* STChatRoomViewController.m in Sources */,
 				83AFC8A7186A37780041E334 /* XMPPvCardCoreDataStorage.m in Sources */,
@@ -1641,6 +1684,7 @@
 				83AFC8D2186A37780041E334 /* NSXMLElement+XEP_0203.m in Sources */,
 				83AFC8BA186A37780041E334 /* XMPPDateTimeProfiles.m in Sources */,
 				83AFC8EA186A37780041E334 /* DDXMLDocument.m in Sources */,
+				83861135186F9BC0001A442B /* NSString+Utils.m in Sources */,
 				83AFC8C2186A37780041E334 /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				83AFC8B5186A37780041E334 /* XMPPPubSub.m in Sources */,
 				83AFC8E3186A37780041E334 /* DDFileLogger.m in Sources */,

@@ -7,12 +7,19 @@
 //
 
 #import "STChatRoomViewController.h"
+#import "STChatBubbleCell.h"
+#import "NSString+Utils.h"
+#import "STStyleSheet.h"
 
 @interface STChatRoomViewController ()
 
 @end
 
 @implementation STChatRoomViewController
+
+- (IBAction)backButtonHit:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (id) initWithUser:(NSString *) userName {
     if (self = [super init]) {
@@ -35,8 +42,12 @@
         NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
         [m setObject:messageStr forKey:@"msg"];
         [m setObject:@"you" forKey:@"sender"];
-        [self.messagesArray addObject:m];
+        [m setObject:[NSString getCurrentTime] forKey:@"time"];
+        //moved to beginning of array because the table view is flipped
+        [self.messagesArray insertObject:m atIndex:0]; //addObject:messageContent];
         [self.tableView reloadData];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }
 }
 
@@ -52,6 +63,9 @@
     
     STAppDelegate *del = [self appDelegate];
     del._messageDelegate = self;
+    
+    //flip table view upside down!
+    self.tableView.transform = CGAffineTransformMakeScale(1, -1);
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -121,6 +135,8 @@
 
 #pragma mark UITableViewDataSource
 
+/*
+ //Updated for bubble messages
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *s = (NSDictionary *) [self.messagesArray objectAtIndex:indexPath.row];
     static NSString *CellIdentifier = @"Cell";
@@ -133,6 +149,82 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.userInteractionEnabled = NO;
     return cell;
+}
+*/
+ 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *s = (NSDictionary *) [self.messagesArray objectAtIndex:indexPath.row];
+    static NSString *CellIdentifier = @"Cell";
+    STChatBubbleCell *cell = (STChatBubbleCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[STChatBubbleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    NSString *sender = [s objectForKey:@"sender"];
+    NSString *message = [s objectForKey:@"msg"];
+    NSString *time = [s objectForKey:@"time"];
+    
+    //find size of message with constrained height
+    UILabel *gettingSizeLabel = [[UILabel alloc] init];
+    gettingSizeLabel.font = [STStyleSheet chatFont];
+    gettingSizeLabel.text = message;
+    gettingSizeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    gettingSizeLabel.numberOfLines = 0;
+    
+    NSInteger padding = 30;
+    CGSize textSize = { 260.0, 10000.0 };
+    CGSize expectedSize = [gettingSizeLabel sizeThatFits:textSize];
+    expectedSize.width += (padding/2);
+    cell.messageContentView.text = message;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.userInteractionEnabled = NO;
+    UIImage *bgImage = nil;
+    if ([sender isEqualToString:@"you"]) {
+        //right aligned
+        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
+        [cell.messageContentView setFrame:CGRectMake(320 - expectedSize.width - padding,
+                                                     padding*1.2,
+                                                     expectedSize.width,
+                                                     expectedSize.height)];
+        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2,
+                                              cell.messageContentView.frame.origin.y - padding/2,
+                                              expectedSize.width+padding,
+                                              expectedSize.height+padding)];
+        [cell.messageContentView setTextContainerInset:UIEdgeInsetsZero];
+    } else {
+        //left aligned
+        NSInteger chatBubbleTailWidth = 6;
+        bgImage = [[UIImage imageNamed:@"orange.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
+        [cell.messageContentView setFrame:CGRectMake(padding + chatBubbleTailWidth, padding*1.2, expectedSize.width, expectedSize.height)];
+        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2 - chatBubbleTailWidth,
+                                              cell.messageContentView.frame.origin.y - padding/2,
+                                              expectedSize.width+padding,
+                                              expectedSize.height+padding)];
+        [cell.messageContentView setTextContainerInset:UIEdgeInsetsZero];
+    }
+    cell.bgImageView.image = bgImage;
+    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@", time];
+    
+    //rotate to fit upside down table view!
+    cell.transform = CGAffineTransformMakeScale(1, -1);
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dict = (NSDictionary *)[self.messagesArray objectAtIndex:indexPath.row];
+    NSString *msg = [dict objectForKey:@"msg"];
+    
+    //find size of message with constrained height
+    UILabel *gettingSizeLabel = [[UILabel alloc] init];
+    gettingSizeLabel.font = [STStyleSheet chatFont];
+    gettingSizeLabel.text = msg;
+    gettingSizeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    gettingSizeLabel.numberOfLines = 0;
+    
+    NSInteger padding = 30;
+    CGSize textSize = { 260.0, 10000.0 };
+    CGSize expectedSize = [gettingSizeLabel sizeThatFits:textSize];
+    expectedSize.height += 1.75*padding;
+    CGFloat height = expectedSize.height;// < 65 ? 65 : expectedSize.height;
+    return height;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.messagesArray count];
@@ -169,8 +261,12 @@
 #pragma mark STMessageDelegate
 -(void)newMessageReceived:(NSDictionary *)messageContent
 {
-    [self.messagesArray addObject:messageContent];
+    [messageContent setValue:[NSString getCurrentTime] forKey:@"time"];
+    //moved to beginning of array because the table view is flipped
+    [self.messagesArray insertObject:messageContent atIndex:0]; //addObject:messageContent];
     self.chatWithUser = [messageContent valueForKey:@"sender"];
     [self.tableView reloadData];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 @end

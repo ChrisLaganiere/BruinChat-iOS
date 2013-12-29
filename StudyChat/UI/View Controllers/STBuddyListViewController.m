@@ -68,8 +68,10 @@
 }
 #pragma mark STChatDelegate
 - (void)newBuddyOnline:(NSString *)buddyName {
-    [self.onlineBuddies addObject:buddyName];
-    [self.tableView reloadData];
+    if (![self.onlineBuddies containsObject:buddyName]) {
+        [self.onlineBuddies addObject:buddyName];
+        [self.tableView reloadData];
+    }
 }
 - (void)buddyWentOffline:(NSString *)buddyName {
     [self.onlineBuddies removeObject:buddyName];
