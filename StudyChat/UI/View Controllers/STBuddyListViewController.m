@@ -7,6 +7,15 @@
 //
 
 #import "STBuddyListViewController.h"
+#import "DDLog.h"
+
+// Log levels: off, error, warn, info, verbose
+#if DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_INFO;
+#endif
+
 
 @interface STBuddyListViewController ()
 
@@ -26,8 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    STAppDelegate *del = [self appDelegate];
-    del._chatDelegate = self;
 	// Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -41,9 +48,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    STAppDelegate *del = [self appDelegate];
-    del._chatDelegate = nil;
     
     //shouldn't be needed
     //[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
@@ -66,34 +70,109 @@
 - (XMPPStream *)xmppStream {
     return [[self appDelegate] xmppStream];
 }
-#pragma mark STChatDelegate
-- (void)newBuddyOnline:(NSString *)buddyName {
-    if (![self.onlineBuddies containsObject:buddyName]) {
-        [self.onlineBuddies addObject:buddyName];
-        [self.tableView reloadData];
-    }
-}
-- (void)buddyWentOffline:(NSString *)buddyName {
-    [self.onlineBuddies removeObject:buddyName];
-    [self.tableView reloadData];
-}
--(void)didDisconnect
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark NSFetchedResultsController
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (NSFetchedResultsController *)fetchedResultsController
 {
-    
+	if (fetchedResultsController == nil)
+	{
+		NSManagedObjectContext *moc = [[self appDelegate] managedObjectContext_roster];
+		
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
+		                                          inManagedObjectContext:moc];
+		
+		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
+		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
+		
+		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, sd2, nil];
+		
+		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+		[fetchRequest setEntity:entity];
+		[fetchRequest setSortDescriptors:sortDescriptors];
+		[fetchRequest setFetchBatchSize:10];
+		
+		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+		                                                               managedObjectContext:moc
+		                                                                 sectionNameKeyPath:@"sectionNum"
+		                                                                          cacheName:nil];
+		[fetchedResultsController setDelegate:self];
+		
+		
+		NSError *error = nil;
+		if (![fetchedResultsController performFetch:&error])
+		{
+			DDLogError(@"Error performing fetch: %@", error);
+		}
+        
+	}
+	
+	return fetchedResultsController;
 }
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+	[[self tableView] reloadData];
+}
+
 
 #pragma mark UITableViewDataSource
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *s = (NSString *) [self.onlineBuddies objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.textLabel.text = s;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    return cell;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	static NSString *CellIdentifier = @"Cell";
+	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil)
+	{
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+	}
+	
+	XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+	
+	cell.textLabel.text = user.displayName;
+	
+	return cell;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.onlineBuddies count];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return [[[self fetchedResultsController] sections] count];
 }
+- (NSString *)tableView:(UITableView *)sender titleForHeaderInSection:(NSInteger)sectionIndex
+{
+	NSArray *sections = [[self fetchedResultsController] sections];
+	
+	if (sectionIndex < [sections count])
+	{
+		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+        
+		int section = [sectionInfo.name intValue];
+		switch (section)
+		{
+			case 0  : return @"Available";
+			case 1  : return @"Away";
+			default : return @"Offline";
+		}
+	}
+	
+	return @"";
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
+{
+	NSArray *sections = [[self fetchedResultsController] sections];
+	
+	if (sectionIndex < [sections count])
+	{
+		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+		return sectionInfo.numberOfObjects;
+	}
+	
+	return 0;
+}
+
 
 #pragma mark UITableViewDelegate
 

@@ -10,12 +10,12 @@
 #import "STAppDelegate.h"
 @protocol STChatDelegate;
 
-@interface STBuddyListViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate, STChatDelegate>
+@interface STBuddyListViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>{
+	NSFetchedResultsController *fetchedResultsController;
+}
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *studyGroupButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong, nonatomic) NSMutableArray *onlineBuddies;
 
 - (IBAction)done:(id)sender;
 

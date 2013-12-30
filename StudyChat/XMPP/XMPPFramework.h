@@ -40,3 +40,6 @@
 
 #import "XMPPMUC.h"
 #import "XMPPRoomCoreDataStorage.h"
+
+#import "XMPPRoom.h"
+#import "XMPPRoomMemoryStorage.h"

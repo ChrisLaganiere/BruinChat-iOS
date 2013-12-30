@@ -111,9 +111,14 @@
 
 - (IBAction)logout:(id)sender {
     NSLog(@"DISCONNECT");
-    STAppDelegate *del =[[UIApplication sharedApplication] delegate];
+    STAppDelegate *del =[self appDelegate];
     [del disconnect];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark Accessors
+- (STAppDelegate *)appDelegate {
+    return (STAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 @end
