@@ -10,6 +10,7 @@
 #import "STChatBubbleCell.h"
 #import "NSString+Utils.h"
 #import "STStyleSheet.h"
+#import "DAKeyboardControl.h"
 
 @interface STChatRoomViewController ()
 
@@ -55,21 +56,81 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self registerForKeyboardNotifications];
     
     self.messagesArray = [NSMutableArray array];
-    self.scrollView.contentSize = self.view.frame.size;
-    [self.scrollView setScrollEnabled:false];
     
     STAppDelegate *del = [self appDelegate];
     del._messageDelegate = self;
     
+    //set up layout
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
+                                                                           0.0f,
+                                                                           self.view.bounds.size.width,
+                                                                           self.view.bounds.size.height - 40.0f)];
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    
     //flip table view upside down!
-    self.tableView.transform = CGAffineTransformMakeScale(1, -1);
+    tableView.transform = CGAffineTransformMakeScale(1, -1);
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
+                                                                     self.view.bounds.size.height - 40.0f,
+                                                                     self.view.bounds.size.width,
+                                                                     40.0f)];
+    toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:toolBar];
+    
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f,
+                                                                           6.0f,
+                                                                           toolBar.bounds.size.width - 20.0f - 68.0f,
+                                                                           30.0f)];
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    textField.delegate = self;
+    [toolBar addSubview:textField];
+    self.messageField = textField;
+    
+    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [sendButton setTitle:@"Send" forState:UIControlStateNormal];
+    sendButton.frame = CGRectMake(toolBar.bounds.size.width - 68.0f,
+                                  6.0f,
+                                  58.0f,
+                                  29.0f);
+    [sendButton addTarget:self action:@selector(sendMessage:) forControlEvents:(UIControlEvents)UIControlEventTouchUpInside];
+    [toolBar addSubview:sendButton];
+    self.sendButton = sendButton;
+    
+    //swipe gesture to dismiss, like Messages app
+    
+    self.view.keyboardTriggerOffset = toolBar.bounds.size.height;
+    
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        /*
+         Try not to call "self" inside this block (retain cycle).
+         But if you do, make sure to remove DAKeyboardControl
+         when you are done with the view controller by calling:
+         [self.view removeKeyboardControl];
+         */
+        CGRect toolBarFrame = toolBar.frame;
+        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
+        toolBar.frame = toolBarFrame;
+        
+        CGRect tableViewFrame = tableView.frame;
+        tableViewFrame.size.height = toolBarFrame.origin.y;
+        tableView.frame = tableViewFrame;
+    }];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [self.view removeKeyboardControl];
     
     STAppDelegate *del = [self appDelegate];
     del._messageDelegate = nil;
@@ -82,75 +143,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-}
-// Called when the UIKeyboardDidShowNotification is sent.
-- (void)keyboardWillShow:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
-    
-    // If active text field is hidden by keyboard, scroll it so it's visible
-    // Your application might not need or want this behavior.
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbSize.height;
-    
-    //[self.scrollView setContentSize:aRect.size];
-    //self.innerView.frame = aRect;
-    
-    if (!CGRectContainsPoint(aRect, self.messageField.frame.origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, self.messageField.frame.origin.y-kbSize.height);
-        [self.scrollView setContentOffset:scrollPoint animated:YES];
-        NSLog(@"scrollPoint: %f",scrollPoint.y);
-    }
-}
-
-// Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    [self.scrollView setContentOffset:CGPointMake(0, -65) animated:YES];
-    //UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    //self.scrollView.contentInset = contentInsets;
-    //self.scrollView.scrollIndicatorInsets = contentInsets;
-}
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-
 #pragma mark UITableViewDataSource
-
-/*
- //Updated for bubble messages
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *s = (NSDictionary *) [self.messagesArray objectAtIndex:indexPath.row];
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    cell.textLabel.text = [s objectForKey:@"msg"];
-    cell.detailTextLabel.text = [s objectForKey:@"sender"];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.userInteractionEnabled = NO;
-    return cell;
-}
-*/
  
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *s = (NSDictionary *) [self.messagesArray objectAtIndex:indexPath.row];
@@ -244,9 +243,6 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    if (textField == self.messageField) {
-        [self performSelector:@selector(sendMessage:) withObject:self.sendButton];
-    }
     return true;
 }
 

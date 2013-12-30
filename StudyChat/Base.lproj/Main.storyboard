@@ -203,82 +203,7 @@
                     <view key="view" contentMode="scaleToFill" id="Kaz-QS-y79">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YCP-w1-lKT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7j-Ik-zdR">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="L9r-sR-iny">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="516"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="O0t-6F-P5Q" id="1df-B8-P0y"/>
-                                                    <outlet property="delegate" destination="O0t-6F-P5Q" id="Z20-Yp-PQR"/>
-                                                </connections>
-                                            </tableView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8Q-S7-XMN">
-                                                <rect key="frame" x="264" y="518" width="50" height="41"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="41" id="Qre-zs-iBa"/>
-                                                    <constraint firstAttribute="width" constant="50" id="Wdy-sM-myW"/>
-                                                </constraints>
-                                                <state key="normal" title="Send">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="sendMessage:" destination="O0t-6F-P5Q" eventType="touchUpInside" id="pse-cA-tkp"/>
-                                                </connections>
-                                            </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ypc-1j-wfw">
-                                                <rect key="frame" x="6" y="524" width="250" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="SeY-HW-qGx"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="O0t-6F-P5Q" id="9Gq-Dr-yOs"/>
-                                                </connections>
-                                            </textField>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="C8Q-S7-XMN" secondAttribute="bottom" constant="9" id="1mq-63-Sg2"/>
-                                            <constraint firstItem="C8Q-S7-XMN" firstAttribute="leading" secondItem="Ypc-1j-wfw" secondAttribute="trailing" constant="8" id="7Wu-Fa-Zqs"/>
-                                            <constraint firstItem="L9r-sR-iny" firstAttribute="leading" secondItem="V7j-Ik-zdR" secondAttribute="leading" id="7kg-vp-vNL"/>
-                                            <constraint firstItem="Ypc-1j-wfw" firstAttribute="top" secondItem="L9r-sR-iny" secondAttribute="bottom" constant="8" id="9v0-cQ-1dt"/>
-                                            <constraint firstItem="Ypc-1j-wfw" firstAttribute="leading" secondItem="V7j-Ik-zdR" secondAttribute="leading" constant="6" id="AMp-Z1-ChZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="L9r-sR-iny" secondAttribute="trailing" id="Xv7-kZ-osR"/>
-                                            <constraint firstAttribute="trailing" secondItem="C8Q-S7-XMN" secondAttribute="trailing" constant="6" id="ZFs-JN-nV1"/>
-                                            <constraint firstAttribute="bottom" secondItem="Ypc-1j-wfw" secondAttribute="bottom" constant="14" id="uFj-lM-X0f"/>
-                                            <constraint firstItem="L9r-sR-iny" firstAttribute="top" secondItem="V7j-Ik-zdR" secondAttribute="top" id="zlu-6x-9Ap"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="V7j-Ik-zdR" secondAttribute="bottom" id="Vn2-Tn-PAn"/>
-                                    <constraint firstItem="V7j-Ik-zdR" firstAttribute="leading" secondItem="YCP-w1-lKT" secondAttribute="leading" id="mGx-XM-DRX"/>
-                                    <constraint firstItem="V7j-Ik-zdR" firstAttribute="centerX" secondItem="YCP-w1-lKT" secondAttribute="centerX" id="qWc-VT-4Uz"/>
-                                    <constraint firstItem="V7j-Ik-zdR" firstAttribute="top" secondItem="YCP-w1-lKT" secondAttribute="top" id="rxx-FG-YrN"/>
-                                    <constraint firstAttribute="trailing" secondItem="V7j-Ik-zdR" secondAttribute="trailing" id="w60-Ge-UOY"/>
-                                    <constraint firstItem="V7j-Ik-zdR" firstAttribute="centerY" secondItem="YCP-w1-lKT" secondAttribute="centerY" id="yh8-Zo-huU"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="YCP-w1-lKT" firstAttribute="top" secondItem="Kaz-QS-y79" secondAttribute="top" id="5Md-0P-1oP"/>
-                            <constraint firstAttribute="bottom" secondItem="YCP-w1-lKT" secondAttribute="bottom" id="fgM-yd-2nP"/>
-                            <constraint firstItem="YCP-w1-lKT" firstAttribute="leading" secondItem="Kaz-QS-y79" secondAttribute="leading" id="gZU-dp-BT6"/>
-                            <constraint firstAttribute="trailing" secondItem="YCP-w1-lKT" secondAttribute="trailing" id="qHb-dY-W0k"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bsH-h9-oPp">
                         <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="xg2-ng-joo">
@@ -289,11 +214,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="xg2-ng-joo" id="l3Q-qe-y3C"/>
-                        <outlet property="innerView" destination="V7j-Ik-zdR" id="3Ck-9n-Zih"/>
-                        <outlet property="messageField" destination="Ypc-1j-wfw" id="Ff9-My-NPK"/>
-                        <outlet property="scrollView" destination="YCP-w1-lKT" id="ehu-Qr-ZT8"/>
-                        <outlet property="sendButton" destination="C8Q-S7-XMN" id="qLu-mb-Gyo"/>
-                        <outlet property="tableView" destination="L9r-sR-iny" id="Fgc-FG-EzZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFJ-XF-zr9" userLabel="First Responder" sceneMemberID="firstResponder"/>

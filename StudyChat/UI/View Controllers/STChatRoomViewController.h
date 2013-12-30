@@ -14,8 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *innerView;
 @property (nonatomic,retain) NSString *chatWithUser;
 @property (nonatomic,retain) NSMutableArray *messagesArray;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;

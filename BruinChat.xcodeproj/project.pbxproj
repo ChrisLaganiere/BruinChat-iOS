@@ -12,6 +12,7 @@
 		83311E7A1871113B00B29BB4 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E781871113B00B29BB4 /* icon114.png */; };
 		83311E7B1871113B00B29BB4 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E791871113B00B29BB4 /* icon57.png */; };
 		83311E7F187111BA00B29BB4 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E7E187111BA00B29BB4 /* icon120.png */; };
+		83311E8218713D0100B29BB4 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 83311E8118713D0100B29BB4 /* DAKeyboardControl.m */; };
 		83861135186F9BC0001A442B /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 83861134186F9BC0001A442B /* NSString+Utils.m */; };
 		83861138186F9D52001A442B /* STChatBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83861137186F9D52001A442B /* STChatBubbleCell.m */; };
 		83861141186FA704001A442B /* aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 8386113D186FA704001A442B /* aqua.png */; };
@@ -201,6 +202,8 @@
 		83311E781871113B00B29BB4 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
 		83311E791871113B00B29BB4 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		83311E7E187111BA00B29BB4 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		83311E8018713D0100B29BB4 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
+		83311E8118713D0100B29BB4 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		83861133186F9BC0001A442B /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		83861134186F9BC0001A442B /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		83861136186F9D52001A442B /* STChatBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChatBubbleCell.h; sourceTree = "<group>"; };
@@ -609,6 +612,8 @@
 		83861132186F9B9F001A442B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				83311E8018713D0100B29BB4 /* DAKeyboardControl.h */,
+				83311E8118713D0100B29BB4 /* DAKeyboardControl.m */,
 				83861133186F9BC0001A442B /* NSString+Utils.h */,
 				83861134186F9BC0001A442B /* NSString+Utils.m */,
 				83861136186F9D52001A442B /* STChatBubbleCell.h */,
@@ -1737,6 +1742,7 @@
 				83AFC878186A37780041E334 /* NSXMLElement+XMPP.m in Sources */,
 				83AFC8D6186A37780041E334 /* NSXMLElement+XEP_0297.m in Sources */,
 				83AFC8B1186A37780041E334 /* XMPPvCardTempTel.m in Sources */,
+				83311E8218713D0100B29BB4 /* DAKeyboardControl.m in Sources */,
 				83AFC87A186A37780041E334 /* XMPPElement.m in Sources */,
 				83E8A29A185F7E930012068D /* STAppDelegate.m in Sources */,
 			);
