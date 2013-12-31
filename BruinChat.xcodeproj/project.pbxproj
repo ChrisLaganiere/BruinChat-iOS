@@ -184,6 +184,12 @@
 		83E8A2C4185F7FF50012068D /* STCoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E8A2C3185F7FF50012068D /* STCoreViewController.m */; };
 		83E8A2C7185F8DA10012068D /* STClassListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E8A2C6185F8DA10012068D /* STClassListViewController.m */; };
 		83E8A2CA185F9E4C0012068D /* STSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E8A2C9185F9E4C0012068D /* STSettingsViewController.m */; };
+		83EB7A2318725BC70093F421 /* signIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 83EB7A2218725BC70093F421 /* signIn.png */; };
+		83EB7A2518725C9A0093F421 /* signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83EB7A2418725C9A0093F421 /* signIn@2x.png */; };
+		83EB7A2918725FDE0093F421 /* STDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A2718725FDE0093F421 /* STDataModel.xcdatamodeld */; };
+		83EB7A35187264D40093F421 /* Chatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A34187264D40093F421 /* Chatroom.m */; };
+		83EB7A3E1872653F0093F421 /* Message+XMPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A3D1872653F0093F421 /* Message+XMPP.m */; };
+		83EB7A47187285A30093F421 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A46187285A30093F421 /* Message.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -525,6 +531,15 @@
 		83E8A2C6185F8DA10012068D /* STClassListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STClassListViewController.m; sourceTree = "<group>"; };
 		83E8A2C8185F9E4C0012068D /* STSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSettingsViewController.h; sourceTree = "<group>"; };
 		83E8A2C9185F9E4C0012068D /* STSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettingsViewController.m; sourceTree = "<group>"; };
+		83EB7A2218725BC70093F421 /* signIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signIn.png; sourceTree = "<group>"; };
+		83EB7A2418725C9A0093F421 /* signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "signIn@2x.png"; path = "StudyChat/images/signIn@2x.png"; sourceTree = SOURCE_ROOT; };
+		83EB7A2818725FDE0093F421 /* STDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STDataModel.xcdatamodel; sourceTree = "<group>"; };
+		83EB7A33187264D40093F421 /* Chatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatroom.h; sourceTree = "<group>"; };
+		83EB7A34187264D40093F421 /* Chatroom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatroom.m; sourceTree = "<group>"; };
+		83EB7A3C1872653F0093F421 /* Message+XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+XMPP.h"; sourceTree = "<group>"; };
+		83EB7A3D1872653F0093F421 /* Message+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+XMPP.m"; sourceTree = "<group>"; };
+		83EB7A45187285A30093F421 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		83EB7A46187285A30093F421 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -578,6 +593,8 @@
 				83AC4CE41861992A00573872 /* NavBar@2x.png */,
 				830BE4E2186170C500BAFADE /* BruinChat@2x.png */,
 				830BE4E018616FEC00BAFADE /* BruinChat.png */,
+				83EB7A2218725BC70093F421 /* signIn.png */,
+				83EB7A2418725C9A0093F421 /* signIn@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -585,6 +602,7 @@
 		831642FC185FE2A9004749DD /* BruinChat */ = {
 			isa = PBXGroup;
 			children = (
+				83EB7A2618725FC10093F421 /* Data */,
 				83AFC729186A37770041E334 /* XMPP */,
 				83E681F018639C4400290411 /* SSKeychain */,
 				830A3D1618611B2B0073E4D2 /* images */,
@@ -1486,6 +1504,20 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		83EB7A2618725FC10093F421 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				83EB7A2718725FDE0093F421 /* STDataModel.xcdatamodeld */,
+				83EB7A45187285A30093F421 /* Message.h */,
+				83EB7A46187285A30093F421 /* Message.m */,
+				83EB7A33187264D40093F421 /* Chatroom.h */,
+				83EB7A34187264D40093F421 /* Chatroom.m */,
+				83EB7A3C1872653F0093F421 /* Message+XMPP.h */,
+				83EB7A3D1872653F0093F421 /* Message+XMPP.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1582,6 +1614,7 @@
 				83AC4CE918619DA900573872 /* icon-settings.png in Resources */,
 				83861141186FA704001A442B /* aqua.png in Resources */,
 				83861143186FA704001A442B /* orange.png in Resources */,
+				83EB7A2318725BC70093F421 /* signIn.png in Resources */,
 				83861147186FBB9C001A442B /* icon-back.png in Resources */,
 				830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */,
 				83E8A294185F7E930012068D /* InfoPlist.strings in Resources */,
@@ -1590,6 +1623,7 @@
 				83E681E918638E6C00290411 /* buddy@2x.png in Resources */,
 				83AC4CE51861992A00573872 /* NavBar.png in Resources */,
 				83861148186FBB9C001A442B /* icon-back@2x.png in Resources */,
+				83EB7A2518725C9A0093F421 /* signIn@2x.png in Resources */,
 				83311E7B1871113B00B29BB4 /* icon57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1626,6 +1660,8 @@
 				83AFC8CD186A37780041E334 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				83AFC8C1186A37780041E334 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				83AFC8B7186A37780041E334 /* XMPPIQ+XEP_0066.m in Sources */,
+				83EB7A47187285A30093F421 /* Message.m in Sources */,
+				83EB7A35187264D40093F421 /* Chatroom.m in Sources */,
 				83AFC8E1186A37780041E334 /* DDAbstractDatabaseLogger.m in Sources */,
 				83AFC8DD186A37780041E334 /* XMPPIDTracker.m in Sources */,
 				83AFC884186A37780041E334 /* XMPPGoogleSharedStatus.m in Sources */,
@@ -1670,6 +1706,7 @@
 				83AFC8D7186A37780041E334 /* XMPPMessage+XEP_0308.m in Sources */,
 				83AFC8CF186A37780041E334 /* XMPPPing.m in Sources */,
 				83AFC890186A37780041E334 /* XMPPSystemInputActivityMonitor.m in Sources */,
+				83EB7A3E1872653F0093F421 /* Message+XMPP.m in Sources */,
 				83AFC8D0186A37780041E334 /* XMPPAutoTime.m in Sources */,
 				83AFC87E186A37780041E334 /* XMPPModule.m in Sources */,
 				83AFC8EC186A37780041E334 /* DDXMLNode.m in Sources */,
@@ -1733,6 +1770,7 @@
 				83AFC897186A37780041E334 /* XMPPRoom.xcdatamodeld in Sources */,
 				83AFC8BB186A37780041E334 /* XMPPMessage+XEP_0085.m in Sources */,
 				83AFC89D186A37780041E334 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
+				83EB7A2918725FDE0093F421 /* STDataModel.xcdatamodeld in Sources */,
 				83AFC896186A37780041E334 /* XMPPPrivacy.m in Sources */,
 				83AFC87D186A37780041E334 /* XMPPMessage.m in Sources */,
 				83AFC874186A37780041E334 /* XMPPPlainAuthentication.m in Sources */,
@@ -2036,6 +2074,16 @@
 			);
 			currentVersion = 83AFC806186A37770041E334 /* XMPPMessageArchiving.xcdatamodel */;
 			path = XMPPMessageArchiving.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		83EB7A2718725FDE0093F421 /* STDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83EB7A2818725FDE0093F421 /* STDataModel.xcdatamodel */,
+			);
+			currentVersion = 83EB7A2818725FDE0093F421 /* STDataModel.xcdatamodel */;
+			path = STDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

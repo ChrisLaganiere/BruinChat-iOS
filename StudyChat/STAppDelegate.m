@@ -201,7 +201,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self._loginDelegate = nil;
     }
     [self goOnline];
-    //[self getListOfChatrooms]; //for testing
+    //[self getListOfChatrooms];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
@@ -217,7 +217,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
 }
 
-/* //////XMPP GROUPCHAT TRIAL (currently unused)
+//////XMPP GROUPCHAT TRIAL (currently unused)
 -(void)getListOfChatrooms
 {
     NSString* server = @"conference.bruinchat.p1.im"; //or whatever the server address for muc is
@@ -247,7 +247,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return NO;
 }
 
-////////// */
+//////////
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     NSLog(@"applicationWillResignActive");

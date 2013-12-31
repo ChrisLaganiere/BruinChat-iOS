@@ -41,5 +41,6 @@
 - (NSManagedObjectContext *)managedObjectContext_roster;
 
 - (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass;
+-(void)getListOfChatrooms;
 - (void)disconnect;
 @end
