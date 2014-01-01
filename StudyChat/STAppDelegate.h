@@ -12,11 +12,6 @@
 
 @class STLoginViewController;
 
-
-@protocol STMessageDelegate
-- (void)newMessageReceived:(NSDictionary *)messageContent;
-@end
-
 @protocol STLoginDelegate
 -(void)loginSucceeded;
 -(void)loginFailed;
@@ -35,12 +30,11 @@
 @property (nonatomic, strong) XMPPRoster *xmppRoster;
 @property (nonatomic, strong) XMPPRosterCoreDataStorage *xmppRosterStorage;
 
-@property (nonatomic, assign) id  _messageDelegate;
 @property (nonatomic, assign)id _loginDelegate;
 
 - (NSManagedObjectContext *)managedObjectContext_roster;
 
 - (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass;
--(void)getListOfChatrooms;
+//-(void)getListOfChatrooms;
 - (void)disconnect;
 @end

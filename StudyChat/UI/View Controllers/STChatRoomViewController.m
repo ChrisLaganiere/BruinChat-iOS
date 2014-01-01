@@ -11,44 +11,53 @@
 #import "NSString+Utils.h"
 #import "STStyleSheet.h"
 #import "DAKeyboardControl.h"
+#import "STDModel.h"
+#import "XMPPRoomMessageCoreDataStorageObject.h"
+#import "XMPPFramework.h"
+#import "STAppDelegate.h"
 
 @interface STChatRoomViewController ()
-
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) XMPPRoom *xmppRoom;
 @end
 
 @implementation STChatRoomViewController
+@synthesize fetchedResultsController = _fetchedResultsController;
+@synthesize managedObjectContext = _managedObjectContext;
 
 - (IBAction)backButtonHit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (id) initWithUser:(NSString *) userName {
-    if (self = [super init]) {
-        self.chatWithUser = userName;
-    }
-    return self;
+-(void)startChatroom:(NSString *)jid
+{
+    NSLog(@"ATTEMPTING TO JOIN CHATROOM CALLED %@",jid);
+    XMPPRoomCoreDataStorage * _roomMemory = [[XMPPRoomCoreDataStorage alloc]initWithDatabaseFilename:@"14w-chem20a-1.sqlite" storeOptions:nil];
+    NSString* roomID = @"14w-chem20a-1@conference.bruinchat.p1.im";
+    XMPPJID * roomJID = [XMPPJID jidWithString:roomID];
+    XMPPRoom* xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:_roomMemory
+                                                           jid:roomJID
+                                                 dispatchQueue:dispatch_get_main_queue()];
+    [xmppRoom activate:self.xmppStream];
+    [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [xmppRoom joinRoomUsingNickname:@"myNickname"
+                            history:nil
+                           password:nil];
+    self.xmppRoom = xmppRoom;
+    
+}
+
+-(void)contextChanged:(NSNotification *)notification
+{
+    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
+    [self.managedObjectContext performSelectorOnMainThread:selector withObject:notification waitUntilDone:YES];
 }
 
 - (IBAction)sendMessage:(id)sender {
     NSString *messageStr = self.messageField.text;
     if([messageStr length] > 0) {
-        NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
-        [body setStringValue:messageStr];
-        NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
-        [message addAttributeWithName:@"type" stringValue:@"chat"];
-        [message addAttributeWithName:@"to" stringValue:self.chatWithUser];
-        [message addChild:body];
-        [self.xmppStream sendElement:message];
+        [self.xmppRoom sendMessageWithBody:messageStr];
         self.messageField.text = @"";
-        NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
-        [m setObject:messageStr forKey:@"msg"];
-        [m setObject:@"you" forKey:@"sender"];
-        [m setObject:[NSString getCurrentTime] forKey:@"time"];
-        //moved to beginning of array because the table view is flipped
-        [self.messagesArray insertObject:m atIndex:0]; //addObject:messageContent];
-        [self.tableView reloadData];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }
 }
 
@@ -57,10 +66,9 @@
 {
     [super viewDidLoad];
     
-    self.messagesArray = [NSMutableArray array];
-    
-    STAppDelegate *del = [self appDelegate];
-    del._messageDelegate = self;
+    if (self.chatroomJID) {
+        [self startChatroom:self.chatroomJID];
+    }
     
     //set up layout
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
@@ -131,9 +139,18 @@
     [super viewWillDisappear:animated];
     
     [self.view removeKeyboardControl];
+    [self.xmppRoom leaveRoom];
+    [self.xmppRoom deactivate];
+    [self.xmppRoom removeDelegate:self];
     
-    STAppDelegate *del = [self appDelegate];
-    del._messageDelegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextChanged:) name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -152,15 +169,18 @@
 #pragma mark UITableViewDataSource
  
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *s = (NSDictionary *) [self.messagesArray objectAtIndex:indexPath.row];
+    
+    XMPPRoomMessageCoreDataStorageObject *messageObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
     static NSString *CellIdentifier = @"Cell";
     STChatBubbleCell *cell = (STChatBubbleCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[STChatBubbleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    NSString *sender = [s objectForKey:@"sender"];
-    NSString *message = [s objectForKey:@"msg"];
-    NSString *time = [s objectForKey:@"time"];
+    
+    NSString *sender = messageObject.nickname;
+    NSString *message = [messageObject.message stringValue];
+    NSString *time = [NSDateFormatter localizedStringFromDate:messageObject.localTimestamp dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     
     //find size of message with constrained height
     UILabel *gettingSizeLabel = [[UILabel alloc] init];
@@ -177,7 +197,7 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.userInteractionEnabled = NO;
     UIImage *bgImage = nil;
-    if ([sender isEqualToString:@"you"]) {
+    if (messageObject.fromMe == [NSNumber numberWithInt:1]) {
         //right aligned
         bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
         [cell.messageContentView setFrame:CGRectMake(320 - expectedSize.width - padding,
@@ -201,15 +221,15 @@
         [cell.messageContentView setTextContainerInset:UIEdgeInsetsZero];
     }
     cell.bgImageView.image = bgImage;
-    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@", time];
+    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@, %@",sender,time];
     
     //rotate to fit upside down table view!
     cell.transform = CGAffineTransformMakeScale(1, -1);
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dict = (NSDictionary *)[self.messagesArray objectAtIndex:indexPath.row];
-    NSString *msg = [dict objectForKey:@"msg"];
+    XMPPRoomMessageMemoryStorageObject *messageObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *msg = [messageObject.message stringValue];
     
     //find size of message with constrained height
     UILabel *gettingSizeLabel = [[UILabel alloc] init];
@@ -224,12 +244,6 @@
     expectedSize.height += 1.75*padding;
     CGFloat height = expectedSize.height;// < 65 ? 65 : expectedSize.height;
     return height;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.messagesArray count];
-}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
 }
 #pragma mark UITableViewDelegate
 
@@ -254,15 +268,48 @@
     return [[self appDelegate] xmppStream];
 }
 
-#pragma mark STMessageDelegate
--(void)newMessageReceived:(NSDictionary *)messageContent
+#pragma mark Fetched Results Controller to keep track of the Core Data Chatroom managed objects
+
+- (NSManagedObjectContext *)managedObjectContext
 {
-    [messageContent setValue:[NSString getCurrentTime] forKey:@"time"];
-    //moved to beginning of array because the table view is flipped
-    [self.messagesArray insertObject:messageContent atIndex:0]; //addObject:messageContent];
-    self.chatWithUser = [messageContent valueForKey:@"sender"];
-    [self.tableView reloadData];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    XMPPCoreDataStorage *roomStorage = self.xmppRoom.xmppRoomStorage;
+    NSPersistentStoreCoordinator *coordinator = roomStorage.persistentStoreCoordinator;
+    if (coordinator != nil) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    return _managedObjectContext;
+}
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (_fetchedResultsController == nil) {
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        //access the single managed object context through model singleton
+        NSManagedObjectContext *context = self.managedObjectContext;
+        
+        //fetch request requires an entity description - we're only interested in Chatroom managed objects
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPRoomMessageCoreDataStorageObject" inManagedObjectContext:context];
+        fetchRequest.entity = entity;
+        
+        //we'll order the Chatroom objects in title sort order for now
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"localTimestamp" ascending:NO];
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+        fetchRequest.sortDescriptors = sortDescriptors;
+        
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController.delegate = self;
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error]) {
+            
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+	return _fetchedResultsController;
 }
 @end

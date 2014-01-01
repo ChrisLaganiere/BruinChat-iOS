@@ -33,8 +33,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @implementation STAppDelegate
 
 @synthesize xmppStream;
-@synthesize _messageDelegate;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Core Data
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,8 +98,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	[self.xmppRoster            deactivate];
 	
 	[xmppStream disconnect];
-	
-    self._messageDelegate = nil;
     
 	xmppStream = nil;
 	self.xmppReconnect = nil;
@@ -217,6 +213,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
 }
 
+/*
 //////XMPP GROUPCHAT TRIAL (currently unused)
 -(void)getListOfChatrooms
 {
@@ -232,23 +229,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq{
     NSLog(@"CHAT ROOM LIST??");
     DDLogVerbose(@"%@", [iq description]);
-    NSLog(@"ATTEMPTING TO JOIN CHATROOM");
-    XMPPRoomMemoryStorage * _roomMemory = [[XMPPRoomMemoryStorage alloc]init];
-    NSString* roomID = @"14w-chem20a-1@conference.bruinchat.p1.im";
-    XMPPJID * roomJID = [XMPPJID jidWithString:roomID];
-    XMPPRoom* xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:_roomMemory
-                                                           jid:roomJID
-                                                 dispatchQueue:dispatch_get_main_queue()];
-    [xmppRoom activate:self.xmppStream];
-    [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [xmppRoom joinRoomUsingNickname:@"myNickname"
-                            history:nil
-                           password:nil];
     return NO;
 }
 
 //////////
-
+*/
+ 
 - (void)applicationWillResignActive:(UIApplication *)application {
     NSLog(@"applicationWillResignActive");
     [self disconnect];
@@ -264,13 +250,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		//XMPPUserCoreDataStorageObject *user = [self.xmppRosterStorage userForJID:[message from] xmppStream:xmppStream managedObjectContext:[self managedObjectContext_roster]];
         
         NSLog(@"message received");
+        
+        /*
         NSString *msg = [[message elementForName:@"body"] stringValue];
 		//NSString *from = [user displayName];
         NSString *from = [[message attributeForName:@"from"] stringValue];
         NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
         [m setObject:msg forKey:@"msg"];
         [m setObject:from forKey:@"sender"];
-        [_messageDelegate newMessageReceived:m];
+         */
     }
 }
 

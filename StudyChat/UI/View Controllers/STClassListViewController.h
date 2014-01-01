@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 Chris Laganiere. All rights reserved.
 //
 
-#import "STCoreViewController.h"
+#import "CoreDataTableViewController.h"
 
-@interface STClassListViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate>
+@interface STClassListViewController : CoreDataTableViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIToolbar *settingsButton;
-@property (weak, nonatomic) IBOutlet UIToolbar *logoutButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *buddyListButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 - (IBAction)logout:(id)sender;
 

@@ -155,6 +155,9 @@
 		83AFC8EC186A37780041E334 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFC868186A37770041E334 /* DDXMLNode.m */; };
 		83AFC8ED186A37780041E334 /* build-libidn.sh in Resources */ = {isa = PBXBuildFile; fileRef = 83AFC86C186A37780041E334 /* build-libidn.sh */; };
 		83AFC8EE186A37780041E334 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFC86E186A37780041E334 /* libidn.a */; };
+		83B817ED1873600800E1B019 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B817EC1873600800E1B019 /* CoreDataTableViewController.m */; };
+		83B817F0187361EB00E1B019 /* STDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B817EF187361EB00E1B019 /* STDModel.m */; };
+		83B817F218736F2A00E1B019 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B817F118736F2A00E1B019 /* CoreData.framework */; };
 		83E681C91863849F00290411 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E681C81863849F00290411 /* CoreLocation.framework */; };
 		83E681CB186384A800290411 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E681CA186384A800290411 /* SystemConfiguration.framework */; };
 		83E681CD186384B800290411 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E681CC186384B800290411 /* libresolv.dylib */; };
@@ -188,8 +191,6 @@
 		83EB7A2518725C9A0093F421 /* signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83EB7A2418725C9A0093F421 /* signIn@2x.png */; };
 		83EB7A2918725FDE0093F421 /* STDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A2718725FDE0093F421 /* STDataModel.xcdatamodeld */; };
 		83EB7A35187264D40093F421 /* Chatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A34187264D40093F421 /* Chatroom.m */; };
-		83EB7A3E1872653F0093F421 /* Message+XMPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A3D1872653F0093F421 /* Message+XMPP.m */; };
-		83EB7A47187285A30093F421 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB7A46187285A30093F421 /* Message.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -490,6 +491,11 @@
 		83AFC86E186A37780041E334 /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libidn.a; sourceTree = "<group>"; };
 		83AFC86F186A37780041E334 /* stringprep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringprep.h; sourceTree = "<group>"; };
 		83AFC8EF186A37BF0041E334 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPFramework.h; sourceTree = "<group>"; };
+		83B817EB1873600800E1B019 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		83B817EC1873600800E1B019 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		83B817EE187361EB00E1B019 /* STDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDModel.h; sourceTree = "<group>"; };
+		83B817EF187361EB00E1B019 /* STDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDModel.m; sourceTree = "<group>"; };
+		83B817F118736F2A00E1B019 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		83E681C81863849F00290411 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		83E681CA186384A800290411 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		83E681CC186384B800290411 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
@@ -536,10 +542,6 @@
 		83EB7A2818725FDE0093F421 /* STDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STDataModel.xcdatamodel; sourceTree = "<group>"; };
 		83EB7A33187264D40093F421 /* Chatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatroom.h; sourceTree = "<group>"; };
 		83EB7A34187264D40093F421 /* Chatroom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatroom.m; sourceTree = "<group>"; };
-		83EB7A3C1872653F0093F421 /* Message+XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+XMPP.h"; sourceTree = "<group>"; };
-		83EB7A3D1872653F0093F421 /* Message+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+XMPP.m"; sourceTree = "<group>"; };
-		83EB7A45187285A30093F421 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		83EB7A46187285A30093F421 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -547,6 +549,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B817F218736F2A00E1B019 /* CoreData.framework in Frameworks */,
 				83E681E518638A7000290411 /* Security.framework in Frameworks */,
 				83AFC8EE186A37780041E334 /* libidn.a in Frameworks */,
 				83E681D1186384CE00290411 /* libxml2.dylib in Frameworks */,
@@ -630,6 +633,8 @@
 		83861132186F9B9F001A442B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				83B817EB1873600800E1B019 /* CoreDataTableViewController.h */,
+				83B817EC1873600800E1B019 /* CoreDataTableViewController.m */,
 				83311E8018713D0100B29BB4 /* DAKeyboardControl.h */,
 				83311E8118713D0100B29BB4 /* DAKeyboardControl.m */,
 				83861133186F9BC0001A442B /* NSString+Utils.h */,
@@ -1428,6 +1433,7 @@
 		83E8A288185F7E930012068D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83B817F118736F2A00E1B019 /* CoreData.framework */,
 				83E681E418638A7000290411 /* Security.framework */,
 				83E681D0186384CE00290411 /* libxml2.dylib */,
 				83E681CE186384C200290411 /* CFNetwork.framework */,
@@ -1508,12 +1514,10 @@
 			isa = PBXGroup;
 			children = (
 				83EB7A2718725FDE0093F421 /* STDataModel.xcdatamodeld */,
-				83EB7A45187285A30093F421 /* Message.h */,
-				83EB7A46187285A30093F421 /* Message.m */,
 				83EB7A33187264D40093F421 /* Chatroom.h */,
 				83EB7A34187264D40093F421 /* Chatroom.m */,
-				83EB7A3C1872653F0093F421 /* Message+XMPP.h */,
-				83EB7A3D1872653F0093F421 /* Message+XMPP.m */,
+				83B817EE187361EB00E1B019 /* STDModel.h */,
+				83B817EF187361EB00E1B019 /* STDModel.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1656,11 +1660,11 @@
 				83AFC883186A37780041E334 /* XMPPCoreDataStorage.m in Sources */,
 				83AFC88B186A37780041E334 /* XMPPUserCoreDataStorageObject.m in Sources */,
 				83AFC8E0186A37780041E334 /* GCDAsyncSocket.m in Sources */,
+				83B817F0187361EB00E1B019 /* STDModel.m in Sources */,
 				83AFC8AA186A37780041E334 /* XMPPvCardTemp.m in Sources */,
 				83AFC8CD186A37780041E334 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				83AFC8C1186A37780041E334 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				83AFC8B7186A37780041E334 /* XMPPIQ+XEP_0066.m in Sources */,
-				83EB7A47187285A30093F421 /* Message.m in Sources */,
 				83EB7A35187264D40093F421 /* Chatroom.m in Sources */,
 				83AFC8E1186A37780041E334 /* DDAbstractDatabaseLogger.m in Sources */,
 				83AFC8DD186A37780041E334 /* XMPPIDTracker.m in Sources */,
@@ -1706,7 +1710,6 @@
 				83AFC8D7186A37780041E334 /* XMPPMessage+XEP_0308.m in Sources */,
 				83AFC8CF186A37780041E334 /* XMPPPing.m in Sources */,
 				83AFC890186A37780041E334 /* XMPPSystemInputActivityMonitor.m in Sources */,
-				83EB7A3E1872653F0093F421 /* Message+XMPP.m in Sources */,
 				83AFC8D0186A37780041E334 /* XMPPAutoTime.m in Sources */,
 				83AFC87E186A37780041E334 /* XMPPModule.m in Sources */,
 				83AFC8EC186A37780041E334 /* DDXMLNode.m in Sources */,
@@ -1765,6 +1768,7 @@
 				83AFC891186A37780041E334 /* XMPPIQ+JabberRPC.m in Sources */,
 				83AFC881186A37780041E334 /* XMPPStream.m in Sources */,
 				83AFC872186A37780041E334 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
+				83B817ED1873600800E1B019 /* CoreDataTableViewController.m in Sources */,
 				83AFC8BF186A37780041E334 /* XMPPCapabilities.xcdatamodel in Sources */,
 				83AFC89A186A37780041E334 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				83AFC897186A37780041E334 /* XMPPRoom.xcdatamodeld in Sources */,

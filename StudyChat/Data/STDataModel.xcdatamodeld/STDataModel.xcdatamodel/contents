@@ -2,21 +2,10 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Chatroom" representedClassName="Chatroom" syncable="YES">
         <attribute name="jid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="maxUsers" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="message" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="chatroom" inverseEntity="Message" syncable="YES"/>
-    </entity>
-    <entity name="Message" representedClassName="Message" syncable="YES">
-        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="from" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="to" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="chatroom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chatroom" inverseName="message" inverseEntity="Chatroom" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Chatroom" positionX="216" positionY="216" width="128" height="118"/>
-        <element name="Message" positionX="-36" positionY="162" width="128" height="133"/>
+        <element name="Chatroom" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -92,6 +92,7 @@
         <!--Class List View Controller-->
         <scene sceneID="NdG-l9-BaW">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController hidesBottomBarWhenPushed="YES" id="EgW-aa-9qo" customClass="STClassListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UxN-Bu-K5l"/>
@@ -130,7 +131,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="O0t-6F-P5Q" kind="push" id="BED-M6-2cG"/>
+                                            <segue destination="O0t-6F-P5Q" kind="push" identifier="chatroom" id="BED-M6-2cG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -188,7 +189,6 @@
                         <outlet property="toolbar" destination="3BN-Vf-92w" id="Rp7-0Y-9VW"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1754" y="13"/>
         </scene>

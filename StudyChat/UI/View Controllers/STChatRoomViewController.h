@@ -6,19 +6,19 @@
 //  Copyright (c) 2013 Chris Laganiere. All rights reserved.
 //
 
-#import "STCoreViewController.h"
-#import "STAppDelegate.h"
+#import "CoreDataTableViewController.h"
 
-@interface STChatRoomViewController : STCoreViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, STMessageDelegate>
+@interface STChatRoomViewController : CoreDataTableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
-@property (nonatomic,retain) NSString *chatWithUser;
-@property (nonatomic,retain) NSMutableArray *messagesArray;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (nonatomic,retain) NSString *chatroomJID;
+
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 - (IBAction)backButtonHit:(id)sender;
-- (id) initWithUser:(NSString *) userName;
 - (IBAction)sendMessage:(id)sender;
 
 

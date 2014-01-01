@@ -7,6 +7,7 @@
 //
 
 #import "STLoginViewController.h"
+#import "STClassListViewController.h"
 #import "SSKeychain.h"
 #import "STAppDelegate.h"
 
@@ -126,7 +127,6 @@
                                             otherButtonTitles:nil];
     [message show];
 }
-
 
 -(void)removeViewControllersAndReset
 {

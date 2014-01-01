@@ -9,14 +9,20 @@
 #import "STClassListViewController.h"
 #import "STStyleSheet.h"
 #import "STBuddyListViewController.h"
+#import "STChatRoomViewController.h"
 #import "STSettingsViewController.h"
 #import "STAppDelegate.h"
+#import "STDModel.h"
+#import "Chatroom.h"
 
 @interface STClassListViewController ()
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation STClassListViewController
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +36,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [STStyleSheet navigationColor];
+    
+    /*
+     //create sample chat room
+    Chatroom *testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
+    testRoom.title = @"Test Room";
+    testRoom.jid = @"testroom";
+    testRoom.password = @"testroom";
+    [[STDModel sharedInstance] saveChanges];
+     */
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -38,6 +54,7 @@
     self.toolbar.tintColor = [STStyleSheet tintColor];
     self.toolbar.alpha = 0.9;
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.tableView reloadData];
 }
 
 
@@ -48,47 +65,17 @@
 }
 
 #pragma mark UITableViewDataSource
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    cell.textLabel.text = @"Class Name";
-    cell.detailTextLabel.text = @"Dates & Info";
-    
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Chem 20A - Chemical Structure";
-            cell.detailTextLabel.text = @"Lec 1 MWF, Dis 1G R";
-            break;
-        case 1:
-            cell.textLabel.text = @"Math 33B - Differential Equations";
-            cell.detailTextLabel.text = @"Lec 2 MWF, Dis 2C T";
-            break;
-        case 2:
-            cell.textLabel.text = @"Com Sci 32 - Intro to Computer Science II";
-            cell.detailTextLabel.text = @"Lec 2 MW, Dis 2C R";
-            break;
-        case 3:
-            cell.textLabel.text = @"Phys 1A - Physics for Scientists And Engineers: Mechanics";
-            cell.detailTextLabel.text = @"Lec 1 MTWF, Dis 1B W";
-            break;
-    }
-    
+    Chatroom *chatroom = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = chatroom.title;
     return cell;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 4;
-}
-
 #pragma mark UITableViewDelegate
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
 #pragma mark Segues
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -107,6 +94,42 @@
         [settings.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         return;
     }
+    else if ([identifier isEqualToString:@"chatroom"])
+    {
+        [segue.destinationViewController setChatroomJID:@"14w-chem20a-1@conference.bruinchat.p1.im"];
+        return;
+    }
+}
+
+#pragma mark Fetched Results Controller to keep track of the Core Data Chatroom managed objects
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (_fetchedResultsController == nil) {
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        //access the single managed object context through model singleton
+        NSManagedObjectContext *context = [STDModel sharedInstance].managedObjectContext;
+        
+        //fetch request requires an entity description - we're only interested in Chatroom managed objects
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Chatroom" inManagedObjectContext:context];
+        fetchRequest.entity = entity;
+        
+        //we'll order the Chatroom objects in title sort order for now
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+        fetchRequest.sortDescriptors = sortDescriptors;
+        
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController.delegate = self;
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error]) {
+            
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+	return _fetchedResultsController;
 }
 
 - (IBAction)logout:(id)sender {

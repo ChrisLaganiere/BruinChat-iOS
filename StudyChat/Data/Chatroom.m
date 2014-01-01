@@ -7,15 +7,11 @@
 //
 
 #import "Chatroom.h"
-#import "Message.h"
-
 
 @implementation Chatroom
 
 @dynamic jid;
 @dynamic title;
 @dynamic password;
-@dynamic maxUsers;
-@dynamic message;
 
 @end
