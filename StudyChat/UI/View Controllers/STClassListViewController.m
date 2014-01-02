@@ -38,14 +38,14 @@
     [super viewDidLoad];
     self.view.backgroundColor = [STStyleSheet navigationColor];
     
-    /*
+    
      //create sample chat room
     Chatroom *testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
-    testRoom.title = @"Test Room";
+    testRoom.title = @"Chem 20A";
     testRoom.jid = @"testroom";
     testRoom.password = @"testroom";
     [[STDModel sharedInstance] saveChanges];
-     */
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {

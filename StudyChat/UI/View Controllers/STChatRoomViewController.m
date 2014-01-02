@@ -44,13 +44,6 @@
                             history:nil
                            password:nil];
     self.xmppRoom = xmppRoom;
-    
-}
-
--(void)contextChanged:(NSNotification *)notification
-{
-    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
-    [self.managedObjectContext performSelectorOnMainThread:selector withObject:notification waitUntilDone:YES];
 }
 
 - (IBAction)sendMessage:(id)sender {
@@ -142,15 +135,11 @@
     [self.xmppRoom leaveRoom];
     [self.xmppRoom deactivate];
     [self.xmppRoom removeDelegate:self];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextChanged:) name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -276,11 +265,15 @@
         return _managedObjectContext;
     }
     XMPPCoreDataStorage *roomStorage = self.xmppRoom.xmppRoomStorage;
+    NSManagedObjectContext *context = [roomStorage mainThreadManagedObjectContext];
+    _managedObjectContext = context;
+    /*
     NSPersistentStoreCoordinator *coordinator = roomStorage.persistentStoreCoordinator;
     if (coordinator != nil) {
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
+     */
     return _managedObjectContext;
 }
 

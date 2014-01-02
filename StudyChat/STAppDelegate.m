@@ -16,6 +16,9 @@
 #import <CFNetwork/CFNetwork.h>
 #import "XMPPReconnect.h"
 #import "XMPPRosterCoreDataStorage.h"
+#import "XMPPvCardAvatarModule.h"
+#import "XMPPvCardCoreDataStorage.h"
+#import "XMPPCapabilitiesCoreDataStorage.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -23,6 +26,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #else
 static const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
+
+#define HostName @"@bruinchat.p1.im"
 
 @interface STAppDelegate()
 - (void)setupStream;
@@ -33,6 +38,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @implementation STAppDelegate
 
 @synthesize xmppStream;
+@synthesize xmppvCardTempModule;
+@synthesize xmppvCardAvatarModule;
+@synthesize xmppCapabilities;
+@synthesize xmppCapabilitiesStorage;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Core Data
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +50,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
 	return [self.xmppRosterStorage mainThreadManagedObjectContext];
 }
-
+- (NSManagedObjectContext *)managedObjectContext_capabilities
+{
+	return [xmppCapabilitiesStorage mainThreadManagedObjectContext];
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Private
@@ -51,7 +63,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (!xmppStream) {
         NSAssert(xmppStream == nil, @"Method setupStream invoked multiple times");
         xmppStream = [[XMPPStream alloc] init];
-        [xmppStream setHostName:@"bruinchat.p1.im"];
+        [xmppStream setHostName:HostName];
         [xmppStream setHostPort:5222];
         
         // Setup reconnect
@@ -79,9 +91,46 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self.xmppRoster.autoFetchRoster = YES;
         self.xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = YES;
         
+        // Setup vCard support
+        //
+        // The vCard Avatar module works in conjuction with the standard vCard Temp module to download user avatars.
+        // The XMPPRoster will automatically integrate with XMPPvCardAvatarModule to cache roster photos in the roster.
+        
+        xmppvCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
+        xmppvCardTempModule = [[XMPPvCardTempModule alloc] initWithvCardStorage:xmppvCardStorage];
+        xmppvCardAvatarModule = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:xmppvCardTempModule];
+        
+        // Setup capabilities
+        //
+        // The XMPPCapabilities module handles all the complex hashing of the caps protocol (XEP-0115).
+        // Basically, when other clients broadcast their presence on the network
+        // they include information about what capabilities their client supports (audio, video, file transfer, etc).
+        // But as you can imagine, this list starts to get pretty big.
+        // This is where the hashing stuff comes into play.
+        // Most people running the same version of the same client are going to have the same list of capabilities.
+        // So the protocol defines a standardized way to hash the list of capabilities.
+        // Clients then broadcast the tiny hash instead of the big list.
+        // The XMPPCapabilities protocol automatically handles figuring out what these hashes mean,
+        // and also persistently storing the hashes so lookups aren't needed in the future.
+        //
+        // Similarly to the roster, the storage of the module is abstracted.
+        // You are strongly encouraged to persist caps information across sessions.
+        //
+        // The XMPPCapabilitiesCoreDataStorage is an ideal solution.
+        // It can also be shared amongst multiple streams to further reduce hash lookups.
+        
+        xmppCapabilitiesStorage = [XMPPCapabilitiesCoreDataStorage sharedInstance];
+        xmppCapabilities = [[XMPPCapabilities alloc] initWithCapabilitiesStorage:xmppCapabilitiesStorage];
+        
+        xmppCapabilities.autoFetchHashedCapabilities = YES;
+        xmppCapabilities.autoFetchNonHashedCapabilities = NO;
+        
         // Activate xmpp modules
         [self.xmppReconnect activate:xmppStream];
         [self.xmppRoster activate:xmppStream];
+        [xmppvCardTempModule   activate:xmppStream];
+        [xmppvCardAvatarModule activate:xmppStream];
+        [xmppCapabilities      activate:xmppStream];
         
         // Add ourself as a delegate to anything we may be interested in
         
@@ -94,8 +143,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	[xmppStream removeDelegate:self];
 	[self.xmppRoster removeDelegate:self];
 	
-	[self.xmppReconnect         deactivate];
-	[self.xmppRoster            deactivate];
+	[self.xmppReconnect    deactivate];
+	[self.xmppRoster       deactivate];
+	[xmppvCardTempModule   deactivate];
+	[xmppvCardAvatarModule deactivate];
+	[xmppCapabilities      deactivate];
 	
 	[xmppStream disconnect];
     
@@ -103,6 +155,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	self.xmppReconnect = nil;
     self.xmppRoster = nil;
 	self.xmppRosterStorage = nil;
+	xmppvCardStorage = nil;
+    xmppvCardTempModule = nil;
+	xmppvCardAvatarModule = nil;
+	xmppCapabilities = nil;
+	xmppCapabilitiesStorage = nil;
 }
 - (void)goOnline {
     XMPPPresence *presence = [XMPPPresence presence];
@@ -129,7 +186,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         return NO;
     }
     
-    NSString *hostName = @"@bruinchat.p1.im";
+    NSString *hostName = HostName;
     NSString *jID = [NSString stringWithFormat:@"%@%@",userID,hostName];
     [xmppStream setMyJID:[XMPPJID jidWithString:jID]];
     password = userPass;

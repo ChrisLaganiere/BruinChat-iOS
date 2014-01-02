@@ -20,6 +20,12 @@
 @interface STAppDelegate : NSObject <UIApplicationDelegate, XMPPRosterDelegate> {
     XMPPStream *xmppStream;
     
+    XMPPvCardCoreDataStorage *xmppvCardStorage;
+	XMPPvCardTempModule *xmppvCardTempModule;
+	XMPPvCardAvatarModule *xmppvCardAvatarModule;
+	XMPPCapabilities *xmppCapabilities;
+	XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
+    
     NSString *password;
     BOOL isOpen;
 }
@@ -29,10 +35,15 @@
 @property (nonatomic, strong) XMPPReconnect *xmppReconnect;
 @property (nonatomic, strong) XMPPRoster *xmppRoster;
 @property (nonatomic, strong) XMPPRosterCoreDataStorage *xmppRosterStorage;
+@property (nonatomic, strong, readonly) XMPPvCardTempModule *xmppvCardTempModule;
+@property (nonatomic, strong, readonly) XMPPvCardAvatarModule *xmppvCardAvatarModule;
+@property (nonatomic, strong, readonly) XMPPCapabilities *xmppCapabilities;
+@property (nonatomic, strong, readonly) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
 
 @property (nonatomic, assign)id _loginDelegate;
 
 - (NSManagedObjectContext *)managedObjectContext_roster;
+- (NSManagedObjectContext *)managedObjectContext_capabilities;
 
 - (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass;
 //-(void)getListOfChatrooms;
