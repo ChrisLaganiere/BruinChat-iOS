@@ -38,14 +38,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [STStyleSheet navigationColor];
     
-    
-     //create sample chat room
-    Chatroom *testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
-    testRoom.title = @"Chem 20A";
-    testRoom.jid = @"testroom";
-    testRoom.password = @"testroom";
-    [[STDModel sharedInstance] saveChanges];
-    
+     //create sample chatrooms
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"infoLoaded"]) {
+        [self createSampleChatrooms];
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"infoLoaded"];
+    }
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -55,6 +52,35 @@
     self.toolbar.alpha = 0.9;
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
     [self.tableView reloadData];
+}
+
+-(void)createSampleChatrooms
+{
+    Chatroom *testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
+    testRoom.title = @"Chem 20A - Chemical Structure";
+    testRoom.subtitle = @"Lec 1 MWF, Dis 1G R";
+    testRoom.jid = @"14w-chem20a-1";
+    testRoom.password = @"";
+    
+    testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
+    testRoom.title = @"Math 33B - Differential Equations";
+    testRoom.subtitle = @"Lec 2 MWF, Dis 2C T";
+    testRoom.jid = @"14w-ma33b-2";
+    testRoom.password = @"";
+    
+    testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
+    testRoom.title = @"Com Sci 32 - Intro to Computer Science II";
+    testRoom.subtitle = @"Lec 2 MW, Dis 2C R";
+    testRoom.jid = @"14w-cs32-2";
+    testRoom.password = @"";
+    
+    testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
+    testRoom.title = @"Phys 1A - Physics for Scientists And Engineers: Mechanics";
+    testRoom.subtitle = @"Lec 1 MTWF, Dis 1B W";
+    testRoom.jid = @"14w-phy1a-1";
+    testRoom.password = @"";
+    
+    [[STDModel sharedInstance] saveChanges];
 }
 
 
@@ -70,6 +96,7 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
     Chatroom *chatroom = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = chatroom.title;
+    cell.detailTextLabel.text = chatroom.subtitle;
     return cell;
 }
 #pragma mark UITableViewDelegate
@@ -96,7 +123,10 @@
     }
     else if ([identifier isEqualToString:@"chatroom"])
     {
-        [segue.destinationViewController setChatroomJID:@"14w-chem20a-1@conference.bruinchat.p1.im"];
+        NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+        Chatroom *chatroom = [[self fetchedResultsController] objectAtIndexPath:selectedIndexPath];
+        NSString *chatroomJid = chatroom.jid;
+        [segue.destinationViewController setChatroomJid:chatroomJid];
         return;
     }
 }

@@ -27,7 +27,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 static const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
 
-#define HostName @"@bruinchat.p1.im"
 
 @interface STAppDelegate()
 - (void)setupStream;
@@ -125,17 +124,44 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         xmppCapabilities.autoFetchHashedCapabilities = YES;
         xmppCapabilities.autoFetchNonHashedCapabilities = NO;
         
+        // Setup message archiving
+        //
+        /**
+         * XEP-0136 Message Archiving outlines a complex protocol for:
+         *
+         *  - archiving messages on the xmpp server
+         *  - allowing the client to sync it's client-side cache with the server side archive
+         *  - allowing the client to configure archiving preferences (default, per contact, etc)
+         *
+         * There are times when this complication isn't necessary or possible.
+         * E.g. the server doesn't support the message archiving protocol.
+         *
+         * In this case you can simply set clientSideMessageArchivingOnly to YES,
+         * and this instance won't bother with any of the server protocol stuff.
+         * It will simply arhive outgoing and incoming messages.
+         *
+         * Note: Even when clientSideMessageArchivingOnly is YES,
+         *       you can still take advantage of the preference methods to configure various options,
+         *       such as how long to store messages, prefs for individual contacts, etc.
+         **/
+        xmppMessageArchivingStorage = [XMPPMessageArchivingCoreDataStorage sharedInstance];
+        xmppMessageArchivingModule = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:xmppMessageArchivingStorage];
+        [xmppMessageArchivingModule setClientSideMessageArchivingOnly:YES];
+        
+        
         // Activate xmpp modules
         [self.xmppReconnect activate:xmppStream];
         [self.xmppRoster activate:xmppStream];
         [xmppvCardTempModule   activate:xmppStream];
         [xmppvCardAvatarModule activate:xmppStream];
         [xmppCapabilities      activate:xmppStream];
+        [xmppMessageArchivingModule activate:xmppStream];
         
         // Add ourself as a delegate to anything we may be interested in
         
         [xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
         [self.xmppRoster addDelegate:self delegateQueue:dispatch_get_main_queue()];
+        [xmppMessageArchivingModule  addDelegate:self delegateQueue:dispatch_get_main_queue()];
     }
 }
 - (void)teardownStream
@@ -187,7 +213,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     NSString *hostName = HostName;
-    NSString *jID = [NSString stringWithFormat:@"%@%@",userID,hostName];
+    NSString *jID = [NSString stringWithFormat:@"%@@%@",userID,hostName];
     [xmppStream setMyJID:[XMPPJID jidWithString:jID]];
     password = userPass;
     NSError *error = nil;

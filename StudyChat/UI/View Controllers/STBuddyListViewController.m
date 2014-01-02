@@ -7,6 +7,7 @@
 //
 
 #import "STBuddyListViewController.h"
+#import "STUserChatViewController.h"
 #import "DDLog.h"
 
 // Log levels: off, error, warn, info, verbose
@@ -23,15 +24,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation STBuddyListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,9 +33,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -157,7 +146,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	
 	XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
 	
-	cell.textLabel.text = user.displayName;
+    if (user.nickname.length > 0) {
+        cell.textLabel.text = user.nickname;
+        cell.detailTextLabel.text = user.displayName;
+    } else {
+        //there's no nickname
+        cell.textLabel.text = user.displayName;
+    }
 	[self configurePhotoForCell:cell user:user];
 	
 	return cell;
@@ -198,6 +193,23 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	return 0;
 }
 
+#pragma mark Segues
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSString *identifier = segue.identifier;
+    
+    if ([identifier isEqualToString:@"userChat"])
+    {
+        NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+        XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:selectedIndexPath];
+        
+        STUserChatViewController *userChat = segue.destinationViewController;
+        userChat.userJID = user.jidStr;
+        userChat.userNickname = user.nickname;
+        return;
+    }
+}
 
 #pragma mark UITableViewDelegate
 

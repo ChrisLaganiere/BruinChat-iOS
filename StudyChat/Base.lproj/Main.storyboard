@@ -92,7 +92,6 @@
         <!--Class List View Controller-->
         <scene sceneID="NdG-l9-BaW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController hidesBottomBarWhenPushed="YES" id="EgW-aa-9qo" customClass="STClassListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UxN-Bu-K5l"/>
@@ -176,7 +175,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Nze-gl-kIx">
-                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="LLl-ab-8Gu">
+                        <barButtonItem key="rightBarButtonItem" image="friends.png" id="LLl-ab-8Gu">
                             <connections>
                                 <segue destination="Lfd-DD-AGz" kind="modal" identifier="buddyList" id="bfL-DE-kms"/>
                             </connections>
@@ -189,6 +188,7 @@
                         <outlet property="toolbar" destination="3BN-Vf-92w" id="Rp7-0Y-9VW"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1754" y="13"/>
         </scene>
@@ -237,13 +237,16 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="kxL-16-K6g">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="kxL-16-K6g">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kxL-16-K6g" id="V2Q-kN-a2c">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="rDh-ld-nAq" kind="push" identifier="userChat" id="mQu-1n-TNq"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -260,11 +263,7 @@
                                 <action selector="done:" destination="jac-3q-TCy" id="jDv-aj-boi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="dw3-Si-8de">
-                            <connections>
-                                <segue destination="rDh-ld-nAq" kind="push" id="A1I-De-tmR"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="dw3-Si-8de"/>
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="SYs-2F-Khw" id="JbQ-Yk-QCq"/>
@@ -276,10 +275,10 @@
             </objects>
             <point key="canvasLocation" x="2138" y="-684"/>
         </scene>
-        <!--Study Group View Controller - Study Group-->
+        <!--User Chat View Controller - User Chat-->
         <scene sceneID="NRH-XQ-B3s">
             <objects>
-                <viewController id="rDh-ld-nAq" customClass="STStudyGroupViewController" sceneMemberID="viewController">
+                <viewController id="rDh-ld-nAq" customClass="STUserChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cms-JJ-yIe"/>
                         <viewControllerLayoutGuide type="bottom" id="6Wz-fv-wYP"/>
@@ -289,7 +288,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Study Group" id="WtC-tc-wFJ"/>
+                    <navigationItem key="navigationItem" title="User Chat" id="WtC-tc-wFJ">
+                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="wZd-k9-57C">
+                            <connections>
+                                <action selector="backButtonHit:" destination="rDh-ld-nAq" id="D0H-LU-Uqt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="wZd-k9-57C" id="LLv-Fu-YpU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmB-7U-M2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -465,6 +473,7 @@
     <resources>
         <image name="BruinChat.png" width="264" height="44"/>
         <image name="buddy.png" width="19" height="19"/>
+        <image name="friends.png" width="25" height="19"/>
         <image name="icon-back.png" width="19" height="19"/>
         <image name="icon-logout.png" width="19" height="19"/>
         <image name="icon-settings.png" width="19" height="19"/>

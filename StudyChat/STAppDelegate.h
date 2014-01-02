@@ -10,6 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "XMPPFramework.h"
 
+#define HostName @"bruinchat.p1.im"
+
 @class STLoginViewController;
 
 @protocol STLoginDelegate
@@ -25,6 +27,8 @@
 	XMPPvCardAvatarModule *xmppvCardAvatarModule;
 	XMPPCapabilities *xmppCapabilities;
 	XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
+    XMPPMessageArchivingCoreDataStorage *xmppMessageArchivingStorage;
+    XMPPMessageArchiving *xmppMessageArchivingModule;
     
     NSString *password;
     BOOL isOpen;

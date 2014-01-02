@@ -42,4 +42,6 @@
 #import "XMPPRoomCoreDataStorage.h"
 
 #import "XMPPRoom.h"
-#import "XMPPRoomMemoryStorage.h"
+
+#import "XMPPMessageArchiving.h"
+#import "XMPPMessageArchivingCoreDataStorage.h"
