@@ -142,7 +142,7 @@
         cell = [[STChatBubbleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSString *sender = messageObject.bareJidStr;
+    //NSString *sender = messageObject.bareJidStr;
     NSString *message = [messageObject.message stringValue];
     NSString *time = [NSDateFormatter localizedStringFromDate:messageObject.timestamp dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     
@@ -185,7 +185,7 @@
         [cell.messageContentView setTextContainerInset:UIEdgeInsetsZero];
     }
     cell.bgImageView.image = bgImage;
-    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@, %@",sender,time];
+    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@",time];
     
     //rotate to fit upside down table view!
     cell.transform = CGAffineTransformMakeScale(1, -1);

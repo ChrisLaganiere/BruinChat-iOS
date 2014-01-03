@@ -53,7 +53,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger sections = 1;//[[self.fetchedResultsController sections] count];
+    NSInteger sections = [[self.fetchedResultsController sections] count];
     return sections;
 }
 

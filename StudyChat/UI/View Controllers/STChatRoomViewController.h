@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (nonatomic,retain) NSString *chatroomJid;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

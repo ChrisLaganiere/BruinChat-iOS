@@ -61,13 +61,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
-    if (self.chatroomJid) {
-        [self startChatroom:self.chatroomJid];
-    } else {
-        //error
-        return;
-    }
+    [self.view removeKeyboardControl];
+    [self.xmppRoom leaveRoom];
+    [self.xmppRoom deactivate];
+    [self.xmppRoom removeDelegate:self];
+    self.xmppRoom = nil;
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.tableView removeFromSuperview];
+    [self.toolBar removeFromSuperview];
+    [self.messageField removeFromSuperview];
+    [self.sendButton removeFromSuperview];
+    self.tableView = nil;
+    self.toolBar = nil;
+    self.messageField = nil;
+    self.sendButton = nil;
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     //set up layout
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
@@ -91,6 +110,7 @@
                                                                      40.0f)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:toolBar];
+    self.toolBar = toolBar;
     
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f,
                                                                            6.0f,
@@ -132,20 +152,13 @@
         tableViewFrame.size.height = toolBarFrame.origin.y;
         tableView.frame = tableViewFrame;
     }];
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self.view removeKeyboardControl];
-    [self.xmppRoom leaveRoom];
-    [self.xmppRoom deactivate];
-    [self.xmppRoom removeDelegate:self];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
+
+    //start chatroom
+    if (self.chatroomJid) {
+        [self startChatroom:self.chatroomJid];
+    } else {
+        //error
+    }
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -241,7 +254,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.messageField resignFirstResponder];
 }
 
 #pragma mark UITextField Delegate
@@ -300,4 +312,6 @@
     }
 	return _fetchedResultsController;
 }
+
+
 @end

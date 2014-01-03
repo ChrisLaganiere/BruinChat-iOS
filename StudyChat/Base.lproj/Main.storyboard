@@ -211,6 +211,7 @@
                                 <action selector="backButtonHit:" destination="O0t-6F-P5Q" id="43N-AB-xIB"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="6Jq-oP-vlJ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="xg2-ng-joo" id="l3Q-qe-y3C"/>
@@ -273,7 +274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3uh-yz-RGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2138" y="-684"/>
+            <point key="canvasLocation" x="2138" y="-988"/>
         </scene>
         <!--User Chat View Controller - User Chat-->
         <scene sceneID="NRH-XQ-B3s">
@@ -301,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmB-7U-M2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2538" y="-684"/>
+            <point key="canvasLocation" x="2538" y="-988"/>
         </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="wCu-R8-H7F">
@@ -449,7 +450,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I93-t6-mRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1698" y="-684"/>
+            <point key="canvasLocation" x="1698" y="-988"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9wW-cA-Kmj">
@@ -473,7 +474,7 @@
     <resources>
         <image name="BruinChat.png" width="264" height="44"/>
         <image name="buddy.png" width="19" height="19"/>
-        <image name="friends.png" width="25" height="19"/>
+        <image name="friends.png" width="25" height="25"/>
         <image name="icon-back.png" width="19" height="19"/>
         <image name="icon-logout.png" width="19" height="19"/>
         <image name="icon-settings.png" width="19" height="19"/>
