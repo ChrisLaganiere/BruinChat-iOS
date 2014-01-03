@@ -211,10 +211,15 @@
                                 <action selector="backButtonHit:" destination="O0t-6F-P5Q" id="43N-AB-xIB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="6Jq-oP-vlJ"/>
+                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="6Jq-oP-vlJ">
+                            <connections>
+                                <action selector="usersButtonHit:" destination="O0t-6F-P5Q" id="11z-jz-SxW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="xg2-ng-joo" id="l3Q-qe-y3C"/>
+                        <outlet property="usersButton" destination="6Jq-oP-vlJ" id="zW1-hW-wTe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFJ-XF-zr9" userLabel="First Responder" sceneMemberID="firstResponder"/>

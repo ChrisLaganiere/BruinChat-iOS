@@ -14,13 +14,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *usersButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (weak, nonatomic) IBOutlet UITableView *usersTable;
 @property (nonatomic,retain) NSString *chatroomJid;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)backButtonHit:(id)sender;
 - (IBAction)sendMessage:(id)sender;
+- (IBAction)usersButtonHit:(id)sender;
 
 
 @end
