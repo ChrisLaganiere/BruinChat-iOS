@@ -71,7 +71,9 @@
         [self putUpUsersView];
     } else {
         //remove
-        [UIView animateWithDuration:0.5 animations:^{self.usersView.frame = CGRectMake(220, 64, 100, 0);} completion:^(BOOL finished){
+        [UIView animateWithDuration:0.5 animations:^{
+            self.usersView.frame = CGRectMake(220, 64, 200, 0);
+        } completion:^(BOOL finished){
             if (finished)
                 [self takeDownUsersView];
         }];
