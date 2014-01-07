@@ -88,8 +88,7 @@
     
     UITableView *usersTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, usersView.bounds.size.width, usersView.bounds.size.height)];
     usersTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    usersTable.autoresizesSubviews = false;
+    usersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     usersTable.dataSource = self;
     usersTable.delegate = self;
@@ -166,6 +165,7 @@
                                                                      self.view.bounds.size.width,
                                                                      40.0f)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    toolBar.barTintColor = [STStyleSheet navigationColor];
     [self.view addSubview:toolBar];
     self.toolBar = toolBar;
     
@@ -176,6 +176,7 @@
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     textField.delegate = self;
+    textField.backgroundColor = [STStyleSheet textFieldColor];
     [toolBar addSubview:textField];
     self.messageField = textField;
     
@@ -186,6 +187,8 @@
                                   6.0f,
                                   58.0f,
                                   29.0f);
+    sendButton.tintColor = [STStyleSheet tintColor];
+    [sendButton.titleLabel setFont:[STStyleSheet labelFont]];
     [sendButton addTarget:self action:@selector(sendMessage:) forControlEvents:(UIControlEvents)UIControlEventTouchUpInside];
     [toolBar addSubview:sendButton];
     self.sendButton = sendButton;
@@ -419,6 +422,8 @@
         //fetch request requires an entity description - we're only interested in Chatroom managed objects
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPRoomMessageCoreDataStorageObject" inManagedObjectContext:context];
         fetchRequest.entity = entity;
+        
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"nickname != nil"];
         
         //we'll order the Chatroom objects in title sort order for now
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"localTimestamp" ascending:NO];

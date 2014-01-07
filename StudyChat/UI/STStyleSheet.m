@@ -22,10 +22,21 @@
     UIColor *navColor = [UIColor whiteColor];
     return navColor;
 }
++(UIColor*)textFieldColor
+{
+    //light blue
+    UIColor *navColor = [UIColor colorWithRed:0.835 green:0.882 blue:1 alpha:1]; /*#d5e1ff*/
+    return navColor;
+}
 +(UIFont *)chatFont
 {
     UIFont *chatFont = [UIFont boldSystemFontOfSize:13];
     return chatFont;
+}
++(UIFont *)labelFont
+{
+    UIFont *labelFont = [UIFont boldSystemFontOfSize:15];
+    return labelFont;
 }
 
 @end

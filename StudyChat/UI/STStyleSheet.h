@@ -12,6 +12,8 @@
 
 +(UIColor*)navigationColor;
 +(UIColor*)tintColor;
++(UIColor*)textFieldColor;
 +(UIFont *)chatFont;
++(UIFont *)labelFont;
 
 @end
