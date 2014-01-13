@@ -226,7 +226,7 @@
             </objects>
             <point key="canvasLocation" x="2397" y="1"/>
         </scene>
-        <!--Buddy List View Controller - Buddy List-->
+        <!--Buddy List View Controller - Friends-->
         <scene sceneID="PHG-C0-1H3">
             <objects>
                 <viewController id="jac-3q-TCy" customClass="STBuddyListViewController" sceneMemberID="viewController">
@@ -263,7 +263,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Buddy List" id="l65-wq-sYL">
+                    <navigationItem key="navigationItem" title="Friends" id="l65-wq-sYL">
                         <barButtonItem key="leftBarButtonItem" title="Done" id="SYs-2F-Khw">
                             <connections>
                                 <action selector="done:" destination="jac-3q-TCy" id="jDv-aj-boi"/>

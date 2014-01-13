@@ -280,7 +280,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self._loginDelegate = nil;
     }
     [self goOnline];
-    //[self getListOfChatrooms];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
@@ -296,28 +295,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
 }
 
-/*
-//////XMPP GROUPCHAT TRIAL (currently unused)
--(void)getListOfChatrooms
-{
-    NSString* server = @"conference.bruinchat.p1.im"; //or whatever the server address for muc is
-    XMPPJID *servrJID = [XMPPJID jidWithString:server];
-    XMPPIQ *iq = [XMPPIQ iqWithType:@"get" to:servrJID];
-    [iq addAttributeWithName:@"from" stringValue:[xmppStream myJID].full];
-    NSXMLElement *query = [NSXMLElement elementWithName:@"query"];
-    [query addAttributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/disco#items"];
-    [iq addChild:query];
-    [xmppStream sendElement:iq];
-}
-- (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq{
-    NSLog(@"CHAT ROOM LIST??");
-    DDLogVerbose(@"%@", [iq description]);
-    return NO;
-}
-
-//////////
-*/
- 
 - (void)applicationWillResignActive:(UIApplication *)application {
     NSLog(@"applicationWillResignActive");
     [self disconnect];

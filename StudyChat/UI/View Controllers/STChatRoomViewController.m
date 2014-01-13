@@ -89,6 +89,7 @@
     UITableView *usersTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, usersView.bounds.size.width, usersView.bounds.size.height)];
     usersTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     usersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    usersTable.alwaysBounceVertical = NO;
     
     usersTable.dataSource = self;
     usersTable.delegate = self;
@@ -264,6 +265,9 @@
             NSLog(@"defaultPerson");
         }
 	}
+    cell.imageView.backgroundColor=[UIColor clearColor];
+    [cell.imageView.layer setCornerRadius:8.0f];
+    [cell.imageView.layer setMasksToBounds:YES];
 }
 
 #pragma mark UITableViewDataSource
@@ -336,7 +340,9 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         cell.textLabel.text = occupant.nickname;
-        cell.detailTextLabel.text = occupant.affiliation;
+        if (![occupant.affiliation isEqual: @"none"]) {
+            cell.detailTextLabel.text = occupant.affiliation;
+        }
         UIImage *backgroundImage = [UIImage imageNamed:@"usersBack.png"];
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.image = backgroundImage;
@@ -381,6 +387,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (tableView == self.usersTable) {
+        XMPPRoomOccupantCoreDataStorageObject *user = [self.usersFetchedResultsController objectAtIndexPath:indexPath];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:user.nickname
+		                                                    message:@"Add as friend"
+		                                                   delegate:nil
+		                                          cancelButtonTitle:@"Cancel"
+		                                          otherButtonTitles:@"Add", nil];
+		[alertView show];
+    }
 }
 
 #pragma mark UITextField Delegate

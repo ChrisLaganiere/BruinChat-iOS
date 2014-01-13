@@ -30,7 +30,7 @@
 }
 +(UIFont *)chatFont
 {
-    UIFont *chatFont = [UIFont boldSystemFontOfSize:13];
+    UIFont *chatFont = [UIFont systemFontOfSize:15];
     return chatFont;
 }
 +(UIFont *)labelFont
