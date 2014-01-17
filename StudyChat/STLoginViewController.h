@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property CGPoint svos;
 - (IBAction)login:(id)sender;
 - (IBAction)backgroundTap:(id)sender;

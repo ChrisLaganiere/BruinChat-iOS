@@ -262,7 +262,6 @@
 			cell.imageView.image = [UIImage imageWithData:photoData];
 		else {
 			cell.imageView.image = [UIImage imageNamed:@"defaultPerson"];
-            NSLog(@"defaultPerson");
         }
 	}
     cell.imageView.backgroundColor=[UIColor clearColor];

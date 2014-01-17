@@ -20,6 +20,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMl-YE-M9e">
+                                        <rect key="frame" x="137" y="465" width="57" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Register">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Ml7-u1-zI4" kind="modal" id="WaI-zD-B5A"/>
+                                        </connections>
+                                    </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="UCLA Logon ID" minimumFontSize="21" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-AN-AT4">
                                         <rect key="frame" x="40" y="237" width="240" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -75,6 +85,7 @@
                         <outlet property="activityIndicator" destination="NJO-BJ-db4" id="RZ3-2M-6tg"/>
                         <outlet property="loginButton" destination="GRK-5g-KaB" id="ljd-2A-WaV"/>
                         <outlet property="passwordField" destination="qny-17-kYt" id="HQy-mw-jXh"/>
+                        <outlet property="registerButton" destination="nMl-YE-M9e" id="HIv-Bt-W32"/>
                         <outlet property="scrollView" destination="8vQ-aR-Laa" id="EH4-W2-nQ4"/>
                         <outlet property="usernameField" destination="WoK-AN-AT4" id="pDw-Tx-nHL"/>
                         <segue destination="ae4-nA-IUq" kind="modal" identifier="loginSuccess" modalTransitionStyle="crossDissolve" id="UOg-dp-lOA"/>
@@ -88,6 +99,110 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="757" y="13"/>
+        </scene>
+        <!--Register View Controller-->
+        <scene sceneID="JuT-gL-iRR">
+            <objects>
+                <viewController id="vVu-ZN-mOA" customClass="STRegisterViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oUH-Mb-S19"/>
+                        <viewControllerLayoutGuide type="bottom" id="EVL-ar-WmJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dw5-EW-feA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAn-xu-lA1">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PvV-tg-4m6">
+                                        <rect key="frame" x="193" y="274" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Chatroom Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHV-MF-B94">
+                                        <rect key="frame" x="94" y="233" width="191" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vVu-ZN-mOA" id="Arl-pf-TVl"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UCLA Logon ID" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ng-0W-eMT">
+                                        <rect key="frame" x="36" y="141" width="161" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vVu-ZN-mOA" id="fML-nj-699"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sC-nv-Gcn">
+                                        <rect key="frame" x="136" y="271" width="49" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Submit">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="submit:" destination="vVu-ZN-mOA" eventType="touchUpInside" id="7KA-9T-kLN"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@ucla.edu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcy-Tk-0ob">
+                                        <rect key="frame" x="198" y="145" width="87" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTh-Iu-ujl">
+                                        <rect key="frame" x="36" y="187" width="249" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vVu-ZN-mOA" id="OL2-Rz-XaP"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultPerson.png" translatesAutoresizingMaskIntoConstraints="NO" id="D9B-I0-I3L">
+                                        <rect key="frame" x="36" y="223" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="nGd-y7-biz" appends="YES" id="QgU-Ho-DNA"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="PhU-F1-81b">
+                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="JQ4-zF-lMh">
+                            <connections>
+                                <action selector="cancelAndDismiss:" destination="vVu-ZN-mOA" id="S96-KS-nhF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="UCLALogonIDTextField" destination="0ng-0W-eMT" id="JAQ-vG-Yoi"/>
+                        <outlet property="activityIndicator" destination="PvV-tg-4m6" id="rub-0M-rFT"/>
+                        <outlet property="cancelButton" destination="JQ4-zF-lMh" id="Ijx-VX-PVg"/>
+                        <outlet property="chatroomNicknameTextField" destination="FHV-MF-B94" id="Cse-Dy-glt"/>
+                        <outlet property="passwordTextField" destination="PTh-Iu-ujl" id="N5y-kz-eeo"/>
+                        <outlet property="scrollView" destination="lAn-xu-lA1" id="Ztw-iv-G5l"/>
+                        <outlet property="submitButton" destination="8sC-nv-Gcn" id="M5c-VP-x9a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M8s-J6-BVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="nGd-y7-biz">
+                    <connections>
+                        <action selector="backgroundTouch:" destination="vVu-ZN-mOA" id="Dw8-f5-q2d"/>
+                        <outlet property="delegate" destination="vVu-ZN-mOA" id="Td1-ro-8Pi"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1496" y="743"/>
         </scene>
         <!--Class List View Controller-->
         <scene sceneID="NdG-l9-BaW">
@@ -419,7 +534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pgt-qD-0qE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2078" y="713"/>
+            <point key="canvasLocation" x="2604" y="713"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GaT-UW-va6">
@@ -473,12 +588,31 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xJG-Ae-yD8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1698" y="713"/>
+            <point key="canvasLocation" x="2224" y="713"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="X5e-Pi-ezA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ml7-u1-zI4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pdF-Ha-tE3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vVu-ZN-mOA" kind="relationship" relationship="rootViewController" id="kWF-wp-Nwc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Onv-xd-aXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="970" y="743"/>
         </scene>
     </scenes>
     <resources>
         <image name="BruinChat.png" width="264" height="44"/>
         <image name="buddy.png" width="19" height="19"/>
+        <image name="defaultPerson.png" width="100" height="100"/>
         <image name="friends.png" width="25" height="25"/>
         <image name="icon-back.png" width="19" height="19"/>
         <image name="icon-logout.png" width="19" height="19"/>

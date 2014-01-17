@@ -226,9 +226,18 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                                   otherButtonTitles:nil];
         [alertView show];
         
+        
         return NO;
     }
     return YES;
+}
+- (void)xmppStreamConnectDidTimeout:(XMPPStream *)sender
+{
+    NSLog(@"could not connect");
+    if (self._loginDelegate) {
+        [self._loginDelegate loginFailed];
+        self._loginDelegate = nil;
+    }
 }
 -(void)autoConnect
 {
@@ -262,7 +271,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self goOffline];
     [xmppStream disconnect];
 }
-
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
     isOpen = YES;
