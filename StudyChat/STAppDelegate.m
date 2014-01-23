@@ -273,7 +273,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    isOpen = YES;
+    self.isOpen = YES;
     NSError *error = nil;
     NSLog(@"xmppStreamDidConnect");
     if (![[self xmppStream] authenticateWithPassword:password error:&error]) {

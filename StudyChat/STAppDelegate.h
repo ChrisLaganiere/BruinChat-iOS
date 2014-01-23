@@ -31,8 +31,8 @@
     XMPPMessageArchiving *xmppMessageArchivingModule;
     
     NSString *password;
-    BOOL isOpen;
 }
+@property BOOL isOpen;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet STLoginViewController *firstViewController;
 @property (nonatomic, strong, readonly) XMPPStream *xmppStream;
@@ -51,5 +51,6 @@
 
 - (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass;
 //-(void)getListOfChatrooms;
+-(void)teardownAndDismissAllButLogin;
 - (void)disconnect;
 @end

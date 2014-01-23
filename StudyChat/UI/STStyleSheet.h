@@ -16,4 +16,6 @@
 +(UIFont *)chatFont;
 +(UIFont *)labelFont;
 
++(void)styleRoundCorneredView:(UIView *)view;
+
 @end

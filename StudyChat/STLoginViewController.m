@@ -58,6 +58,10 @@
 
 - (IBAction)login:(id)sender
 {
+    if ([[self appDelegate] isOpen]) {
+        [[self appDelegate] teardownAndDismissAllButLogin];
+    }
+    
     BOOL isUserValid = NO;
     
     //lower textfields

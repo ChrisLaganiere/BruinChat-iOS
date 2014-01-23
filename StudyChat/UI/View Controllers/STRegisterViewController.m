@@ -9,8 +9,11 @@
 #import "STRegisterViewController.h"
 #import "DAKeyboardControl.h"
 #import "STStyleSheet.h"
+#import "UIImage+Thumbnail.h"
 
 @interface STRegisterViewController ()
+
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
 @end
 
@@ -23,6 +26,8 @@
     
     //Center scroll view (containing log in stuff)
     self.svos = CGPointMake(0, self.scrollView.contentOffset.y);
+    
+    [STStyleSheet styleRoundCorneredView:self.userPhotoContainerView];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -71,4 +76,81 @@
     }
     return YES;
 }
+
+
+#pragma mark user's photo stuff
+
+- (IBAction)didTapPhoto:(id)sender {
+    NSLog(@"Did Tap Photo!");
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        NSLog(@"No camera detected!");
+        [self pickPhoto];
+        return;
+    }
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take a Photo",@"Pick from Photo Library", nil];
+    [actionSheet showInView:self.view];
+}
+
+-(UIImagePickerController *) imagePicker
+{
+    if (_imagePicker == nil) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.delegate = self;
+    }
+    return _imagePicker;
+}
+
+-(void) takePhoto
+{
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self.navigationController presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+-(void) pickPhoto
+{
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if (self.imagePicker == nil) {
+        NSLog(@"It's nil!");
+    }
+    else
+    {
+        NSLog(@"Not nil!");
+    }
+    
+    [self.navigationController presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+#pragma mark UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    CGFloat side = 50.f;
+    side *= [[UIScreen mainScreen] scale];
+    
+    UIImage *thumbnail = [image createThumbnailToFillSize:CGSizeMake(side, side)];
+    self.userPhotoImageView.image = thumbnail;
+    self.defaultUserPhotoImageView.hidden = true;
+}
+
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
+    
+    switch (buttonIndex) {
+        case 0:
+            [self takePhoto];
+            break;
+        case 1:
+            [self pickPhoto];
+            break;
+    }
+}
+
 @end

@@ -117,7 +117,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PvV-tg-4m6">
-                                        <rect key="frame" x="193" y="274" width="20" height="20"/>
+                                        <rect key="frame" x="193" y="284" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Chatroom Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHV-MF-B94">
@@ -139,7 +139,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sC-nv-Gcn">
-                                        <rect key="frame" x="136" y="271" width="49" height="30"/>
+                                        <rect key="frame" x="136" y="279" width="49" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Submit">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -164,10 +164,30 @@
                                             <outlet property="delegate" destination="vVu-ZN-mOA" id="OL2-Rz-XaP"/>
                                         </connections>
                                     </textField>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultPerson.png" translatesAutoresizingMaskIntoConstraints="NO" id="D9B-I0-I3L">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UkJ-Lg-O3F">
                                         <rect key="frame" x="36" y="223" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qrn-5t-hbE">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="defaultPerson.png" translatesAutoresizingMaskIntoConstraints="NO" id="9nv-KH-96a">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-PA-JLo">
+                                                <rect key="frame" x="0.0" y="35" width="50" height="15"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="H0c-BH-zbW" appends="YES" id="f8Y-6Y-Rsp"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <gestureRecognizers/>
                                 <connections>
@@ -189,9 +209,12 @@
                         <outlet property="activityIndicator" destination="PvV-tg-4m6" id="rub-0M-rFT"/>
                         <outlet property="cancelButton" destination="JQ4-zF-lMh" id="Ijx-VX-PVg"/>
                         <outlet property="chatroomNicknameTextField" destination="FHV-MF-B94" id="Cse-Dy-glt"/>
+                        <outlet property="defaultUserPhotoImageView" destination="9nv-KH-96a" id="GAa-ec-a9x"/>
                         <outlet property="passwordTextField" destination="PTh-Iu-ujl" id="N5y-kz-eeo"/>
                         <outlet property="scrollView" destination="lAn-xu-lA1" id="Ztw-iv-G5l"/>
                         <outlet property="submitButton" destination="8sC-nv-Gcn" id="M5c-VP-x9a"/>
+                        <outlet property="userPhotoContainerView" destination="UkJ-Lg-O3F" id="8Tx-bg-Efr"/>
+                        <outlet property="userPhotoImageView" destination="qrn-5t-hbE" id="Z13-O9-fGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M8s-J6-BVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -199,6 +222,11 @@
                     <connections>
                         <action selector="backgroundTouch:" destination="vVu-ZN-mOA" id="Dw8-f5-q2d"/>
                         <outlet property="delegate" destination="vVu-ZN-mOA" id="Td1-ro-8Pi"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="H0c-BH-zbW">
+                    <connections>
+                        <action selector="didTapPhoto:" destination="vVu-ZN-mOA" id="tf2-QL-V4x"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

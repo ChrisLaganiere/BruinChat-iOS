@@ -39,4 +39,12 @@
     return labelFont;
 }
 
++(void)styleRoundCorneredView:(UIView *)view
+{
+    view.layer.cornerRadius = 4.f;
+    view.layer.masksToBounds = YES;
+    view.clipsToBounds = YES;
+}
+
+
 @end
