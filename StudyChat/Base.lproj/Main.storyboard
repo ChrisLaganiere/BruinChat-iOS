@@ -27,6 +27,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="registerTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="kSM-5C-vG4"/>
                                             <segue destination="Ml7-u1-zI4" kind="modal" id="WaI-zD-B5A"/>
                                         </connections>
                                     </button>

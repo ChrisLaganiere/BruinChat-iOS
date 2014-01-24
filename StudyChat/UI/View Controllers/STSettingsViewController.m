@@ -8,6 +8,11 @@
 
 #import "STSettingsViewController.h"
 #import "SSKeychain.h"
+#import "STAppDelegate.h"
+#import "XMPPvCardTemp.h"
+#import "XMPPUserCoreDataStorageObject.h"
+#import "XMPPRosterCoreDataStorage.h"
+#import "XMPPJID.h"
 
 @interface STSettingsViewController ()
 
@@ -174,8 +179,24 @@
             case 0:
                 basicCell.textLabel.text = @"";
                 
+                //create user photo space
+                UIView *userPhotoView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 50, 50)];
+                UIImageView *userImageView = [[UIImageView alloc] initWithFrame:userPhotoView.frame];
+                
+               
+                XMPPJID *myJID = [[[self appDelegate] xmppStream] myJID];
+                
+                userImageView.image = [[self appDelegate] avatarForUser:myJID];
+                
+                userImageView.backgroundColor=[UIColor clearColor];
+                [userPhotoView.layer setCornerRadius:8.0f];
+                [userPhotoView.layer setMasksToBounds:YES];
+                
+                [userPhotoView addSubview:userImageView];
+                [basicCell.contentView addSubview:userPhotoView];
+                
                 //create a textfield to put in the cell
-                UITextField *userNicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
+                UITextField *userNicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(70, 10, 240, 30)];
                 userNicknameTextField.placeholder = @"Chatroom Nickname";
                 userNicknameTextField.adjustsFontSizeToFitWidth = YES;
                 userNicknameTextField.textColor = [UIColor blackColor];
@@ -375,6 +396,11 @@
     } else if (textField == self.nicknameTextField) {
         self.userNickname = self.nicknameTextField.text;
     }
+}
+
+#pragma mark extras
+- (STAppDelegate *)appDelegate {
+    return (STAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 

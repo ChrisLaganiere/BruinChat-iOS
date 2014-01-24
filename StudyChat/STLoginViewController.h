@@ -22,5 +22,6 @@
 -(void)loginSucceeded;
 -(void)loginFailed;
 -(void)removeViewControllersAndReset;
+- (IBAction)registerTap:(id)sender;
 
 @end

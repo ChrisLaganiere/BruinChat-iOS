@@ -19,6 +19,7 @@
 #import "XMPPvCardAvatarModule.h"
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPCapabilitiesCoreDataStorage.h"
+#import "XMPPvCardTemp.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -217,7 +218,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [xmppStream setMyJID:[XMPPJID jidWithString:jID]];
     password = userPass;
     NSError *error = nil;
-    if (![xmppStream connectWithTimeout:5.0 error:&error])
+    if (![xmppStream connectWithTimeout:10.0 error:&error])
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:[NSString stringWithFormat:@"Can't connect to server %@", [error localizedDescription]]
@@ -375,6 +376,43 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 	}
 	
+}
+
+#pragma mark update avatar
+-(void)updateAvatar:(UIImage *)avatar
+{
+    NSData *imageData = UIImagePNGRepresentation(avatar);
+    dispatch_queue_t queue = dispatch_queue_create("queue", DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    dispatch_async(queue, ^{
+        XMPPvCardTemp *myVcardTemp = [xmppvCardTempModule myvCardTemp];
+        //[myVcardTemp setName:[NSString stringWithFormat:@"%@",name.text]];
+        [myVcardTemp setPhoto:imageData];
+        [xmppvCardTempModule updateMyvCardTemp:myVcardTemp];
+    });
+}
+-(UIImage*)avatarForUser:(XMPPJID *)user
+{
+    UIImage *userAvatar;
+    
+    NSManagedObjectContext *moc = self.managedObjectContext_roster;
+    XMPPUserCoreDataStorageObject *xmppUser = [[XMPPRosterCoreDataStorage sharedInstance] userForJID:user xmppStream:self.xmppStream managedObjectContext:moc];
+    
+	// Our xmppRosterStorage will cache photos as they arrive from the xmppvCardAvatarModule.
+	// We only need to ask the avatar module for a photo, if the roster doesn't have it.
+	
+	if (xmppUser.photo != nil)
+	{
+		userAvatar = xmppUser.photo;
+	} else {
+		NSData *photoData = [[self xmppvCardAvatarModule] photoDataForJID:user];
+        
+		if (photoData != nil)
+			userAvatar = [UIImage imageWithData:photoData];
+		else {
+			userAvatar = [UIImage imageNamed:@"defaultPerson"];
+        }
+	}
+    return userAvatar;
 }
 
 

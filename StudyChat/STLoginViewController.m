@@ -138,6 +138,15 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (IBAction)registerTap:(id)sender {
+    if ([[self appDelegate] isOpen]) {
+        [[self appDelegate] teardownAndDismissAllButLogin];
+    }
+    [self appDelegate]._loginDelegate = nil;
+    [self.activityIndicator stopAnimating];
+}
+
+
 - (IBAction)backgroundTap:(id)sender {
     [self.usernameField resignFirstResponder];
     [self.passwordField resignFirstResponder];
