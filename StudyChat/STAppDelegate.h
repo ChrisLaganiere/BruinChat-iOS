@@ -51,7 +51,6 @@
 
 - (BOOL)connect:(NSString *)userID withPass:(NSString *)userPass;
 //-(void)getListOfChatrooms;
--(void)teardownAndDismissAllButLogin;
 -(void)updateAvatar:(UIImage *)avatar;
 -(UIImage*)avatarForUser:(XMPPJID *)user;
 

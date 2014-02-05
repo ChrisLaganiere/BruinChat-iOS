@@ -16,8 +16,11 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *usersButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UITableView *usersTable;
 @property (nonatomic,retain) NSString *chatroomJid;
+@property (nonatomic,retain) NSString *className;
+@property (nonatomic,retain) NSString *classSubtitle;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 

@@ -18,7 +18,6 @@
 }
 +(UIColor*)tintColor
 {
-    //light blue
     UIColor *navColor = [UIColor whiteColor];
     return navColor;
 }
@@ -35,8 +34,34 @@
 }
 +(UIFont *)labelFont
 {
+    //used by send button
     UIFont *labelFont = [UIFont boldSystemFontOfSize:15];
     return labelFont;
+}
+
++(UIFont *)titleFont
+{
+    //used by send button
+    UIFont *titlefont = [UIFont fontWithName:@"Quicksand" size:24.0];
+    return titlefont;
+}
++(UIFont *)subtitleFont
+{
+    //used by send button
+    UIFont *titlefont = [UIFont fontWithName:@"Quicksand" size:18.0];
+    return titlefont;
+}
++(UIColor*)titleColor
+{
+    //white
+    UIColor *titleColor = [UIColor whiteColor];
+    return titleColor;
+}
++(UIColor*)titleShadowColor
+{
+    //black
+    UIColor *titleShadowColor = [UIColor blackColor];
+    return titleShadowColor;
 }
 
 +(void)styleRoundCorneredView:(UIView *)view

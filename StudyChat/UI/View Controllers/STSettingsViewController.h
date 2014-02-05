@@ -8,13 +8,14 @@
 
 #import "STCoreViewController.h"
 
-@interface STSettingsViewController : STCoreViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface STSettingsViewController : STCoreViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userPassTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 - (IBAction)cancelAndDismiss:(id)sender;
 - (IBAction)saveAndDismiss:(id)sender;
 

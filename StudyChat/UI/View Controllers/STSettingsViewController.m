@@ -13,6 +13,7 @@
 #import "XMPPUserCoreDataStorageObject.h"
 #import "XMPPRosterCoreDataStorage.h"
 #import "XMPPJID.h"
+#import "UIImage+Thumbnail.h"
 
 @interface STSettingsViewController ()
 
@@ -25,6 +26,10 @@
 @property NSString *userPass;
 @property NSString *realUserPass;
 @property NSString *userNickname;
+@property (strong, nonatomic) UIImage *avatarImage;
+@property BOOL imageUpdated;
+
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
 @end
 
@@ -79,6 +84,8 @@
     self.notifyOnStudy = [[NSUserDefaults standardUserDefaults] boolForKey:@"notifyOnLecture"];
     self.notifyOnElse = [[NSUserDefaults standardUserDefaults] boolForKey:@"notifyOnElse"];
     
+    self.imageUpdated = false;
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -102,6 +109,10 @@
     [[NSUserDefaults standardUserDefaults] setBool:self.notifyOnLecture forKey:@"notifyOnLecture"];
     [[NSUserDefaults standardUserDefaults] setBool:self.notifyOnStudy forKey:@"notifyOnStudy"];
     [[NSUserDefaults standardUserDefaults] setBool:self.notifyOnElse forKey:@"notifyOnElse"];
+    
+    if (self.imageUpdated) {
+        [[self appDelegate] updateAvatar:self.avatarImage];
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -180,8 +191,9 @@
                 basicCell.textLabel.text = @"";
                 
                 //create user photo space
-                UIView *userPhotoView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 50, 50)];
-                UIImageView *userImageView = [[UIImageView alloc] initWithFrame:userPhotoView.frame];
+                UIView *userPhotoView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
+                UIImageView *userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, userPhotoView.frame.size.width, userPhotoView.frame.size.height)];
+                self.avatarImageView = userImageView;
                 
                
                 XMPPJID *myJID = [[[self appDelegate] xmppStream] myJID];
@@ -192,11 +204,26 @@
                 [userPhotoView.layer setCornerRadius:8.0f];
                 [userPhotoView.layer setMasksToBounds:YES];
                 
+                CGRect editFrame = CGRectMake(0, 34, 44, 10);
+                UILabel *editLabel = [[UILabel alloc] initWithFrame:editFrame];
+                editLabel.backgroundColor = [UIColor blackColor];
+                editLabel.text = @"edit";
+                editLabel.textColor = [UIColor lightTextColor];
+                editLabel.font = [UIFont systemFontOfSize:11];
+                editLabel.textAlignment = NSTextAlignmentCenter;
+                
+                //tap listeners
+                UITapGestureRecognizer *singleFingerTap =
+                [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                        action:@selector(avatarTap)];
+                [userPhotoView addGestureRecognizer:singleFingerTap];
+                
                 [userPhotoView addSubview:userImageView];
+                [userPhotoView addSubview:editLabel];
                 [basicCell.contentView addSubview:userPhotoView];
                 
                 //create a textfield to put in the cell
-                UITextField *userNicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(70, 10, 240, 30)];
+                UITextField *userNicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(64, 10, 240, 30)];
                 userNicknameTextField.placeholder = @"Chatroom Nickname";
                 userNicknameTextField.adjustsFontSizeToFitWidth = YES;
                 userNicknameTextField.textColor = [UIColor blackColor];
@@ -402,6 +429,86 @@
 - (STAppDelegate *)appDelegate {
     return (STAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
+
+
+
+#pragma mark user's photo stuff
+
+- (void)avatarTap
+{
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        NSLog(@"No camera detected!");
+        [self pickPhoto];
+        return;
+    }
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take a Photo",@"Pick from Photo Library", nil];
+    [actionSheet showInView:self.view];
+}
+
+-(UIImagePickerController *) imagePicker
+{
+    if (_imagePicker == nil) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.delegate = self;
+    }
+    return _imagePicker;
+}
+
+-(void) takePhoto
+{
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self.navigationController presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+-(void) pickPhoto
+{
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if (self.imagePicker == nil) {
+        NSLog(@"It's nil!");
+    }
+    else
+    {
+        NSLog(@"Not nil!");
+    }
+    
+    [self.navigationController presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+#pragma mark UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    CGFloat avatarSize = 100.f;
+    self.avatarImage = [image createThumbnailToFillSize:CGSizeMake(avatarSize, avatarSize)];
+    self.imageUpdated = true;
+    
+    CGFloat side = 44.f;
+    side *= [[UIScreen mainScreen] scale];
+    
+    UIImage *thumbnail = [image createThumbnailToFillSize:CGSizeMake(side, side)];
+    self.avatarImageView.image = thumbnail;
+}
+
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
+    
+    switch (buttonIndex) {
+        case 0:
+            [self takePhoto];
+            break;
+        case 1:
+            [self pickPhoto];
+            break;
+    }
+}
+
 
 
 @end

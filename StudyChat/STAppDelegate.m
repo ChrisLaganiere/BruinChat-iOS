@@ -266,7 +266,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [topController dismissViewControllerAnimated:NO completion:nil];
         topController = self.window.rootViewController;
     }
-    NSLog(@"teardownAndDismissAllButLogin finished");
 }
 - (void)disconnect {
     [self goOffline];

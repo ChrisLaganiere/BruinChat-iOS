@@ -50,7 +50,9 @@
     self.toolbar.barTintColor = [STStyleSheet navigationColor];
     self.toolbar.tintColor = [STStyleSheet tintColor];
     self.toolbar.alpha = 0.9;
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
+    
     [self.tableView reloadData];
 }
 
@@ -126,7 +128,11 @@
         NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
         Chatroom *chatroom = [[self fetchedResultsController] objectAtIndexPath:selectedIndexPath];
         NSString *chatroomJid = chatroom.jid;
+        NSString *className = chatroom.title;
+        NSString *classSubtitle = chatroom.subtitle;
         [segue.destinationViewController setChatroomJid:chatroomJid];
+        [segue.destinationViewController setClassName:className];
+        [segue.destinationViewController setClassSubtitle:classSubtitle];
         return;
     }
 }

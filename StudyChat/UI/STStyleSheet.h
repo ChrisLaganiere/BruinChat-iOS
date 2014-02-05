@@ -15,6 +15,10 @@
 +(UIColor*)textFieldColor;
 +(UIFont *)chatFont;
 +(UIFont *)labelFont;
++(UIFont *)titleFont;
++(UIFont *)subtitleFont;
++(UIColor *)titleColor;
++(UIColor *)titleShadowColor;
 
 +(void)styleRoundCorneredView:(UIView *)view;
 

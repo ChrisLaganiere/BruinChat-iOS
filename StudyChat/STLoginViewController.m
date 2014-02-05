@@ -40,7 +40,7 @@
         NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
         self.usernameField.text = userID;
         self.passwordField.text = [SSKeychain passwordForService:@"xmpp" account:userID];
-        [self performSelector:@selector(login:) withObject:self.loginButton afterDelay:0.0];
+        [self  performSelector:@selector(login:) withObject:self.loginButton];
     }
 }
 
@@ -58,9 +58,6 @@
 
 - (IBAction)login:(id)sender
 {
-    if ([[self appDelegate] isOpen]) {
-        [[self appDelegate] teardownAndDismissAllButLogin];
-    }
     
     BOOL isUserValid = NO;
     
@@ -139,9 +136,7 @@
 }
 
 - (IBAction)registerTap:(id)sender {
-    if ([[self appDelegate] isOpen]) {
-        [[self appDelegate] teardownAndDismissAllButLogin];
-    }
+    [[self appDelegate] disconnect];
     [self appDelegate]._loginDelegate = nil;
     [self.activityIndicator stopAnimating];
 }
