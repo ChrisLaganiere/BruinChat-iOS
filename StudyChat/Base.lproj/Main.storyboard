@@ -319,17 +319,19 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Nze-gl-kIx">
-                        <barButtonItem key="rightBarButtonItem" image="friends.png" id="LLl-ab-8Gu">
+                        <barButtonItem key="rightBarButtonItem" image="edit.png" id="LLl-ab-8Gu">
                             <connections>
-                                <segue destination="Lfd-DD-AGz" kind="modal" identifier="buddyList" id="bfL-DE-kms"/>
+                                <action selector="edit:" destination="EgW-aa-9qo" id="nO9-E6-Kqo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="LLl-ab-8Gu" id="cZj-PA-nLw"/>
                         <outlet property="logoutButton" destination="3BN-Vf-92w" id="33h-Et-OCA"/>
                         <outlet property="settingsButton" destination="3BN-Vf-92w" id="VdY-mg-2fw"/>
                         <outlet property="tableView" destination="Pu7-o9-lOy" id="HCE-DW-HOW"/>
                         <outlet property="toolbar" destination="3BN-Vf-92w" id="Rp7-0Y-9VW"/>
+                        <segue destination="Lfd-DD-AGz" kind="modal" identifier="addChats" id="i1e-jS-Uv6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oq-5E-bzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -355,7 +357,7 @@
                                 <action selector="backButtonHit:" destination="O0t-6F-P5Q" id="43N-AB-xIB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="6Jq-oP-vlJ">
+                        <barButtonItem key="rightBarButtonItem" image="friends.png" id="6Jq-oP-vlJ">
                             <connections>
                                 <action selector="usersButtonHit:" destination="O0t-6F-P5Q" id="11z-jz-SxW"/>
                             </connections>
@@ -370,10 +372,10 @@
             </objects>
             <point key="canvasLocation" x="2397" y="1"/>
         </scene>
-        <!--Buddy List View Controller - Friends-->
+        <!--Add Chats Subject Areas View Controller - Subject Areas-->
         <scene sceneID="PHG-C0-1H3">
             <objects>
-                <viewController id="jac-3q-TCy" customClass="STBuddyListViewController" sceneMemberID="viewController">
+                <viewController id="jac-3q-TCy" customClass="STAddChats_SubjectAreasViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WB0-Im-FRx"/>
                         <viewControllerLayoutGuide type="bottom" id="E0a-d1-vIk"/>
@@ -395,63 +397,83 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rDh-ld-nAq" kind="push" identifier="userChat" id="mQu-1n-TNq"/>
+                                            <segue destination="qeV-RJ-di6" kind="push" identifier="Classes" id="Whw-df-Rq4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="jac-3q-TCy" id="Ykz-bq-vHI"/>
-                                    <outlet property="delegate" destination="jac-3q-TCy" id="Y7U-No-Pzr"/>
+                                    <outlet property="dataSource" destination="jac-3q-TCy" id="Ouq-Nf-HhL"/>
+                                    <outlet property="delegate" destination="jac-3q-TCy" id="VOy-6j-Imq"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Friends" id="l65-wq-sYL">
-                        <barButtonItem key="leftBarButtonItem" title="Done" id="SYs-2F-Khw">
+                    <navigationItem key="navigationItem" title="Subject Areas" id="l65-wq-sYL">
+                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="SYs-2F-Khw">
                             <connections>
-                                <action selector="done:" destination="jac-3q-TCy" id="jDv-aj-boi"/>
+                                <action selector="doneHit:" destination="jac-3q-TCy" id="Sg4-rV-pcr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="buddy.png" id="dw3-Si-8de"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="doneButton" destination="SYs-2F-Khw" id="JbQ-Yk-QCq"/>
-                        <outlet property="studyGroupButton" destination="dw3-Si-8de" id="hED-XW-vyk"/>
-                        <outlet property="tableView" destination="Gky-WX-EtU" id="TCR-zd-APS"/>
+                        <outlet property="doneButton" destination="SYs-2F-Khw" id="RnK-Jw-d7c"/>
+                        <outlet property="tableView" destination="Gky-WX-EtU" id="see-oq-RXw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3uh-yz-RGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2138" y="-988"/>
         </scene>
-        <!--User Chat View Controller - User Chat-->
-        <scene sceneID="NRH-XQ-B3s">
+        <!--Add Chats Classes View Controller - Classes-->
+        <scene sceneID="VnJ-b1-adk">
             <objects>
-                <viewController id="rDh-ld-nAq" customClass="STUserChatViewController" sceneMemberID="viewController">
+                <viewController id="qeV-RJ-di6" customClass="STAddChats_ClassesViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Cms-JJ-yIe"/>
-                        <viewControllerLayoutGuide type="bottom" id="6Wz-fv-wYP"/>
+                        <viewControllerLayoutGuide type="top" id="gQ0-5D-WlI"/>
+                        <viewControllerLayoutGuide type="bottom" id="8vi-XY-chE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pda-QT-dVW">
+                    <view key="view" contentMode="scaleToFill" id="LaU-5N-00t">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6em-Qm-E0m">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Vei-gX-Dwq">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vei-gX-Dwq" id="16o-m1-6BF">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qeV-RJ-di6" id="lEB-Ya-ma8"/>
+                                    <outlet property="delegate" destination="qeV-RJ-di6" id="yfb-ix-KGe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="User Chat" id="WtC-tc-wFJ">
-                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="wZd-k9-57C">
+                    <navigationItem key="navigationItem" title="Classes" id="nC6-aZ-3ab">
+                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="OTL-XF-BUD">
                             <connections>
-                                <action selector="backButtonHit:" destination="rDh-ld-nAq" id="D0H-LU-Uqt"/>
+                                <action selector="back:" destination="qeV-RJ-di6" id="kOc-77-Ips"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="wZd-k9-57C" id="LLv-Fu-YpU"/>
+                        <outlet property="backButton" destination="OTL-XF-BUD" id="djs-PT-iUE"/>
+                        <outlet property="tableView" destination="6em-Qm-E0m" id="vI6-h6-RT8"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bmB-7U-M2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GyM-eG-QbK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2538" y="-988"/>
+            <point key="canvasLocation" x="2548" y="-988"/>
         </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="wCu-R8-H7F">
@@ -640,8 +662,8 @@
     </scenes>
     <resources>
         <image name="BruinChat.png" width="264" height="44"/>
-        <image name="buddy.png" width="19" height="19"/>
         <image name="defaultPerson.png" width="100" height="100"/>
+        <image name="edit.png" width="20" height="20"/>
         <image name="friends.png" width="25" height="25"/>
         <image name="icon-back.png" width="19" height="19"/>
         <image name="icon-logout.png" width="19" height="19"/>

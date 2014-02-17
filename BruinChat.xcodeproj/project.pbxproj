@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F7D8C840E0B4FC591CD10AA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD70F5448DFA4BD08834D9FD /* libPods.a */; };
+		8308140F18B15F0D00352B6A /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 8308140D18B15F0D00352B6A /* edit.png */; };
+		8308141018B15F0D00352B6A /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8308140E18B15F0D00352B6A /* edit@2x.png */; };
 		830ACAA818910A1800027405 /* UIImage+Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 830ACAA718910A1800027405 /* UIImage+Thumbnail.m */; };
 		830BE4E118616FEC00BAFADE /* BruinChat.png in Resources */ = {isa = PBXBuildFile; fileRef = 830BE4E018616FEC00BAFADE /* BruinChat.png */; };
 		830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 830BE4E2186170C500BAFADE /* BruinChat@2x.png */; };
@@ -23,6 +26,10 @@
 		83311E7B1871113B00B29BB4 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E791871113B00B29BB4 /* icon57.png */; };
 		83311E7F187111BA00B29BB4 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E7E187111BA00B29BB4 /* icon120.png */; };
 		83311E8218713D0100B29BB4 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 83311E8118713D0100B29BB4 /* DAKeyboardControl.m */; };
+		837FDEA018B1456A008F3F42 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 837FDE9E18B1456A008F3F42 /* plus.png */; };
+		837FDEA118B1456A008F3F42 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 837FDE9F18B1456A008F3F42 /* plus@2x.png */; };
+		837FDEB718B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837FDEB618B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m */; };
+		837FDEBB18B149D8008F3F42 /* STClassesMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 837FDEBA18B149D8008F3F42 /* STClassesMethods.m */; };
 		83861135186F9BC0001A442B /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 83861134186F9BC0001A442B /* NSString+Utils.m */; };
 		83861138186F9D52001A442B /* STChatBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83861137186F9D52001A442B /* STChatBubbleCell.m */; };
 		83861141186FA704001A442B /* aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 8386113D186FA704001A442B /* aqua.png */; };
@@ -31,6 +38,9 @@
 		83861144186FA704001A442B /* orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83861140186FA704001A442B /* orange@2x.png */; };
 		83861147186FBB9C001A442B /* icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 83861145186FBB9C001A442B /* icon-back.png */; };
 		83861148186FBB9C001A442B /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83861146186FBB9C001A442B /* icon-back@2x.png */; };
+		83921C8118B176E20096BDE8 /* STAddChats_ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83921C8018B176E20096BDE8 /* STAddChats_ClassesViewController.m */; };
+		83921C8418B1871D0096BDE8 /* NavBarEmptyFullAlpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 83921C8218B1871D0096BDE8 /* NavBarEmptyFullAlpha.png */; };
+		83921C8518B1871D0096BDE8 /* NavBarEmptyFullAlpha@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83921C8318B1871D0096BDE8 /* NavBarEmptyFullAlpha@2x.png */; };
 		83AC4CE51861992A00573872 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE31861992A00573872 /* NavBar.png */; };
 		83AC4CE61861992A00573872 /* NavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE41861992A00573872 /* NavBar@2x.png */; };
 		83AC4CE918619DA900573872 /* icon-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AC4CE718619DA900573872 /* icon-settings.png */; };
@@ -216,6 +226,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8308140D18B15F0D00352B6A /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		8308140E18B15F0D00352B6A /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
 		830ACAA618910A1800027405 /* UIImage+Thumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Thumbnail.h"; sourceTree = "<group>"; };
 		830ACAA718910A1800027405 /* UIImage+Thumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Thumbnail.m"; sourceTree = "<group>"; };
 		830BE4E018616FEC00BAFADE /* BruinChat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BruinChat.png; sourceTree = "<group>"; };
@@ -236,6 +248,12 @@
 		83311E7E187111BA00B29BB4 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
 		83311E8018713D0100B29BB4 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		83311E8118713D0100B29BB4 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
+		837FDE9E18B1456A008F3F42 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		837FDE9F18B1456A008F3F42 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		837FDEB518B145B6008F3F42 /* STAddChats_SubjectAreasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STAddChats_SubjectAreasViewController.h; path = ../STAddChats_SubjectAreasViewController.h; sourceTree = "<group>"; };
+		837FDEB618B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STAddChats_SubjectAreasViewController.m; path = ../STAddChats_SubjectAreasViewController.m; sourceTree = "<group>"; };
+		837FDEB918B149D8008F3F42 /* STClassesMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STClassesMethods.h; sourceTree = "<group>"; };
+		837FDEBA18B149D8008F3F42 /* STClassesMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STClassesMethods.m; sourceTree = "<group>"; };
 		83861133186F9BC0001A442B /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		83861134186F9BC0001A442B /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		83861136186F9D52001A442B /* STChatBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChatBubbleCell.h; sourceTree = "<group>"; };
@@ -246,6 +264,10 @@
 		83861140186FA704001A442B /* orange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange@2x.png"; sourceTree = "<group>"; };
 		83861145186FBB9C001A442B /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
 		83861146186FBB9C001A442B /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
+		83921C7F18B176E20096BDE8 /* STAddChats_ClassesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAddChats_ClassesViewController.h; sourceTree = "<group>"; };
+		83921C8018B176E20096BDE8 /* STAddChats_ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAddChats_ClassesViewController.m; sourceTree = "<group>"; };
+		83921C8218B1871D0096BDE8 /* NavBarEmptyFullAlpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavBarEmptyFullAlpha.png; sourceTree = "<group>"; };
+		83921C8318B1871D0096BDE8 /* NavBarEmptyFullAlpha@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBarEmptyFullAlpha@2x.png"; sourceTree = "<group>"; };
 		83AC4CE31861992A00573872 /* NavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavBar.png; sourceTree = "<group>"; };
 		83AC4CE41861992A00573872 /* NavBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar@2x.png"; sourceTree = "<group>"; };
 		83AC4CE718619DA900573872 /* icon-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings.png"; sourceTree = "<group>"; };
@@ -569,6 +591,8 @@
 		83EB7A2218725BC70093F421 /* signIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signIn.png; sourceTree = "<group>"; };
 		83EB7A2418725C9A0093F421 /* signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "signIn@2x.png"; path = "StudyChat/images/signIn@2x.png"; sourceTree = SOURCE_ROOT; };
 		83EB7A2818725FDE0093F421 /* STDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STDataModel.xcdatamodel; sourceTree = "<group>"; };
+		AD70F5448DFA4BD08834D9FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B82E99824A3E4F1099C2DB7F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -587,6 +611,7 @@
 				83E8A28C185F7E930012068D /* CoreGraphics.framework in Frameworks */,
 				83E8A28E185F7E930012068D /* UIKit.framework in Frameworks */,
 				83E8A28A185F7E930012068D /* Foundation.framework in Frameworks */,
+				2F7D8C840E0B4FC591CD10AA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +640,8 @@
 				83861140186FA704001A442B /* orange@2x.png */,
 				831DC7641887267500CB9F4B /* defaultPerson.png */,
 				831DC766188726A800CB9F4B /* defaultPerson@2x.png */,
+				8308140D18B15F0D00352B6A /* edit.png */,
+				8308140E18B15F0D00352B6A /* edit@2x.png */,
 				83E681E618638E6C00290411 /* buddy.png */,
 				83E681E718638E6C00290411 /* buddy@2x.png */,
 				83B817F31875595700E1B019 /* friends.png */,
@@ -627,6 +654,10 @@
 				83AC4CE41861992A00573872 /* NavBar@2x.png */,
 				83214B0318A1AEAA00EF4268 /* NavBarEmpty.png */,
 				83214B0418A1AEAB00EF4268 /* NavBarEmpty@2x.png */,
+				83921C8218B1871D0096BDE8 /* NavBarEmptyFullAlpha.png */,
+				83921C8318B1871D0096BDE8 /* NavBarEmptyFullAlpha@2x.png */,
+				837FDE9E18B1456A008F3F42 /* plus.png */,
+				837FDE9F18B1456A008F3F42 /* plus@2x.png */,
 				830BE4E2186170C500BAFADE /* BruinChat@2x.png */,
 				830BE4E018616FEC00BAFADE /* BruinChat.png */,
 				83EB7A2218725BC70093F421 /* signIn.png */,
@@ -665,6 +696,15 @@
 			path = icons;
 			sourceTree = "<group>";
 		};
+		837FDEB818B149BE008F3F42 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				837FDEB918B149D8008F3F42 /* STClassesMethods.h */,
+				837FDEBA18B149D8008F3F42 /* STClassesMethods.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		83861132186F9B9F001A442B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,6 +723,17 @@
 				83861137186F9D52001A442B /* STChatBubbleCell.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		83921C7B18B176120096BDE8 /* AddChats */ = {
+			isa = PBXGroup;
+			children = (
+				837FDEB518B145B6008F3F42 /* STAddChats_SubjectAreasViewController.h */,
+				837FDEB618B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m */,
+				83921C7F18B176E20096BDE8 /* STAddChats_ClassesViewController.h */,
+				83921C8018B176E20096BDE8 /* STAddChats_ClassesViewController.m */,
+			);
+			path = AddChats;
 			sourceTree = "<group>";
 		};
 		83AFC729186A37770041E334 /* XMPP */ = {
@@ -1458,6 +1509,7 @@
 				83E8A2AE185F7E930012068D /* BruinChatTests */,
 				83E8A288185F7E930012068D /* Frameworks */,
 				83E8A287185F7E930012068D /* Products */,
+				B82E99824A3E4F1099C2DB7F /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1484,6 +1536,7 @@
 				83E8A28B185F7E930012068D /* CoreGraphics.framework */,
 				83E8A28D185F7E930012068D /* UIKit.framework */,
 				83E8A2A8185F7E930012068D /* XCTest.framework */,
+				AD70F5448DFA4BD08834D9FD /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1534,6 +1587,7 @@
 		83E8A2C0185F7FCD0012068D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				83921C7B18B176120096BDE8 /* AddChats */,
 				83E8A29E185F7E930012068D /* STLoginViewController.h */,
 				83E8A29F185F7E930012068D /* STLoginViewController.m */,
 				83E8A2C5185F8DA10012068D /* STClassListViewController.h */,
@@ -1555,6 +1609,7 @@
 		83EB7A2618725FC10093F421 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				837FDEB818B149BE008F3F42 /* Classes */,
 				83EB7A2718725FDE0093F421 /* STDataModel.xcdatamodeld */,
 				83B817F718755FB300E1B019 /* Chatroom.h */,
 				83B817F818755FB300E1B019 /* Chatroom.m */,
@@ -1571,9 +1626,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E8A2B8185F7E930012068D /* Build configuration list for PBXNativeTarget "BruinChat" */;
 			buildPhases = (
+				4C6CB945E3D341168CF6938C /* Check Pods Manifest.lock */,
 				83E8A282185F7E930012068D /* Sources */,
 				83E8A283185F7E930012068D /* Frameworks */,
 				83E8A284185F7E930012068D /* Resources */,
+				20179EF355E54CEA92308835 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1644,6 +1701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83311E7F187111BA00B29BB4 /* icon120.png in Resources */,
+				8308140F18B15F0D00352B6A /* edit.png in Resources */,
 				83861142186FA704001A442B /* aqua@2x.png in Resources */,
 				83214B0818A1B2F000EF4268 /* Quicksand_Bold.otf in Resources */,
 				83AFC8ED186A37780041E334 /* build-libidn.sh in Resources */,
@@ -1654,15 +1712,19 @@
 				83AC4CED18619FB600573872 /* icon-logout.png in Resources */,
 				83AC4CE61861992A00573872 /* NavBar@2x.png in Resources */,
 				83AFC879186A37780041E334 /* copying.txt in Resources */,
+				83921C8518B1871D0096BDE8 /* NavBarEmptyFullAlpha@2x.png in Resources */,
 				83AC4CEA18619DA900573872 /* icon-settings@2x.png in Resources */,
 				83AFC8E8186A37780041E334 /* README.txt in Resources */,
 				830BE4E118616FEC00BAFADE /* BruinChat.png in Resources */,
 				83E8A2A2185F7E930012068D /* Images.xcassets in Resources */,
+				8308141018B15F0D00352B6A /* edit@2x.png in Resources */,
 				83AC4CE918619DA900573872 /* icon-settings.png in Resources */,
 				83861141186FA704001A442B /* aqua.png in Resources */,
 				8310EA01187686C0002C88D9 /* usersBack@2x.png in Resources */,
 				83861143186FA704001A442B /* orange.png in Resources */,
+				83921C8418B1871D0096BDE8 /* NavBarEmptyFullAlpha.png in Resources */,
 				83EB7A2318725BC70093F421 /* signIn.png in Resources */,
+				837FDEA118B1456A008F3F42 /* plus@2x.png in Resources */,
 				83861147186FBB9C001A442B /* icon-back.png in Resources */,
 				831DC7651887267500CB9F4B /* defaultPerson.png in Resources */,
 				830BE4E3186170C500BAFADE /* BruinChat@2x.png in Resources */,
@@ -1674,6 +1736,7 @@
 				8310EA00187686C0002C88D9 /* usersBack.png in Resources */,
 				83AFC8D9186A37780041E334 /* README.markdown in Resources */,
 				83E8A29D185F7E930012068D /* Main.storyboard in Resources */,
+				837FDEA018B1456A008F3F42 /* plus.png in Resources */,
 				83E681E918638E6C00290411 /* buddy@2x.png in Resources */,
 				83AC4CE51861992A00573872 /* NavBar.png in Resources */,
 				83861148186FBB9C001A442B /* icon-back@2x.png in Resources */,
@@ -1692,6 +1755,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20179EF355E54CEA92308835 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4C6CB945E3D341168CF6938C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83E8A282185F7E930012068D /* Sources */ = {
@@ -1744,6 +1840,7 @@
 				83AFC8C9186A37780041E334 /* XMPPvCardAvatarModule.m in Sources */,
 				83AFC8E2186A37780041E334 /* DDASLLogger.m in Sources */,
 				83AFC8A4186A37780041E334 /* XMPPRoom.m in Sources */,
+				83921C8118B176E20096BDE8 /* STAddChats_ClassesViewController.m in Sources */,
 				83AFC8E4186A37780041E334 /* DDLog.m in Sources */,
 				83E681F318639C4400290411 /* SSKeychain.m in Sources */,
 				83E8A2C4185F7FF50012068D /* STCoreViewController.m in Sources */,
@@ -1815,6 +1912,7 @@
 				83AFC8C6186A37780041E334 /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				83AFC8AE186A37780041E334 /* XMPPvCardTempEmail.m in Sources */,
 				83AFC8DF186A37780041E334 /* XMPPStringPrep.m in Sources */,
+				837FDEBB18B149D8008F3F42 /* STClassesMethods.m in Sources */,
 				83AFC888186A37780041E334 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				83AFC8B8186A37780041E334 /* XMPPMessage+XEP_0066.m in Sources */,
 				83AFC8E9186A37780041E334 /* NSString+DDXML.m in Sources */,
@@ -1833,6 +1931,7 @@
 				83AFC87D186A37780041E334 /* XMPPMessage.m in Sources */,
 				83AFC874186A37780041E334 /* XMPPPlainAuthentication.m in Sources */,
 				83AFC88A186A37780041E334 /* XMPPRosterCoreDataStorage.m in Sources */,
+				837FDEB718B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m in Sources */,
 				83AFC873186A37780041E334 /* XMPPDigestMD5Authentication.m in Sources */,
 				83AFC8BE186A37780041E334 /* NSString+XEP_0106.m in Sources */,
 				83AFC878186A37780041E334 /* NSXMLElement+XMPP.m in Sources */,
@@ -1976,6 +2075,7 @@
 		};
 		83E8A2B9185F7E930012068D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B82E99824A3E4F1099C2DB7F /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1984,6 +2084,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "StudyChat/BruinChat-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -1999,6 +2100,7 @@
 		};
 		83E8A2BA185F7E930012068D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B82E99824A3E4F1099C2DB7F /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2007,6 +2109,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "StudyChat/BruinChat-Info.plist";
 				LIBRARY_SEARCH_PATHS = (

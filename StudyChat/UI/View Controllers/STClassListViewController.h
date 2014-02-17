@@ -10,10 +10,11 @@
 
 @interface STClassListViewController : CoreDataTableViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *buddyListButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 - (IBAction)logout:(id)sender;
+- (IBAction)edit:(id)sender;
 
 @end

@@ -63,8 +63,6 @@
     //remove BruinChat logo
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"NavBarEmpty"] colorImageWithColor:[STStyleSheet navigationColor]]
                                                   forBarMetrics:UIBarMetricsDefault];
-    //[self.navigationController.navigationBar.topItem setTitle:self.className];
-    //[self setTitle:self.className];
     
     
     CGRect titleViewFrame = CGRectMake(0.0f,
@@ -78,7 +76,6 @@
     
     
     UIView *titleView = [[UIView alloc] initWithFrame:titleViewFrame];
-    //[titleView setBackgroundColor:[UIColor greenColor]];
     
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];

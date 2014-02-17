@@ -8,7 +8,7 @@
 
 #import "STClassListViewController.h"
 #import "STStyleSheet.h"
-#import "STBuddyListViewController.h"
+#import "STAddChats_SubjectAreasViewController.h"
 #import "STChatRoomViewController.h"
 #import "STSettingsViewController.h"
 #import "STAppDelegate.h"
@@ -101,6 +101,32 @@
     cell.detailTextLabel.text = chatroom.subtitle;
     return cell;
 }
+
+/*
+ Delete object from tableview and core data table
+ */
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if ([[self.fetchedResultsController fetchedObjects]count] > 0) {
+            
+            NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+            [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+            
+            // Save the context.
+            NSError *error = nil;
+            if (![context save:&error]) {
+                /*
+                 Replace this implementation with code to handle the error appropriately.
+                 
+                 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                 */
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
+        }
+    }
+}
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -111,10 +137,8 @@
 {
     NSString *identifier = segue.identifier;
     
-    if ([identifier isEqualToString:@"buddyList"])
+    if ([identifier isEqualToString:@"addChats"])
     {
-        STBuddyListViewController *buddyList = segue.destinationViewController;
-        [buddyList.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         return;
     }
     else if ([identifier isEqualToString:@"settings"])
@@ -168,11 +192,38 @@
 	return _fetchedResultsController;
 }
 
+#pragma mark buttons
+
 - (IBAction)logout:(id)sender {
     NSLog(@"DISCONNECT");
     STAppDelegate *del =[self appDelegate];
     [del disconnect];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)edit:(id)sender {
+    if (self.tableView.editing) {
+        [self.tableView setEditing:NO];
+        [self changeAddButtonState:YES];
+    }
+    else {
+        [self.tableView setEditing:YES];
+        [self changeAddButtonState:NO];
+    }
+}
+- (IBAction)add:(id)sender {
+    [self performSegueWithIdentifier:@"addChats" sender:self];
+}
+-(void)changeAddButtonState:(BOOL)visible
+{
+    if (!visible) {
+        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
+        [anotherButton setImage:[UIImage imageNamed:@"plus"]];
+        self.navigationItem.leftBarButtonItem = anotherButton;
+    }
+    else if (self.navigationItem.rightBarButtonItem) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
 }
 
 #pragma mark Accessors
