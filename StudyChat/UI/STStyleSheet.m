@@ -24,7 +24,8 @@
 +(UIColor*)textFieldColor
 {
     //light blue
-    UIColor *navColor = [UIColor colorWithRed:0.835 green:0.882 blue:1 alpha:1]; /*#d5e1ff*/
+    //UIColor *navColor = [UIColor colorWithRed:0.835 green:0.882 blue:1 alpha:1]; /*#d5e1ff*/
+    UIColor *navColor = [UIColor whiteColor];
     return navColor;
 }
 +(UIFont *)chatFont

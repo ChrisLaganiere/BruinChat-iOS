@@ -37,12 +37,6 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [STStyleSheet navigationColor];
-    
-     //create sample chatrooms
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"infoLoaded"]) {
-        [self createSampleChatrooms];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"infoLoaded"];
-    }
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -55,36 +49,13 @@
     
     [self.tableView reloadData];
 }
-
--(void)createSampleChatrooms
+-(void)viewDidAppear:(BOOL)animated
 {
-    Chatroom *testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
-    testRoom.title = @"Chem 20A - Chemical Structure";
-    testRoom.subtitle = @"Lec 1 MWF, Dis 1G R";
-    testRoom.jid = @"14w-chem20a-1";
-    testRoom.password = @"";
+    [super viewDidAppear:animated];
     
-    testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
-    testRoom.title = @"Math 33B - Differential Equations";
-    testRoom.subtitle = @"Lec 2 MWF, Dis 2C T";
-    testRoom.jid = @"14w-ma33b-2";
-    testRoom.password = @"";
-    
-    testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
-    testRoom.title = @"Com Sci 32 - Intro to Computer Science II";
-    testRoom.subtitle = @"Lec 2 MW, Dis 2C R";
-    testRoom.jid = @"14w-cs32-2";
-    testRoom.password = @"";
-    
-    testRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom" inManagedObjectContext:[STDModel sharedInstance].managedObjectContext];
-    testRoom.title = @"Phys 1A - Physics for Scientists And Engineers: Mechanics";
-    testRoom.subtitle = @"Lec 1 MTWF, Dis 1B W";
-    testRoom.jid = @"14w-phy1a-1";
-    testRoom.password = @"";
-    
-    [[STDModel sharedInstance] saveChanges];
+    if (self.fetchedResultsController.fetchedObjects.count == 0)
+        [self performSegueWithIdentifier:@"addChats" sender:self];
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -111,7 +82,14 @@
         if ([[self.fetchedResultsController fetchedObjects]count] > 0) {
             
             NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+            //Chatroom *chatroom = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            
             [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+            /*
+             // commented until testing
+            if (![[STDModel sharedInstance] cleanUpAfterClassWithJid:chatroom.jid])
+                NSLog(@"error");
+             */
             
             // Save the context.
             NSError *error = nil;
@@ -135,6 +113,12 @@
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    //fix state
+    if (self.tableView.editing) {
+        [self.tableView setEditing:NO];
+        [self changeAddButtonVisibility:NO];
+    }
+    
     NSString *identifier = segue.identifier;
     
     if ([identifier isEqualToString:@"addChats"])
@@ -204,19 +188,19 @@
 - (IBAction)edit:(id)sender {
     if (self.tableView.editing) {
         [self.tableView setEditing:NO];
-        [self changeAddButtonState:YES];
+        [self changeAddButtonVisibility:NO];
     }
     else {
         [self.tableView setEditing:YES];
-        [self changeAddButtonState:NO];
+        [self changeAddButtonVisibility:YES];
     }
 }
 - (IBAction)add:(id)sender {
     [self performSegueWithIdentifier:@"addChats" sender:self];
 }
--(void)changeAddButtonState:(BOOL)visible
+-(void)changeAddButtonVisibility:(BOOL)visible
 {
-    if (!visible) {
+    if (visible) {
         UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
         [anotherButton setImage:[UIImage imageNamed:@"plus"]];
         self.navigationItem.leftBarButtonItem = anotherButton;

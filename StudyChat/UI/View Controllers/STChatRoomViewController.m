@@ -7,17 +7,21 @@
 //
 
 #import "STChatRoomViewController.h"
+#import "STAppDelegate.h"
+
+//Custom UI
 #import "STChatBubbleCell.h"
 #import "NSString+Utils.h"
 #import "STStyleSheet.h"
 #import "DAKeyboardControl.h"
+#import "UIImage+SolidColor.h"
+
+//XMPP
 #import "STDModel.h"
 #import "XMPPRoomMessageCoreDataStorageObject.h"
 #import "XMPPRoomOccupantCoreDataStorageObject.h"
 #import "XMPPFramework.h" //TODO: import specific requisites
 #import "XMPPRosterCoreDataStorage.h"
-#import "STAppDelegate.h"
-#import "UIImage+SolidColor.h"
 
 @interface STChatRoomViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *chatFetchedResultsController;
@@ -133,21 +137,26 @@
                                                                      self.view.bounds.size.height - 40.0f,
                                                                      self.view.bounds.size.width,
                                                                      40.0f)];
-    toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     toolBar.barTintColor = [STStyleSheet navigationColor];
     [self.view addSubview:toolBar];
     self.toolBar = toolBar;
     
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f,
+    HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(10.0f,
                                                                            6.0f,
                                                                            toolBar.bounds.size.width - 20.0f - 68.0f,
                                                                            30.0f)];
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    textField.delegate = self;
-    textField.backgroundColor = [STStyleSheet textFieldColor];
-    [toolBar addSubview:textField];
-    self.messageField = textField;
+    //textView.borderStyle = UITextBorderStyleRoundedRect; //only for textField
+    [textView.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
+    [textView.layer setBorderColor: [[UIColor grayColor] CGColor]];
+    [textView.layer setBorderWidth: 1.0];
+    [textView.layer setCornerRadius:8.0f];
+    [textView.layer setMasksToBounds:YES];
+    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    textView.delegate = self;
+    textView.backgroundColor = [STStyleSheet textFieldColor];
+    [toolBar addSubview:textView];
+    self.messageField = textView;
     
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -173,6 +182,7 @@
          when you are done with the view controller by calling:
          [self.view removeKeyboardControl];
          */
+        
         CGRect toolBarFrame = toolBar.frame;
         toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
         toolBar.frame = toolBarFrame;
@@ -451,12 +461,30 @@
     }
 }
 
-#pragma mark UITextField Delegate
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+#pragma mark UITextView Delegate
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
 {
-    [textField resignFirstResponder];
-    return true;
+    float difference = height - growingTextView.frame.size.height;
+    CGRect toolFrame = self.toolBar.frame;
+    toolFrame.size.height += difference;
+    toolFrame.origin.y -= difference;
+    self.toolBar.frame = toolFrame;
+    
+    CGRect tableFrame = self.tableView.frame;
+    tableFrame.size.height -= difference;
+    self.tableView.frame = tableFrame;
+    
+    /*
+    
+    float diff = (growingTextView.frame.size.height - height);
+    
+	CGRect r = containerView.frame;
+    r.size.height -= diff;
+    r.origin.y += diff;
+	containerView.frame = r;
+     */
 }
+ 
 
 #pragma mark Jabber
 - (STAppDelegate *)appDelegate {

@@ -26,6 +26,8 @@
 		83311E7B1871113B00B29BB4 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E791871113B00B29BB4 /* icon57.png */; };
 		83311E7F187111BA00B29BB4 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 83311E7E187111BA00B29BB4 /* icon120.png */; };
 		83311E8218713D0100B29BB4 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 83311E8118713D0100B29BB4 /* DAKeyboardControl.m */; };
+		836E0D8618B203400046FA85 /* STAddChats_LecturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836E0D8518B203400046FA85 /* STAddChats_LecturesViewController.m */; };
+		836E0D8B18B20D850046FA85 /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 836E0D8A18B20D850046FA85 /* BlockAlertView.m */; };
 		837FDEA018B1456A008F3F42 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 837FDE9E18B1456A008F3F42 /* plus.png */; };
 		837FDEA118B1456A008F3F42 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 837FDE9F18B1456A008F3F42 /* plus@2x.png */; };
 		837FDEB718B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837FDEB618B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m */; };
@@ -248,6 +250,10 @@
 		83311E7E187111BA00B29BB4 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
 		83311E8018713D0100B29BB4 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		83311E8118713D0100B29BB4 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
+		836E0D8418B203400046FA85 /* STAddChats_LecturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAddChats_LecturesViewController.h; sourceTree = "<group>"; };
+		836E0D8518B203400046FA85 /* STAddChats_LecturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAddChats_LecturesViewController.m; sourceTree = "<group>"; };
+		836E0D8918B20D850046FA85 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
+		836E0D8A18B20D850046FA85 /* BlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockAlertView.m; sourceTree = "<group>"; };
 		837FDE9E18B1456A008F3F42 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		837FDE9F18B1456A008F3F42 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		837FDEB518B145B6008F3F42 /* STAddChats_SubjectAreasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STAddChats_SubjectAreasViewController.h; path = ../STAddChats_SubjectAreasViewController.h; sourceTree = "<group>"; };
@@ -721,6 +727,8 @@
 				83861134186F9BC0001A442B /* NSString+Utils.m */,
 				83861136186F9D52001A442B /* STChatBubbleCell.h */,
 				83861137186F9D52001A442B /* STChatBubbleCell.m */,
+				836E0D8918B20D850046FA85 /* BlockAlertView.h */,
+				836E0D8A18B20D850046FA85 /* BlockAlertView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -732,6 +740,8 @@
 				837FDEB618B145B6008F3F42 /* STAddChats_SubjectAreasViewController.m */,
 				83921C7F18B176E20096BDE8 /* STAddChats_ClassesViewController.h */,
 				83921C8018B176E20096BDE8 /* STAddChats_ClassesViewController.m */,
+				836E0D8418B203400046FA85 /* STAddChats_LecturesViewController.h */,
+				836E0D8518B203400046FA85 /* STAddChats_LecturesViewController.m */,
 			);
 			path = AddChats;
 			sourceTree = "<group>";
@@ -1873,6 +1883,7 @@
 				83AFC8E7186A37780041E334 /* DispatchQueueLogFormatter.m in Sources */,
 				83E681F61863B4CB00290411 /* STChatRoomViewController.m in Sources */,
 				83AFC8A7186A37780041E334 /* XMPPvCardCoreDataStorage.m in Sources */,
+				836E0D8618B203400046FA85 /* STAddChats_LecturesViewController.m in Sources */,
 				83E8A296185F7E930012068D /* main.m in Sources */,
 				83E8A2CA185F9E4C0012068D /* STSettingsViewController.m in Sources */,
 				83AFC8DA186A37780041E334 /* DDList.m in Sources */,
@@ -1938,6 +1949,7 @@
 				83AFC8D6186A37780041E334 /* NSXMLElement+XEP_0297.m in Sources */,
 				83AFC8B1186A37780041E334 /* XMPPvCardTempTel.m in Sources */,
 				83311E8218713D0100B29BB4 /* DAKeyboardControl.m in Sources */,
+				836E0D8B18B20D850046FA85 /* BlockAlertView.m in Sources */,
 				83AFC87A186A37780041E334 /* XMPPElement.m in Sources */,
 				83E8A29A185F7E930012068D /* STAppDelegate.m in Sources */,
 			);

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-HPGrowingTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>34747E8B00F14A00AB0153B7</key>
+		<key>098ABE5D47634770B6C06FD4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B1E5CA248DB64B4A9367A79E</key>
+		<key>7F1AE7F62F0E449D92473FA7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8A8E688BE33045FBBEDC0FAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -17,11 +17,14 @@ PODS:
   - AFNetworking/Serialization (2.1.0)
   - AFNetworking/UIKit (2.1.0):
     - AFNetworking/NSURLConnection
+  - HPGrowingTextView (1.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - HPGrowingTextView (~> 1.1)
 
 SPEC CHECKSUMS:
   AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  HPGrowingTextView: 4318f557b33c19def1c53ec275d6e2a2d6589cd0
 
 COCOAPODS: 0.29.0

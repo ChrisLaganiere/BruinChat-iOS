@@ -8,8 +8,13 @@
 
 #import "STDModel.h"
 #import <CoreData/CoreData.h>
+#import "Chatroom.h"
 
 @implementation STDModel
+
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 static STDModel *_sharedInstance = nil;
 + (STDModel*)sharedInstance
@@ -20,9 +25,71 @@ static STDModel *_sharedInstance = nil;
 	return _sharedInstance;
 }
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
+-(BOOL)addClassToCoreDataWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Jid:(NSString *)jid
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSManagedObjectContext *context = self.managedObjectContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Chatroom" inManagedObjectContext:context];
+    fetchRequest.entity = entity;
+    
+    //Fetch all the birthday entities in order of next birthday
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"jid" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    fetchRequest.sortDescriptors = sortDescriptors;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"jid == %@", jid];
+    fetchRequest.predicate = predicate;
+    
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+    
+    NSError *error = nil;
+    if (![fetchedResultsController performFetch:&error]) {
+        
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    NSArray *fetchedObjects = fetchedResultsController.fetchedObjects;
+    NSInteger resultCount = [fetchedObjects count];
+    
+    if (resultCount == 0) {
+        Chatroom *newChatroom = [NSEntityDescription insertNewObjectForEntityForName:@"Chatroom"        inManagedObjectContext:_managedObjectContext];
+        newChatroom.title = title;
+        newChatroom.subtitle = subtitle;
+        newChatroom.jid = jid;
+        newChatroom.password = @"";
+        return YES;
+    }
+    return NO;
+}
+
+/*
+ //needs testing
+-(BOOL)cleanUpAfterClassWithJid:(NSString *)jid
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@.sqlite",jid];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    NSError *error;
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+        BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+        if (success) {
+            return YES;
+        }
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+    return NO;
+}
+ */
+
 
 - (void)saveChanges
 {

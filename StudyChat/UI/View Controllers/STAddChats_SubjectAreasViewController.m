@@ -18,6 +18,11 @@
 @property (strong, nonatomic) NSArray *subjectAreasArray; //array to order results
 @property (weak, nonatomic) NSTimer *checkTimer;
 
+@property(nonatomic, copy) NSArray *filteredSubjectAreas;
+@property(nonatomic, copy) NSString *currentSearchString;
+@property(nonatomic, strong) UISearchDisplayController *strongSearchDisplayController; // UIViewController doesn't retain the search display controller if it's created programmatically: http://openradar.appspot.com/10254897
+@property(nonatomic, strong, readwrite) UISearchBar *searchBar;
+
 @end
 
 @implementation STAddChats_SubjectAreasViewController
@@ -52,6 +57,30 @@
     [[self navigationItem] setTitleView:titleView];
 
     self.checkTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkSubjectAreas) userInfo:nil repeats:YES];
+    
+    
+    /*
+     Default behavior:
+     The search bar scrolls along with the table view.
+     */
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    self.searchBar.barTintColor = [STStyleSheet navigationColor];
+    self.searchBar.placeholder = @"Search";
+    self.searchBar.delegate = self;
+    
+    [self.searchBar sizeToFit];
+    
+    self.strongSearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+    self.searchDisplayController.searchResultsDataSource = self;
+    self.searchDisplayController.searchResultsDelegate = self;
+    self.searchDisplayController.delegate = self;
+
+    
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    // The search bar is hidden when the view becomes visible the first time
+    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.bounds));
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -81,7 +110,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [self.subjectAreasArray objectAtIndex:indexPath.row];
+    if (tableView == self.tableView) {
+            cell.textLabel.text = [self.subjectAreasArray objectAtIndex:indexPath.row];
+    } else {
+        cell.textLabel.text = [self.filteredSubjectAreas objectAtIndex:indexPath.row];
+    }
     
     return cell;
 }
@@ -93,7 +126,11 @@
 
 -(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.subjectAreas count];
+    if (tableView == self.tableView) {
+        return self.subjectAreasArray.count;
+    } else {
+        return self.filteredSubjectAreas.count;
+    }
 }
 
 #pragma mark -
@@ -112,16 +149,63 @@
     
     if ([identifier isEqualToString:@"Classes"])
     {
-        NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+        NSString *subjectAreaTitle = @"";
+        if (self.filteredSubjectAreas) {
+            NSIndexPath *selectedIndexPath = self.searchDisplayController.searchResultsTableView.indexPathForSelectedRow;
+            subjectAreaTitle = [self.filteredSubjectAreas objectAtIndex:selectedIndexPath.row];
+        }
+        else
+        {
+            NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+            subjectAreaTitle = [self.subjectAreasArray objectAtIndex:selectedIndexPath.row];
+        }
         
         STAddChats_ClassesViewController *destination = segue.destinationViewController;
-        NSString *subjectAreaTitle = [self.subjectAreasArray objectAtIndex:selectedIndexPath.row];
         NSString *subjectAreaCode = [[self.subjectAreas allKeysForObject:subjectAreaTitle] firstObject];
         destination.subjectArea = subjectAreaCode;
         return;
     }
 }
 
+#pragma mark -
+#pragma mark - Search Bar
+
+- (void)scrollTableViewToSearchBarAnimated:(BOOL)animated
+{
+    [self.tableView scrollRectToVisible:self.searchBar.frame animated:animated];
+}
+
+#pragma mark - Search Delegate
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    self.filteredSubjectAreas = nil;
+    self.currentSearchString = @"";
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    self.filteredSubjectAreas = nil;
+    self.currentSearchString = nil;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    if (searchString.length > 0) { // Should always be the case
+        NSArray *subjectAreasToSearch = self.subjectAreasArray;
+        if (self.currentSearchString.length > 0 && [searchString rangeOfString:self.currentSearchString].location == 0) { // If the new search string starts with the last search string, reuse the already filtered array so searching is faster
+            subjectAreasToSearch = self.filteredSubjectAreas;
+        }
+        
+        self.filteredSubjectAreas = [subjectAreasToSearch filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchString]];
+    } else {
+        self.filteredSubjectAreas = self.subjectAreasArray;
+    }
+    
+    self.currentSearchString = searchString;
+    
+    return YES;
+}
 
 #pragma mark -
 #pragma mark - Extras
@@ -132,7 +216,7 @@
     }
     
     _subjectAreas = [STClassesMethods currentSubjectAreas];
-    _subjectAreasArray = [_subjectAreas allValues];
+    _subjectAreasArray = [[_subjectAreas allValues] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     return _subjectAreas;
 }
 -(void)checkSubjectAreas

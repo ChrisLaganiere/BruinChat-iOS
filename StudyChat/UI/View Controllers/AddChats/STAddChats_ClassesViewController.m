@@ -7,13 +7,19 @@
 //
 
 #import "STAddChats_ClassesViewController.h"
+#import "STAddChats_LecturesViewController.h"
+
+//Custom UI
 #import "STClassesMethods.h"
 #import "STStyleSheet.h"
 
 @interface STAddChats_ClassesViewController ()
 
 @property (strong, nonatomic) NSArray *classes;
-@property (weak, nonatomic) NSTimer *checkTimer;
+@property (strong, nonatomic) NSArray *filteredClasses;
+@property(nonatomic, copy) NSString *currentSearchString;
+@property(nonatomic, strong) UISearchDisplayController *strongSearchDisplayController;
+@property(nonatomic, strong, readwrite) UISearchBar *searchBar;
 
 @end
 
@@ -46,6 +52,29 @@
     [titleView addSubview:titleLabel];
     
     [[self navigationItem] setTitleView:titleView];
+    
+    /*
+     Default behavior:
+     The search bar scrolls along with the table view.
+     */
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    self.searchBar.barTintColor = [STStyleSheet navigationColor];
+    self.searchBar.placeholder = @"Search";
+    self.searchBar.delegate = self;
+    
+    [self.searchBar sizeToFit];
+    
+    self.strongSearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+    self.searchDisplayController.searchResultsDataSource = self;
+    self.searchDisplayController.searchResultsDelegate = self;
+    self.searchDisplayController.delegate = self;
+    
+    
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    // The search bar is hidden when the view becomes visible the first time
+    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.bounds));
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -70,7 +99,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [self.classes objectAtIndex:indexPath.row][@"name"];
+    if (tableView == self.tableView) {
+        cell.textLabel.text = [self.classes objectAtIndex:indexPath.row][@"name"];
+    } else {
+        cell.textLabel.text = [self.filteredClasses objectAtIndex:indexPath.row][@"name"];
+    }
     
     return cell;
 }
@@ -82,7 +115,11 @@
 
 -(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.classes count];
+    if (tableView == self.tableView) {
+        return [self.classes count];
+    } else {
+        return [self.filteredClasses count];
+    }
 }
 
 #pragma mark -
@@ -91,6 +128,77 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark Segues
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSString *identifier = segue.identifier;
+    
+    if ([identifier isEqualToString:@"Lectures"])
+    {
+        NSDictionary *theClass;
+        if (self.filteredClasses) {
+            NSIndexPath *selectedIndexPath = self.searchDisplayController.searchResultsTableView.indexPathForSelectedRow;
+            theClass = [self.filteredClasses objectAtIndex:selectedIndexPath.row];
+        }
+        else
+        {
+            NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+            theClass = [self.classes objectAtIndex:selectedIndexPath.row];
+        }
+        
+        NSString *classTitle = theClass[@"name"];
+        NSString *classCode = theClass[@"code"];
+        NSArray *lectures = theClass[@"lectures"];
+        
+        STAddChats_LecturesViewController *destination = segue.destinationViewController;
+        [destination setClassTitle:classTitle];
+        [destination setClassCode:classCode];
+        [destination setLectures:lectures];
+        return;
+    }
+}
+
+#pragma mark -
+#pragma mark - Search Bar
+
+- (void)scrollTableViewToSearchBarAnimated:(BOOL)animated
+{
+    [self.tableView scrollRectToVisible:self.searchBar.frame animated:animated];
+}
+
+#pragma mark - Search Delegate
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    self.filteredClasses = nil;
+    self.currentSearchString = @"";
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    self.filteredClasses = nil;
+    self.currentSearchString = nil;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    if (searchString.length > 0) { // Should always be the case
+        NSArray *classesToSearch = self.classes;
+        if (self.currentSearchString.length > 0 && [searchString rangeOfString:self.currentSearchString].location == 0) { // If the new search string starts with the last search string, reuse the already filtered array so searching is faster
+            classesToSearch= self.filteredClasses;
+        }
+        
+        self.filteredClasses = [classesToSearch filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchString]];
+    } else {
+        self.filteredClasses = self.classes;
+    }
+    
+    self.currentSearchString = searchString;
+    
+    return YES;
 }
 
 #pragma mark -

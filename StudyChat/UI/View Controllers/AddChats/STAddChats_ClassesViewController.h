@@ -8,10 +8,11 @@
 
 #import "STCoreViewController.h"
 
-@interface STAddChats_ClassesViewController : STCoreViewController <UITableViewDataSource,UITableViewDelegate>
+@interface STAddChats_ClassesViewController : STCoreViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSString *subjectArea;
+@property(nonatomic, strong, readonly) UISearchBar *searchBar;
 - (IBAction)back:(id)sender;
 - (void)populateClasses:(NSDictionary *)classes;
 

@@ -48,7 +48,6 @@ static NSDictionary *_currentSubjectAreas = nil;
     [manager GET:[URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            NSLog(@"success");
             if ([sender isViewLoaded])
                 [sender populateClasses:responseObject[@"courses"]];
         }

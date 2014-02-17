@@ -8,10 +8,12 @@
 
 #import "CoreDataTableViewController.h"
 
-@interface STChatRoomViewController : CoreDataTableViewController <UITextFieldDelegate>
+#import "HPGrowingTextView.h"
+
+@interface STChatRoomViewController : CoreDataTableViewController <HPGrowingTextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *messageField;
+@property (weak, nonatomic) IBOutlet HPGrowingTextView *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *usersButton;

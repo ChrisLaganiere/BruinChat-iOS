@@ -48,3 +48,9 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 1
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 0
 
+// HPGrowingTextView
+#define COCOAPODS_POD_AVAILABLE_HPGrowingTextView
+#define COCOAPODS_VERSION_MAJOR_HPGrowingTextView 1
+#define COCOAPODS_VERSION_MINOR_HPGrowingTextView 1
+#define COCOAPODS_VERSION_PATCH_HPGrowingTextView 0
+
