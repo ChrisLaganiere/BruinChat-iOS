@@ -121,8 +121,8 @@
 {
     NSLog(@"loginFailed");
     [self.activityIndicator stopAnimating];
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Authentication Failed"
-                                                      message:@"Check credentials and network."
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection Timed Out"
+                                                      message:@"Check network settings and try again."
                                                      delegate:nil
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];

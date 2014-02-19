@@ -61,6 +61,8 @@ static STDModel *_sharedInstance = nil;
         newChatroom.subtitle = subtitle;
         newChatroom.jid = jid;
         newChatroom.password = @"";
+        NSError *saveError = nil;
+        [_managedObjectContext save:&saveError];
         return YES;
     }
     return NO;

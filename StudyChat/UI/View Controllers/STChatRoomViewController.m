@@ -144,7 +144,7 @@
     
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(10.0f,
                                                                            6.0f,
-                                                                           toolBar.bounds.size.width - 20.0f - 68.0f,
+                                                                           toolBar.bounds.size.width - 20.0f - 35.0f,
                                                                            30.0f)];
     //textView.borderStyle = UITextBorderStyleRoundedRect; //only for textField
     [textView.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
@@ -160,11 +160,11 @@
     
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [sendButton setTitle:@"Send" forState:UIControlStateNormal];
-    sendButton.frame = CGRectMake(toolBar.bounds.size.width - 68.0f,
-                                  6.0f,
-                                  58.0f,
-                                  29.0f);
+    [sendButton setImage:[UIImage imageNamed:@"return"] forState:UIControlStateNormal];
+    sendButton.frame = CGRectMake(toolBar.bounds.size.width - 35.0f,
+                                  (toolBar.bounds.size.height/2) - 12.5f,
+                                  25.0f,
+                                  25.0f);
     sendButton.tintColor = [STStyleSheet tintColor];
     [sendButton.titleLabel setFont:[STStyleSheet labelFont]];
     [sendButton addTarget:self action:@selector(sendMessage:) forControlEvents:(UIControlEvents)UIControlEventTouchUpInside];

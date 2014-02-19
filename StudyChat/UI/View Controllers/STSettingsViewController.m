@@ -81,7 +81,7 @@
     
     self.notificationsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"notificationsEnabled"];
     self.notifyOnLecture = [[NSUserDefaults standardUserDefaults] boolForKey:@"notifyOnLecture"];
-    self.notifyOnStudy = [[NSUserDefaults standardUserDefaults] boolForKey:@"notifyOnLecture"];
+    self.notifyOnStudy = [[NSUserDefaults standardUserDefaults] boolForKey:@"notifyOnStudy"];
     self.notifyOnElse = [[NSUserDefaults standardUserDefaults] boolForKey:@"notifyOnElse"];
     
     self.imageUpdated = false;
@@ -235,6 +235,7 @@
                 userNicknameTextField.delegate = self;
                 userNicknameTextField.tag = TEXT_CELL_TAG_FOR_REMOVAL;
                 self.nicknameTextField = userNicknameTextField;
+                [userNicknameTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [basicCell.contentView addSubview:userNicknameTextField];
                 
                 return basicCell;
@@ -257,6 +258,7 @@
                 userIDTextField.delegate = self;
                 userIDTextField.tag = TEXT_CELL_TAG_FOR_REMOVAL;
                 self.usernameTextField = userIDTextField;
+                [userIDTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [rightDetailCell.contentView addSubview:userIDTextField];
                 
                 rightDetailCell.textLabel.text = @"";
@@ -277,6 +279,7 @@
                 userPassTextField.delegate = self;
                 userPassTextField.tag = TEXT_CELL_TAG_FOR_REMOVAL;
                 self.userPassTextField = userPassTextField;
+                [userPassTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [rightDetailCell.contentView addSubview:userPassTextField];
                 
                 rightDetailCell.textLabel.text = @"";
@@ -413,7 +416,7 @@
     [textField resignFirstResponder];
     return YES;
 }
--(void)textFieldDidEndEditing:(UITextField *)textField
+-(void)textFieldDidChange:(UITextField *)textField
 {
     if (textField == self.usernameTextField) {
         self.userID = self.usernameTextField.text;

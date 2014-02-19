@@ -75,6 +75,22 @@
     
     // The search bar is hidden when the view becomes visible the first time
     self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.bounds));
+    
+    
+    // The search bar is hidden when the view becomes visible the first time
+    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.bounds));
+    [self.tableView setHidden:YES];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    //setup activity indicator
+    CGRect activityIndicatorFrame = CGRectMake((self.view.frame.size.width/2)-10, (self.view.frame.size.height/2)-10, 20, 20);
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame];
+    [activityIndicator setFrame:activityIndicatorFrame];
+    [activityIndicator setHidesWhenStopped:TRUE];
+    [activityIndicator setColor:[STStyleSheet navigationColor]];
+    [activityIndicator startAnimating];
+    [self.view addSubview:activityIndicator];
+    self.activityIndicator = activityIndicator;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -131,6 +147,7 @@
         return (int)[self.filteredClasses count];
     }
 }
+
 
 #pragma mark -
 #pragma mark - UITableViewDelegate
@@ -219,6 +236,8 @@
 {
     self.classes = classes;
     [self.tableView reloadData];
+    [self.tableView setHidden:NO];
+    [self.activityIndicator stopAnimating];
 }
 
 

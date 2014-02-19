@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *subjectArea;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *checkButton;
 @property(nonatomic, strong, readonly) UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)back:(id)sender;
 - (void)populateClasses:(NSDictionary *)classes;
 - (IBAction)check:(id)sender;

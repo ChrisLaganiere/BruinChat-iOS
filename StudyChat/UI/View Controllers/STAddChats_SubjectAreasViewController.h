@@ -11,6 +11,7 @@
 @interface STAddChats_SubjectAreasViewController : STCoreViewController <UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate, UISearchDisplayDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property(nonatomic, strong, readonly) UISearchBar *searchBar;
 - (IBAction)doneHit:(id)sender;
 
