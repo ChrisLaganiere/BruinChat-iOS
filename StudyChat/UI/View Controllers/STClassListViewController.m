@@ -56,6 +56,16 @@
     if (self.fetchedResultsController.fetchedObjects.count == 0)
         [self performSegueWithIdentifier:@"addChats" sender:self];
 }
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    //fix state if editing
+    if (self.tableView.editing) {
+        [self.tableView setEditing:NO];
+        [self changeAddButtonVisibility:NO];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -113,11 +123,6 @@
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //fix state
-    if (self.tableView.editing) {
-        [self.tableView setEditing:NO];
-        [self changeAddButtonVisibility:NO];
-    }
     
     NSString *identifier = segue.identifier;
     

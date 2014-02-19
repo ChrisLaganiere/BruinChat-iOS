@@ -480,9 +480,15 @@
                                 <action selector="back:" destination="qeV-RJ-di6" id="kOc-77-Ips"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="check.png" id="rHW-LG-mIc">
+                            <connections>
+                                <action selector="check:" destination="qeV-RJ-di6" id="Lrk-AC-HJb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="OTL-XF-BUD" id="djs-PT-iUE"/>
+                        <outlet property="checkButton" destination="rHW-LG-mIc" id="Y9b-vf-A4S"/>
                         <outlet property="tableView" destination="6em-Qm-E0m" id="vI6-h6-RT8"/>
                     </connections>
                 </viewController>
@@ -552,9 +558,15 @@
                                 <action selector="back:" destination="T7a-XT-a31" id="aW2-Zt-sAx"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="check.png" id="hzQ-Gk-e6b">
+                            <connections>
+                                <action selector="check:" destination="T7a-XT-a31" id="sdD-a3-RQX"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="1JZ-Lo-HSD" id="Fv0-27-ujq"/>
+                        <outlet property="checkButton" destination="hzQ-Gk-e6b" id="KXZ-bH-uZZ"/>
                         <outlet property="tableView" destination="ugA-dD-24a" id="Rzs-4Z-uem"/>
                     </connections>
                 </viewController>
@@ -749,6 +761,7 @@
     </scenes>
     <resources>
         <image name="BruinChat.png" width="264" height="44"/>
+        <image name="check.png" width="20" height="20"/>
         <image name="defaultPerson.png" width="100" height="100"/>
         <image name="edit.png" width="20" height="20"/>
         <image name="friends.png" width="25" height="25"/>

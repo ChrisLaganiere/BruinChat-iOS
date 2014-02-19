@@ -90,14 +90,17 @@
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"NavBarEmptyFullAlpha"] colorImageWithColor:[STStyleSheet navigationColor]]
                                                   forBarMetrics:UIBarMetricsDefault];
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.searchDisplayController setActive:NO];
+    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.bounds));
+}
 
 - (IBAction)doneHit:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)addHit:(id)sender {
-}
 
 #pragma mark -
 #pragma mark - UITableViewDataSource
@@ -119,17 +122,17 @@
     return cell;
 }
 
--(int) numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
--(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.tableView) {
-        return self.subjectAreasArray.count;
+        return (int)self.subjectAreasArray.count;
     } else {
-        return self.filteredSubjectAreas.count;
+        return (int)self.filteredSubjectAreas.count;
     }
 }
 

@@ -111,7 +111,12 @@
         }
         else {
             [self.placeholderColor set];
-            [self.placeholder drawInRect:CGRectMake(8.0f, 8.0f, self.frame.size.width - 16.0f, self.frame.size.height - 16.0f) withFont:self.font];
+            
+            NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys: self.font, NSFontAttributeName,
+                                        nil];
+            
+            [self.placeholder drawInRect: CGRectMake(8.0f, 8.0f, self.frame.size.width - 16.0f, self.frame.size.height - 16.0f)
+                   withAttributes: dictionary];
         }
     }
 }

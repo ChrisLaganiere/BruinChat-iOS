@@ -48,6 +48,10 @@
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
+- (IBAction)check:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark -
 #pragma mark - UITableViewDataSource
 
@@ -68,14 +72,14 @@
     return cell;
 }
 
--(int) numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
--(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.lectures count];
+    return (int)[self.lectures count];
 }
 
 #pragma mark -
@@ -92,7 +96,7 @@
         
         //add core data object here
         NSString *subtitle = [NSString stringWithFormat:@"%@ %@, %@",lecture[@"days"],lecture[@"time"],lecture[@"location"]];
-        NSString *jid = [NSString stringWithFormat:@"%@_%@",self.classCode,lecture[@"code"]];
+        NSString *jid = [NSString stringWithFormat:@"%@_%@_%@",self.subjectCode,self.classCode,lecture[@"section"]];
         
         if (![[STDModel sharedInstance] addClassToCoreDataWithTitle:self.classTitle Subtitle:subtitle Jid:jid]) {
             BlockAlertView *errorAlert = [[BlockAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@ is already in your class list.",lecture[@"section"]] delegate:Nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];

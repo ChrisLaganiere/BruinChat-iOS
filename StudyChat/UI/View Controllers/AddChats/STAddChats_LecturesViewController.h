@@ -13,7 +13,10 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) NSString *classTitle;
 @property (strong, nonatomic) NSString *classCode;
+@property (strong, nonatomic) NSString *subjectCode;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *checkButton;
 @property (strong, nonatomic) NSArray *lectures;
 - (IBAction)back:(id)sender;
+- (IBAction)check:(id)sender;
 
 @end

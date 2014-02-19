@@ -83,9 +83,19 @@
     //ask STClassesMethods to start looking for classes
     [STClassesMethods populateClassesForSubjectArea:self.subjectArea sender:self];
 }
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.searchDisplayController setActive:NO];
+    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.bounds));
+}
 
 - (IBAction)back:(id)sender {
     [[self navigationController] popViewControllerAnimated:YES];
+}
+
+- (IBAction)check:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -
@@ -108,17 +118,17 @@
     return cell;
 }
 
--(int) numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
--(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.tableView) {
-        return [self.classes count];
+        return (int)[self.classes count];
     } else {
-        return [self.filteredClasses count];
+        return (int)[self.filteredClasses count];
     }
 }
 
@@ -151,11 +161,13 @@
         
         NSString *classTitle = theClass[@"name"];
         NSString *classCode = theClass[@"code"];
+        NSString *subjectCode = self.subjectArea;
         NSArray *lectures = theClass[@"lectures"];
         
         STAddChats_LecturesViewController *destination = segue.destinationViewController;
         [destination setClassTitle:classTitle];
         [destination setClassCode:classCode];
+        [destination setSubjectCode:subjectCode];
         [destination setLectures:lectures];
         return;
     }
@@ -208,5 +220,6 @@
     self.classes = classes;
     [self.tableView reloadData];
 }
+
 
 @end

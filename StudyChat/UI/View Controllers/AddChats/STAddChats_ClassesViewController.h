@@ -12,8 +12,10 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSString *subjectArea;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *checkButton;
 @property(nonatomic, strong, readonly) UISearchBar *searchBar;
 - (IBAction)back:(id)sender;
 - (void)populateClasses:(NSDictionary *)classes;
+- (IBAction)check:(id)sender;
 
 @end

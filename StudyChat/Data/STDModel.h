@@ -12,7 +12,7 @@
 
 +(STDModel *)sharedInstance;
 -(BOOL)addClassToCoreDataWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Jid:(NSString *)jid;
--(BOOL)cleanUpAfterClassWithJid:(NSString *)jid;
+//-(BOOL)cleanUpAfterClassWithJid:(NSString *)jid;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
