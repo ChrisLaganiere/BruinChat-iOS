@@ -65,11 +65,48 @@
     return titleShadowColor;
 }
 
++(UIView*)titleViewWithTitle:(NSString *)title
+{
+    CGRect titleViewFrame = CGRectMake(0.0f,
+                                       0.0f,
+                                       215.0f,
+                                       44.0f);
+
+    UIView *titleView = [[UIView alloc] initWithFrame:titleViewFrame];
+
+
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleViewFrame];
+    //could be used to squeeze letters together to fit more
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:title];
+    [attributedString addAttribute:NSKernAttributeName value:@-2 range:NSMakeRange(0, [title length])];
+    [titleLabel setAttributedText:attributedString];
+    titleLabel.font = [STStyleSheet titleFont];
+    titleLabel.textColor = [STStyleSheet titleColor];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleView addSubview:titleLabel];
+    
+    return titleView;
+}
+
 +(void)styleRoundCorneredView:(UIView *)view
 {
     view.layer.cornerRadius = 4.f;
     view.layer.masksToBounds = YES;
     view.clipsToBounds = YES;
+}
+
++(void)styleNavButtonsForNavBar:(UINavigationBar *)navBar
+{
+    navBar.barTintColor = [STStyleSheet navigationColor];
+    navBar.tintColor = [STStyleSheet tintColor];
+    navBar.alpha = 0.9;
+}
+
++(void)styleNavButtonsForToolbar:(UIToolbar *)toolbar
+{
+    toolbar.barTintColor = [STStyleSheet navigationColor];
+    toolbar.tintColor = [STStyleSheet tintColor];
+    toolbar.alpha = 0.9;
 }
 
 

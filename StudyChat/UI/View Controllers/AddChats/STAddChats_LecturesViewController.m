@@ -21,27 +21,11 @@
 -(void)viewDidLoad
 {
     //set up title
-    NSString *title = self.classTitle;
-    
-    CGRect titleViewFrame = CGRectMake(0.0f,
-                                       0.0f,
-                                       215.0f,
-                                       44.0f);
-    
-    UIView *titleView = [[UIView alloc] initWithFrame:titleViewFrame];
-    
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleViewFrame];
-    //could be used to squeeze letters together to fit more
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:title];
-    [attributedString addAttribute:NSKernAttributeName value:@-2 range:NSMakeRange(0, [title length])];
-    [titleLabel setAttributedText:attributedString];
-    titleLabel.font = [STStyleSheet titleFont];
-    titleLabel.textColor = [STStyleSheet titleColor];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleView addSubview:titleLabel];
-    
+    UIView *titleView = [STStyleSheet titleViewWithTitle:self.classTitle];
     [[self navigationItem] setTitleView:titleView];
+    
+    //style UI
+    [STStyleSheet styleNavButtonsForNavBar:self.navigationController.navigationBar];
 }
 
 - (IBAction)back:(id)sender {

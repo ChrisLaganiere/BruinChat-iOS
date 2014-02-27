@@ -20,6 +20,9 @@
 +(UIColor *)titleColor;
 +(UIColor *)titleShadowColor;
 
++(UIView*)titleViewWithTitle:(NSString *)title;
 +(void)styleRoundCorneredView:(UIView *)view;
++(void)styleNavButtonsForNavBar:(UINavigationBar *)navBar;
++(void)styleNavButtonsForToolbar:(UIToolbar *)toolbar;
 
 @end

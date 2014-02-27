@@ -10,6 +10,7 @@
 #import "STClassListViewController.h"
 #import "SSKeychain.h"
 #import "STAppDelegate.h"
+#import "STStyleSheet.h"
 
 @interface STLoginViewController ()
 
@@ -33,6 +34,8 @@
     
     //set now so that after login, navbar image will already be up
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    self.activityIndicator.color = [STStyleSheet tintColor];
     
     NSString *userID = [[NSUserDefaults standardUserDefaults] valueForKey:@"userID"];
     BOOL userIDIsValid = (userID && userID.length >= 1);

@@ -14,6 +14,8 @@
 #import "XMPPRosterCoreDataStorage.h"
 #import "XMPPJID.h"
 #import "UIImage+Thumbnail.h"
+#import "UIImage+SolidColor.h"
+#import "STStyleSheet.h"
 
 @interface STSettingsViewController ()
 
@@ -57,7 +59,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    
+    //remove BruinChat logo
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"NavBarEmptyFullAlpha"] colorImageWithColor:[STStyleSheet navigationColor]]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    
+    //set up title
+    NSString *title = @"Settings";
+    UIView *titleView = [STStyleSheet titleViewWithTitle:title];
+    [[self navigationItem] setTitleView:titleView];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

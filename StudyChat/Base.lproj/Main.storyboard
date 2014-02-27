@@ -199,7 +199,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="PhU-F1-81b">
-                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="JQ4-zF-lMh">
+                        <barButtonItem key="leftBarButtonItem" image="no.png" id="JQ4-zF-lMh">
                             <connections>
                                 <action selector="cancelAndDismiss:" destination="vVu-ZN-mOA" id="S96-KS-nhF"/>
                             </connections>
@@ -416,7 +416,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Subject Areas" id="l65-wq-sYL">
-                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="SYs-2F-Khw">
+                        <barButtonItem key="leftBarButtonItem" image="no.png" id="SYs-2F-Khw">
                             <connections>
                                 <action selector="doneHit:" destination="jac-3q-TCy" id="Sg4-rV-pcr"/>
                             </connections>
@@ -665,12 +665,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="GAa-hu-eKt">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Ps7-5z-ml7">
+                        <barButtonItem key="leftBarButtonItem" image="no.png" id="Ps7-5z-ml7">
                             <connections>
                                 <action selector="cancelAndDismiss:" destination="pJm-FE-W4j" id="wul-Ar-y7x"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="LC0-MC-xZ2">
+                        <barButtonItem key="rightBarButtonItem" image="check.png" id="LC0-MC-xZ2">
                             <connections>
                                 <action selector="saveAndDismiss:" destination="pJm-FE-W4j" id="ANH-UC-XjP"/>
                             </connections>
@@ -768,6 +768,7 @@
         <image name="icon-back.png" width="19" height="19"/>
         <image name="icon-logout.png" width="19" height="19"/>
         <image name="icon-settings.png" width="19" height="19"/>
+        <image name="no.png" width="20" height="20"/>
         <image name="signIn.png" width="122" height="35"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

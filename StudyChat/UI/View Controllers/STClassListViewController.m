@@ -41,9 +41,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.toolbar.barTintColor = [STStyleSheet navigationColor];
-    self.toolbar.tintColor = [STStyleSheet tintColor];
-    self.toolbar.alpha = 0.9;
+    
+    //style UI
+    [STStyleSheet styleNavButtonsForNavBar:self.navigationController.navigationBar];
+    [STStyleSheet styleNavButtonsForToolbar:self.toolbar];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavBar.png"] forBarMetrics:UIBarMetricsDefault];
     
